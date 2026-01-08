@@ -1,0 +1,5 @@
+/* Basic reset so the screen shows your content */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
