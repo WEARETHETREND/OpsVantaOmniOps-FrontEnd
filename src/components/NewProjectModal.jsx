@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { X, ChevronRight, ChevronLeft, Sparkles, Layout, ShoppingCart, Briefcase, BookOpen, Rocket } from 'lucide-react';
 import ProgressIndicator from './ProgressIndicator';
 import QualityBadge from './QualityBadge';
@@ -51,6 +51,7 @@ export default function NewProjectModal({ isOpen, onClose, onSuccess }) {
   const [generating, setGenerating] = useState(false);
   const [progress, setProgress] = useState(0);
   const [generatedProject, setGeneratedProject] = useState(null);
+  const generationCompleteRef = useRef(false);
 
   useEffect(() => {
     if (!isOpen) {
@@ -64,6 +65,7 @@ export default function NewProjectModal({ isOpen, onClose, onSuccess }) {
         setGenerating(false);
         setProgress(0);
         setGeneratedProject(null);
+        generationCompleteRef.current = false;
       }, 0);
       return () => clearTimeout(timer);
     }
@@ -72,6 +74,7 @@ export default function NewProjectModal({ isOpen, onClose, onSuccess }) {
   const handleGenerate = async () => {
     setGenerating(true);
     setProgress(0);
+    generationCompleteRef.current = false;
 
     try {
       const result = await generateWebsite({
@@ -90,7 +93,9 @@ export default function NewProjectModal({ isOpen, onClose, onSuccess }) {
 
           if (progressData.progress >= 100) {
             clearInterval(interval);
+            generationCompleteRef.current = true;
             setGeneratedProject(progressData.project);
+            // Delay to show success message and quality score before redirecting
             setTimeout(() => {
               if (onSuccess) onSuccess(progressData.project);
             }, 1500);
@@ -105,8 +110,9 @@ export default function NewProjectModal({ isOpen, onClose, onSuccess }) {
       // Fallback: stop after 30 seconds
       setTimeout(() => {
         clearInterval(interval);
-        if (progress < 100) {
+        if (!generationCompleteRef.current) {
           setProgress(100);
+          generationCompleteRef.current = true;
           setGeneratedProject(result);
           if (onSuccess) onSuccess(result);
         }
