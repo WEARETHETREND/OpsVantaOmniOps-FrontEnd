@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { api } from '../../lib/api';
 import { SparklesIcon, XIcon } from 'lucide-react';
 
@@ -7,6 +8,7 @@ export default function NewProjectModal({ onClose, onSuccess }) {
   const [projectType, setProjectType] = useState('website');
   const [generating, setGenerating] = useState(false);
   const [progress, setProgress] = useState('');
+  const navigate = useNavigate();
 
   const examples = [
     "A modern landing page for a SaaS productivity tool with pricing tiers",
@@ -42,12 +44,12 @@ export default function NewProjectModal({ onClose, onSuccess }) {
       
       setTimeout(() => {
         onSuccess();
-        window.location.href = `/builder/editor/${result.project.id}`;
+        navigate(`/builder/editor/${result.project.id}`);
       }, 1000);
 
     } catch (error) {
       console.error('Generation failed:', error);
-      alert('Generation failed: ' + error.message);
+      setProgress('');
       setGenerating(false);
     }
   };

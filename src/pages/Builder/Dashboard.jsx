@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { api } from '../../lib/api';
 import { PlusIcon, GlobeIcon, SparklesIcon } from 'lucide-react';
 import NewProjectModal from '../../components/Builder/NewProjectModal';
@@ -7,6 +8,7 @@ export default function BuilderDashboard() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showNewProject, setShowNewProject] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadProjects();
@@ -61,7 +63,7 @@ export default function BuilderDashboard() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects.map(project => (
-              <ProjectCard key={project.id} project={project} />
+              <ProjectCard key={project.id} project={project} navigate={navigate} />
             ))}
           </div>
         )}
@@ -101,7 +103,7 @@ function EmptyState({ onCreateClick }) {
   );
 }
 
-function ProjectCard({ project }) {
+function ProjectCard({ project, navigate }) {
   const statusColors = {
     draft: 'bg-yellow-100 text-yellow-800',
     published: 'bg-green-100 text-green-800',
@@ -147,7 +149,7 @@ function ProjectCard({ project }) {
 
         <div className="flex gap-2">
           <button
-            onClick={() => window.location.href = `/builder/editor/${project.id}`}
+            onClick={() => navigate(`/builder/editor/${project.id}`)}
             className="flex-1 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
           >
             Edit

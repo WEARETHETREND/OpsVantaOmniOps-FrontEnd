@@ -7,14 +7,20 @@ export default function Domains() {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResult, setSearchResult] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     loadDomains();
   }, []);
 
   const loadDomains = async () => {
-    const data = await api.fetch('/api/domains');
-    setDomains(data);
+    try {
+      const data = await api.fetch('/api/domains');
+      setDomains(data);
+    } catch (error) {
+      console.error('Failed to load domains:', error);
+    }
   };
 
   const searchDomain = async () => {
@@ -37,11 +43,13 @@ export default function Domains() {
         method: 'POST',
         body: JSON.stringify({ domain, years: 1 })
       });
-      alert('Domain purchased successfully!');
+      setSuccessMessage('Domain purchased successfully!');
+      setTimeout(() => setSuccessMessage(''), 5000);
       loadDomains();
       setSearchResult(null);
     } catch (error) {
-      alert('Purchase failed: ' + error.message);
+      setError('Purchase failed: ' + error.message);
+      setTimeout(() => setError(null), 5000);
     }
   };
 
@@ -55,6 +63,20 @@ export default function Domains() {
           Search, purchase, and manage your domains
         </p>
       </div>
+
+      {/* Success Message */}
+      {successMessage && (
+        <div className="mb-4 p-4 bg-green-50 border border-green-200 text-green-800 rounded-lg">
+          {successMessage}
+        </div>
+      )}
+
+      {/* Error Message */}
+      {error && (
+        <div className="mb-4 p-4 bg-red-50 border border-red-200 text-red-800 rounded-lg">
+          {error}
+        </div>
+      )}
 
       {/* Search */}
       <div className="bg-white rounded-lg shadow-sm border p-6 mb-8">
