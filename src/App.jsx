@@ -1,5 +1,8 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
+import BuilderDashboard from './pages/Builder/Dashboard';
+import Domains from './pages/Domains';
 
 /* =========================
    Supabase Client
@@ -10,9 +13,9 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 /* =========================
-   App
+   Original Dashboard Component
    ========================= */
-export default function App() {
+function OpsVantaDashboard() {
   const [runs, setRuns] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -145,3 +148,18 @@ export default function App() {
 
 const th = { padding: 12, textAlign: "left" };
 const td = { padding: 12 };
+
+/* =========================
+   App with Routing
+   ========================= */
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<OpsVantaDashboard />} />
+        <Route path="/builder" element={<BuilderDashboard />} />
+        <Route path="/domains" element={<Domains />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
