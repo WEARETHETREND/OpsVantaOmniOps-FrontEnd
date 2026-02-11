@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { getWorkflows } from "../api/omniops";
+import { useEffect, useState } from 'react';
+import { getWorkflows } from '../api/omniops';
 
 export default function Workflows() {
   const [workflows, setWorkflows] = useState([]);
@@ -13,7 +13,7 @@ export default function Workflows() {
   }, []);
 
   return (
-    <div style={{ padding: "40px" }}>
+    <div style={{ padding: '40px' }}>
       <h2>Workflows</h2>
 
       <ul>

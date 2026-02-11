@@ -1,37 +1,37 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
 if (!API_URL) {
-  throw new Error("VITE_API_URL is not defined");
+  throw new Error('VITE_API_URL is not defined');
 }
 
 export async function login(email, password) {
   const res = await fetch(`${API_URL}/auth/login`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password })
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password }),
   });
 
-  if (!res.ok) throw new Error("Login failed");
+  if (!res.ok) throw new Error('Login failed');
   return res.json();
 }
 
 export async function register(email, password) {
   const res = await fetch(`${API_URL}/auth/register`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password })
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password }),
   });
 
-  if (!res.ok) throw new Error("Registration failed");
+  if (!res.ok) throw new Error('Registration failed');
   return res.json();
 }
 
 export async function refreshToken(token) {
   const res = await fetch(`${API_URL}/auth/refresh`, {
-    method: "POST",
-    headers: { Authorization: `Bearer ${token}` }
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}` },
   });
 
-  if (!res.ok) throw new Error("Token refresh failed");
+  if (!res.ok) throw new Error('Token refresh failed');
   return res.json();
 }

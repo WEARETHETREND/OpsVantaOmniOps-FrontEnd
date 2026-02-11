@@ -1,11 +1,11 @@
-import React from "react";
-import Navbar from "./Navbar";
+import React from 'react';
+import Navbar from './Navbar';
 
 function Layout({ children }) {
   return (
     <div className="min-h-screen bg-gray-100">
       <Navbar />
-      <main className="max-w-6xl mx-auto py-6 px-4">{children}</main>
+      <main className="mx-auto max-w-6xl px-4 py-6">{children}</main>
     </div>
   );
 }

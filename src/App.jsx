@@ -9,8 +9,22 @@ export default function App() {
         <Route path="/" element={<Navigate to="/builder" replace />} />
         <Route path="/builder" element={<BuilderDashboard />} />
         <Route path="/projects" element={<Projects />} />
-        <Route path="/builder/editor/:id" element={<div className="p-8 text-center"><h1 className="text-2xl font-bold">Editor Page (To be implemented)</h1></div>} />
-        <Route path="/builder/preview/:id" element={<div className="p-8 text-center"><h1 className="text-2xl font-bold">Preview Page (To be implemented)</h1></div>} />
+        <Route
+          path="/builder/editor/:id"
+          element={
+            <div className="p-8 text-center">
+              <h1 className="text-2xl font-bold">Editor Page (To be implemented)</h1>
+            </div>
+          }
+        />
+        <Route
+          path="/builder/preview/:id"
+          element={
+            <div className="p-8 text-center">
+              <h1 className="text-2xl font-bold">Preview Page (To be implemented)</h1>
+            </div>
+          }
+        />
       </Routes>
     </Router>
   );

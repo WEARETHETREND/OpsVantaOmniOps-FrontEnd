@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { getProjects, createProject } from "../api/omniops";
+import { useEffect, useState } from 'react';
+import { getProjects, createProject } from '../api/omniops';
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
 
   async function load() {
     const data = await getProjects();
@@ -11,24 +11,24 @@ export default function Projects() {
   }
 
   useEffect(() => {
-    load();
+    async function loadProjects() {
+      const data = await getProjects();
+      setProjects(data);
+    }
+    loadProjects();
   }, []);
 
   async function addProject() {
     await createProject({ name });
-    setName("");
+    setName('');
     load();
   }
 
   return (
-    <div style={{ padding: "40px" }}>
+    <div style={{ padding: '40px' }}>
       <h2>Projects</h2>
 
-      <input
-        value={name}
-        placeholder="Project name"
-        onChange={(e) => setName(e.target.value)}
-      />
+      <input value={name} placeholder="Project name" onChange={(e) => setName(e.target.value)} />
       <button onClick={addProject}>Add</button>
 
       <ul>

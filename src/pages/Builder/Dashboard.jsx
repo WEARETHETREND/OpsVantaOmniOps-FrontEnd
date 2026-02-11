@@ -28,21 +28,19 @@ export default function BuilderDashboard() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-6 py-4">
+      <div className="border-b bg-white">
+        <div className="mx-auto max-w-7xl px-6 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">
-                🚀 AI Website Builder
-              </h1>
-              <p className="text-sm text-gray-600 mt-1">
+              <h1 className="text-2xl font-bold text-gray-900">🚀 AI Website Builder</h1>
+              <p className="mt-1 text-sm text-gray-600">
                 Create stunning websites with AI in minutes
               </p>
             </div>
-            
+
             <button
               onClick={() => setShowNewProject(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              className="flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
             >
               <SparklesIcon size={20} />
               Generate with AI
@@ -52,17 +50,17 @@ export default function BuilderDashboard() {
       </div>
 
       {/* Projects Grid */}
-      <div className="max-w-7xl mx-auto px-6 py-8">
+      <div className="mx-auto max-w-7xl px-6 py-8">
         {loading ? (
-          <div className="text-center py-12">
-            <div className="inline-block w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+          <div className="py-12 text-center">
+            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-blue-600 border-t-transparent"></div>
             <p className="mt-4 text-gray-600">Loading projects...</p>
           </div>
         ) : projects.length === 0 ? (
           <EmptyState onCreateClick={() => setShowNewProject(true)} />
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map(project => (
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {projects.map((project) => (
               <ProjectCard key={project.id} project={project} navigate={navigate} />
             ))}
           </div>
@@ -71,10 +69,7 @@ export default function BuilderDashboard() {
 
       {/* New Project Modal */}
       {showNewProject && (
-        <NewProjectModal
-          onClose={() => setShowNewProject(false)}
-          onSuccess={loadProjects}
-        />
+        <NewProjectModal onClose={() => setShowNewProject(false)} onSuccess={loadProjects} />
       )}
     </div>
   );
@@ -82,19 +77,17 @@ export default function BuilderDashboard() {
 
 function EmptyState({ onCreateClick }) {
   return (
-    <div className="text-center py-16">
-      <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 mb-4">
+    <div className="py-16 text-center">
+      <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-blue-100">
         <SparklesIcon size={32} className="text-blue-600" />
       </div>
-      <h3 className="text-xl font-semibold text-gray-900 mb-2">
-        No projects yet
-      </h3>
-      <p className="text-gray-600 mb-6 max-w-md mx-auto">
+      <h3 className="mb-2 text-xl font-semibold text-gray-900">No projects yet</h3>
+      <p className="mx-auto mb-6 max-w-md text-gray-600">
         Get started by generating your first website with AI. Just describe what you want!
       </p>
       <button
         onClick={onCreateClick}
-        className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+        className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-3 text-white hover:bg-blue-700"
       >
         <SparklesIcon size={20} />
         Generate Your First Website
@@ -107,15 +100,15 @@ function ProjectCard({ project, navigate }) {
   const statusColors = {
     draft: 'bg-yellow-100 text-yellow-800',
     published: 'bg-green-100 text-green-800',
-    archived: 'bg-gray-100 text-gray-800'
+    archived: 'bg-gray-100 text-gray-800',
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border hover:shadow-md transition-shadow">
+    <div className="rounded-lg border bg-white shadow-sm transition-shadow hover:shadow-md">
       {/* Preview Image */}
-      <div className="aspect-video bg-gradient-to-br from-blue-500 to-purple-600 rounded-t-lg relative">
+      <div className="relative aspect-video rounded-t-lg bg-gradient-to-br from-blue-500 to-purple-600">
         {project.ai_generated && (
-          <div className="absolute top-3 right-3 px-2 py-1 bg-white/90 backdrop-blur rounded-full text-xs font-medium flex items-center gap-1">
+          <div className="absolute top-3 right-3 flex items-center gap-1 rounded-full bg-white/90 px-2 py-1 text-xs font-medium backdrop-blur">
             <SparklesIcon size={12} />
             AI Generated
           </div>
@@ -124,20 +117,20 @@ function ProjectCard({ project, navigate }) {
 
       {/* Content */}
       <div className="p-4">
-        <div className="flex items-start justify-between mb-2">
-          <h3 className="font-semibold text-gray-900 text-lg">
-            {project.name}
-          </h3>
-          <span className={`px-2 py-1 rounded-full text-xs font-medium ${statusColors[project.status]}`}>
+        <div className="mb-2 flex items-start justify-between">
+          <h3 className="text-lg font-semibold text-gray-900">{project.name}</h3>
+          <span
+            className={`rounded-full px-2 py-1 text-xs font-medium ${statusColors[project.status]}`}
+          >
             {project.status}
           </span>
         </div>
 
-        <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+        <p className="mb-4 line-clamp-2 text-sm text-gray-600">
           {project.description || 'No description'}
         </p>
 
-        <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
+        <div className="mb-4 flex items-center gap-4 text-sm text-gray-500">
           <span>{project.page_count || 0} pages</span>
           {project.domain_name && (
             <span className="flex items-center gap-1">
@@ -150,14 +143,14 @@ function ProjectCard({ project, navigate }) {
         <div className="flex gap-2">
           <button
             onClick={() => navigate(`/builder/editor/${project.id}`)}
-            className="flex-1 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            className="flex-1 rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
           >
             Edit
           </button>
           {project.status === 'published' && (
             <button
               onClick={() => window.open(project.published_url, '_blank')}
-              className="px-4 py-2 bg-gray-100 text-gray-700 rounded hover:bg-gray-200"
+              className="rounded bg-gray-100 px-4 py-2 text-gray-700 hover:bg-gray-200"
             >
               View
             </button>
