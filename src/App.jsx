@@ -1,3 +1,18 @@
+/**
+ * PROPRIETARY AND CONFIDENTIAL - TRADE SECRET
+ * 
+ * © 2026 WEARETHETREND / OpsVanta LLC
+ * ALL RIGHTS RESERVED
+ * 
+ * UNAUTHORIZED ACCESS, USE, OR DISTRIBUTION PROHIBITED
+ * 
+ * This file contains trade secrets and confidential information.
+ * Violators will be prosecuted under trade secret law.
+ * 
+ * For licensing: young.monte@omniops-ai.com
+ */
+
+
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import BuilderDashboard from './pages/BuilderDashboard';
 import Projects from './pages/Projects';

@@ -1,6 +1,10 @@
 {
   "name": "omniops-frontend",
+  "license": "UNLICENSED",
   "private": true,
+  "author": "WEARETHETREND / OpsVanta LLC",
+  "copyright": "© 2026 WEARETHETREND / OpsVanta LLC. All Rights Reserved.",
+  "confidential": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
