@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { hubApi } from '../../lib/hubApi';
+import * as hubApi from '../../lib/hubApi';
 import { AlertTriangle, TrendingUp, Clock, DollarSign, Shield } from 'lucide-react';
 
 export default function Today() {
