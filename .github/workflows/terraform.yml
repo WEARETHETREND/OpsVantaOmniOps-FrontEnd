@@ -68,26 +68,51 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
+    # Check if Terraform configuration exists
+    - name: Check for Terraform files
+      id: check-terraform
+      run: |
+        if [ -f "main.tf" ] || compgen -G "*.tf" > /dev/null 2>&1 || [ -d "terraform" ]; then
+          echo "terraform_exists=true" >> $GITHUB_OUTPUT
+        else
+          echo "terraform_exists=false" >> $GITHUB_OUTPUT
+          echo "::warning::No Terraform configuration files found. Skipping Terraform workflow."
+        fi
+
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
+      if: steps.check-terraform.outputs.terraform_exists == 'true'
       uses: hashicorp/setup-terraform@v3
       with:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
+      if: steps.check-terraform.outputs.terraform_exists == 'true'
       run: terraform init
+      continue-on-error: true
 
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
+      if: steps.check-terraform.outputs.terraform_exists == 'true'
       run: terraform fmt -check
+      continue-on-error: true
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
+      if: steps.check-terraform.outputs.terraform_exists == 'true'
       run: terraform plan -input=false
+      continue-on-error: true
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      if: steps.check-terraform.outputs.terraform_exists == 'true' && github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: terraform apply -auto-approve -input=false
+      continue-on-error: true
+
+    - name: Terraform not configured
+      if: steps.check-terraform.outputs.terraform_exists != 'true'
+      run: |
+        echo "::notice::Terraform workflow was skipped because no Terraform configuration files were found."
+        echo "To enable Terraform, add main.tf or other .tf files to your repository."

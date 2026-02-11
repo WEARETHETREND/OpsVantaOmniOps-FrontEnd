@@ -17,6 +17,8 @@
 # For more information on the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # For more samples to get started with GitHub Action workflows to deploy to Azure: https://github.com/Azure/actions-workflow-samples
 
+name: Deploy to Azure Web App
+
 on:
   push:
     branches: [ "main" ]
@@ -52,7 +54,9 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: node-app
-        path: .
+        path: |
+          .
+          !node_modules
 
   deploy:
     permissions:
@@ -69,10 +73,33 @@ jobs:
       with:
         name: node-app
 
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+      continue-on-error: true
+
+    - name: Check Azure credentials
+      id: check-creds
+      run: |
+        if [ -z "${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}" ] && [ -z "${{ secrets.AZURE_CREDENTIALS }}" ]; then
+          echo "skip_deployment=true" >> $GITHUB_OUTPUT
+          echo "::warning::No Azure credentials found. Skipping deployment."
+        else
+          echo "skip_deployment=false" >> $GITHUB_OUTPUT
+        fi
+
     - name: 'Deploy to Azure WebApp'
       id: deploy-to-webapp
+      if: steps.check-creds.outputs.skip_deployment != 'true'
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
         package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+    
+    - name: Deployment skipped
+      if: steps.check-creds.outputs.skip_deployment == 'true'
+      run: |
+        echo "::notice::Azure deployment was skipped due to missing credentials."
+        echo "To enable deployment, add AZURE_WEBAPP_PUBLISH_PROFILE or AZURE_CREDENTIALS secret."
