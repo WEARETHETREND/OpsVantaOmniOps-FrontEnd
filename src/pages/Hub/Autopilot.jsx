@@ -1,6 +1,6 @@
 // Autopilot Control Screen
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import * as hubApi from '../../lib/hubApi';
 import AutopilotDial from '../../components/Hub/AutopilotDial';
 import TrustChart from '../../components/Hub/TrustChart';
@@ -13,11 +13,15 @@ export default function Autopilot() {
   
   const { data, isLoading } = useQuery({
     queryKey: ['autopilot'],
-    queryFn: hubApi.getAutopilot,
-    onSuccess: (data) => {
-      if (!localState) setLocalState(data);
-    }
+    queryFn: hubApi.getAutopilot
   });
+  
+  // Initialize local state when data is loaded
+  useEffect(() => {
+    if (data && !localState) {
+      setLocalState(data);
+    }
+  }, [data, localState]);
   
   const updateMutation = useMutation({
     mutationFn: hubApi.updateAutopilot,

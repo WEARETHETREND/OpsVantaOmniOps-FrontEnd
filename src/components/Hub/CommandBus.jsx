@@ -9,10 +9,10 @@ export default function CommandBus({ isOpen, onClose }) {
   // Handle keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e) => {
-      // Cmd+K or Ctrl+K to open
+      // Cmd+K or Ctrl+K to toggle
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
-        onClose(); // This will toggle in parent
+        onClose(); // Parent handles the toggle logic
       }
       
       // Escape to close

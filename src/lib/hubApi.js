@@ -2,8 +2,9 @@
 // TODO: Switch to real API when backend is ready
 import mockHubApi from './mockHubApi';
 
-// Use mock API for now - replace with real API calls later
-const USE_MOCK = true;
+// Use mock API for now - Set VITE_USE_MOCK_API=false in .env to use real backend
+// Or change USE_MOCK to false here when backend is ready
+const USE_MOCK = import.meta.env.VITE_USE_MOCK_API !== 'false';
 
 const BASE_URL = import.meta.env.VITE_HUB_API_URL || 'http://localhost:3001/api/hub';
 const AUTH_TOKEN = import.meta.env.VITE_GITHUB_TOKEN || '';
