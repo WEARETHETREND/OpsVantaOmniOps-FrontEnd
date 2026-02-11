@@ -1,3 +1,15 @@
+/**
+ * PROPRIETARY AND CONFIDENTIAL - TRADE SECRET
+ * 
+ * © 2026 WEARETHETREND / OpsVanta LLC
+ * ALL RIGHTS RESERVED
+ * 
+ * UNAUTHORIZED USE PROHIBITED
+ * 
+ * This file contains trade secrets. Violators will be prosecuted.
+ * See COPYRIGHT.md for terms.
+ */
+
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import BuilderDashboard from './pages/BuilderDashboard';
 import Projects from './pages/Projects';

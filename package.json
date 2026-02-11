@@ -1,8 +1,11 @@
 {
   "name": "omniops-frontend",
+  "license": "UNLICENSED",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "author": "WEARETHETREND / OpsVanta LLC",
+  "copyright": "© 2026 WEARETHETREND / OpsVanta LLC. All Rights Reserved.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

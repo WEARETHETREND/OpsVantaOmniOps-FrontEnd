@@ -1,3 +1,15 @@
+/**
+ * PROPRIETARY AND CONFIDENTIAL - TRADE SECRET
+ * 
+ * © 2026 WEARETHETREND / OpsVanta LLC
+ * ALL RIGHTS RESERVED
+ * 
+ * UNAUTHORIZED USE PROHIBITED
+ * 
+ * This file contains trade secrets. Violators will be prosecuted.
+ * See COPYRIGHT.md for terms.
+ */
+
 import { useState, useEffect } from 'react';
 import { api } from '../lib/api';
 import { SearchIcon, GlobeIcon, CheckIcon, XIcon } from 'lucide-react';
