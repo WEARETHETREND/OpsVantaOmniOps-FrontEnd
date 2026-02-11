@@ -1,16 +1,31 @@
 import { useState, useEffect, useRef } from 'react';
-import { X, ChevronRight, ChevronLeft, Sparkles, Layout, ShoppingCart, Briefcase, BookOpen, Rocket } from 'lucide-react';
+import {
+  X,
+  ChevronRight,
+  ChevronLeft,
+  Sparkles,
+  Layout,
+  ShoppingCart,
+  Briefcase,
+  BookOpen,
+  Rocket,
+} from 'lucide-react';
 import ProgressIndicator from './ProgressIndicator';
 import QualityBadge from './QualityBadge';
 import { generateWebsite, getGenerationProgress } from '../api/omniops';
 
 const PROJECT_TYPES = [
   { id: 'website', name: 'Website', icon: Layout, description: 'General purpose website' },
-  { id: 'landing', name: 'Landing Page', icon: Sparkles, description: 'High-converting landing page' },
+  {
+    id: 'landing',
+    name: 'Landing Page',
+    icon: Sparkles,
+    description: 'High-converting landing page',
+  },
   { id: 'ecommerce', name: 'E-commerce', icon: ShoppingCart, description: 'Online store' },
   { id: 'portfolio', name: 'Portfolio', icon: Briefcase, description: 'Showcase your work' },
   { id: 'blog', name: 'Blog', icon: BookOpen, description: 'Content-focused blog' },
-  { id: 'saas', name: 'SaaS', icon: Rocket, description: 'Software as a service' }
+  { id: 'saas', name: 'SaaS', icon: Rocket, description: 'Software as a service' },
 ];
 
 const DESIGN_STYLES = [
@@ -19,7 +34,7 @@ const DESIGN_STYLES = [
   { id: 'elegant', name: 'Elegant', description: 'Sophisticated and refined' },
   { id: 'playful', name: 'Playful', description: 'Fun and energetic' },
   { id: 'professional', name: 'Professional', description: 'Business-focused' },
-  { id: 'minimal', name: 'Minimal', description: 'Simple and clean' }
+  { id: 'minimal', name: 'Minimal', description: 'Simple and clean' },
 ];
 
 const COLOR_SCHEMES = [
@@ -30,16 +45,16 @@ const COLOR_SCHEMES = [
   { id: 'fire', name: 'Fire', gradient: 'from-red-500 to-yellow-500' },
   { id: 'lavender', name: 'Lavender', gradient: 'from-purple-300 to-pink-300' },
   { id: 'midnight', name: 'Midnight', gradient: 'from-slate-700 to-blue-900' },
-  { id: 'monochrome', name: 'Monochrome', gradient: 'from-gray-700 to-gray-900' }
+  { id: 'monochrome', name: 'Monochrome', gradient: 'from-gray-700 to-gray-900' },
 ];
 
 const EXAMPLE_PROMPTS = [
-  "Create a modern SaaS landing page for a productivity app",
-  "Build an elegant portfolio website for a photographer",
-  "Design a bold e-commerce store for streetwear fashion",
-  "Generate a professional blog about web development",
+  'Create a modern SaaS landing page for a productivity app',
+  'Build an elegant portfolio website for a photographer',
+  'Design a bold e-commerce store for streetwear fashion',
+  'Generate a professional blog about web development',
   "Make a playful landing page for a kids' education app",
-  "Create a minimal portfolio for a UX designer"
+  'Create a minimal portfolio for a UX designer',
 ];
 
 export default function NewProjectModal({ isOpen, onClose, onSuccess }) {
@@ -81,7 +96,7 @@ export default function NewProjectModal({ isOpen, onClose, onSuccess }) {
         type: projectType,
         style: designStyle,
         colorScheme,
-        prompt
+        prompt,
       });
 
       // Simulate progress tracking
@@ -103,7 +118,7 @@ export default function NewProjectModal({ isOpen, onClose, onSuccess }) {
         } catch (err) {
           console.error('Progress check failed:', err);
           // Simulate progress if API fails
-          setProgress(prev => Math.min(prev + 10, 100));
+          setProgress((prev) => Math.min(prev + 10, 100));
         }
       }, 1000);
 
@@ -117,7 +132,6 @@ export default function NewProjectModal({ isOpen, onClose, onSuccess }) {
           if (onSuccess) onSuccess(result);
         }
       }, 30000);
-
     } catch (err) {
       console.error('Generation failed:', err);
       alert('Failed to generate website. Please try again.');
@@ -136,39 +150,43 @@ export default function NewProjectModal({ isOpen, onClose, onSuccess }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-fadeIn">
-      <div className="relative w-full max-w-3xl bg-white rounded-2xl shadow-2xl max-h-[90vh] overflow-hidden">
+    <div className="animate-fadeIn fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
+      <div className="relative max-h-[90vh] w-full max-w-3xl overflow-hidden rounded-2xl bg-white shadow-2xl">
         {/* Header */}
         <div className="relative bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 p-6 text-white">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 hover:bg-white/20 rounded-lg transition-colors"
+            className="absolute top-4 right-4 rounded-lg p-2 transition-colors hover:bg-white/20"
           >
-            <X className="w-5 h-5" />
+            <X className="h-5 w-5" />
           </button>
-          
+
           <div className="flex items-center gap-3">
-            <Sparkles className="w-8 h-8" />
+            <Sparkles className="h-8 w-8" />
             <div>
               <h2 className="text-2xl font-bold">Generate with AI</h2>
-              <p className="text-white/90 text-sm mt-1">Create your website in 30 seconds</p>
+              <p className="mt-1 text-sm text-white/90">Create your website in 30 seconds</p>
             </div>
           </div>
 
           {/* Progress Steps */}
           {!generating && (
-            <div className="flex items-center gap-4 mt-6">
+            <div className="mt-6 flex items-center gap-4">
               {[1, 2, 3].map((s) => (
-                <div key={s} className="flex items-center gap-2 flex-1">
-                  <div className={`flex items-center justify-center w-8 h-8 rounded-full font-semibold transition-all ${
-                    step >= s ? 'bg-white text-blue-600' : 'bg-white/30 text-white/70'
-                  }`}>
+                <div key={s} className="flex flex-1 items-center gap-2">
+                  <div
+                    className={`flex h-8 w-8 items-center justify-center rounded-full font-semibold transition-all ${
+                      step >= s ? 'bg-white text-blue-600' : 'bg-white/30 text-white/70'
+                    }`}
+                  >
                     {s}
                   </div>
-                  <span className={`text-sm font-medium ${step >= s ? 'text-white' : 'text-white/70'}`}>
+                  <span
+                    className={`text-sm font-medium ${step >= s ? 'text-white' : 'text-white/70'}`}
+                  >
                     {s === 1 ? 'Type' : s === 2 ? 'Style' : 'Prompt'}
                   </span>
-                  {s < 3 && <div className="flex-1 h-0.5 bg-white/30" />}
+                  {s < 3 && <div className="h-0.5 flex-1 bg-white/30" />}
                 </div>
               ))}
             </div>
@@ -176,13 +194,13 @@ export default function NewProjectModal({ isOpen, onClose, onSuccess }) {
         </div>
 
         {/* Content */}
-        <div className="p-6 overflow-y-auto max-h-[60vh]">
+        <div className="max-h-[60vh] overflow-y-auto p-6">
           {generating ? (
             <div className="py-12">
               <ProgressIndicator progress={progress} />
-              
+
               {generatedProject && (
-                <div className="mt-8 text-center space-y-4 animate-fadeIn">
+                <div className="animate-fadeIn mt-8 space-y-4 text-center">
                   <div className="flex justify-center">
                     <QualityBadge score={generatedProject.qualityScore || 95} />
                   </div>
@@ -195,26 +213,28 @@ export default function NewProjectModal({ isOpen, onClose, onSuccess }) {
             <>
               {/* Step 1: Project Type */}
               {step === 1 && (
-                <div className="space-y-4 animate-fadeIn">
+                <div className="animate-fadeIn space-y-4">
                   <h3 className="text-xl font-bold text-gray-900">Choose Project Type</h3>
                   <p className="text-gray-600">What kind of website do you want to create?</p>
-                  
-                  <div className="grid grid-cols-2 gap-3 mt-6">
+
+                  <div className="mt-6 grid grid-cols-2 gap-3">
                     {PROJECT_TYPES.map((type) => {
                       const Icon = type.icon;
                       return (
                         <button
                           key={type.id}
                           onClick={() => setProjectType(type.id)}
-                          className={`p-4 rounded-xl border-2 transition-all text-left ${
+                          className={`rounded-xl border-2 p-4 text-left transition-all ${
                             projectType === type.id
                               ? 'border-blue-500 bg-blue-50 shadow-md'
                               : 'border-gray-200 hover:border-gray-300 hover:shadow-sm'
                           }`}
                         >
-                          <Icon className={`w-8 h-8 mb-2 ${projectType === type.id ? 'text-blue-600' : 'text-gray-400'}`} />
+                          <Icon
+                            className={`mb-2 h-8 w-8 ${projectType === type.id ? 'text-blue-600' : 'text-gray-400'}`}
+                          />
                           <div className="font-semibold text-gray-900">{type.name}</div>
-                          <div className="text-sm text-gray-500 mt-1">{type.description}</div>
+                          <div className="mt-1 text-sm text-gray-500">{type.description}</div>
                         </button>
                       );
                     })}
@@ -224,24 +244,24 @@ export default function NewProjectModal({ isOpen, onClose, onSuccess }) {
 
               {/* Step 2: Design Style & Color */}
               {step === 2 && (
-                <div className="space-y-6 animate-fadeIn">
+                <div className="animate-fadeIn space-y-6">
                   <div>
                     <h3 className="text-xl font-bold text-gray-900">Choose Design Style</h3>
                     <p className="text-gray-600">Select the style that fits your brand</p>
-                    
-                    <div className="grid grid-cols-3 gap-3 mt-4">
+
+                    <div className="mt-4 grid grid-cols-3 gap-3">
                       {DESIGN_STYLES.map((style) => (
                         <button
                           key={style.id}
                           onClick={() => setDesignStyle(style.id)}
-                          className={`p-4 rounded-xl border-2 transition-all ${
+                          className={`rounded-xl border-2 p-4 transition-all ${
                             designStyle === style.id
                               ? 'border-blue-500 bg-blue-50 shadow-md'
                               : 'border-gray-200 hover:border-gray-300 hover:shadow-sm'
                           }`}
                         >
                           <div className="font-semibold text-gray-900">{style.name}</div>
-                          <div className="text-xs text-gray-500 mt-1">{style.description}</div>
+                          <div className="mt-1 text-xs text-gray-500">{style.description}</div>
                         </button>
                       ))}
                     </div>
@@ -250,20 +270,20 @@ export default function NewProjectModal({ isOpen, onClose, onSuccess }) {
                   <div>
                     <h3 className="text-xl font-bold text-gray-900">Choose Color Scheme</h3>
                     <p className="text-gray-600">Pick colors that represent your brand</p>
-                    
-                    <div className="grid grid-cols-4 gap-3 mt-4">
+
+                    <div className="mt-4 grid grid-cols-4 gap-3">
                       {COLOR_SCHEMES.map((scheme) => (
                         <button
                           key={scheme.id}
                           onClick={() => setColorScheme(scheme.id)}
-                          className={`group relative p-3 rounded-xl border-2 transition-all ${
+                          className={`group relative rounded-xl border-2 p-3 transition-all ${
                             colorScheme === scheme.id
                               ? 'border-blue-500 shadow-md'
                               : 'border-gray-200 hover:border-gray-300'
                           }`}
                         >
                           <div className={`h-16 rounded-lg bg-gradient-to-r ${scheme.gradient}`} />
-                          <div className="text-sm font-medium text-gray-900 mt-2 text-center">
+                          <div className="mt-2 text-center text-sm font-medium text-gray-900">
                             {scheme.name}
                           </div>
                         </button>
@@ -275,25 +295,25 @@ export default function NewProjectModal({ isOpen, onClose, onSuccess }) {
 
               {/* Step 3: Prompt */}
               {step === 3 && (
-                <div className="space-y-4 animate-fadeIn">
+                <div className="animate-fadeIn space-y-4">
                   <h3 className="text-xl font-bold text-gray-900">Describe Your Vision</h3>
                   <p className="text-gray-600">Tell us what you want your website to be about</p>
-                  
+
                   <textarea
                     value={prompt}
                     onChange={(e) => setPrompt(e.target.value)}
                     placeholder="E.g., Create a modern landing page for my AI-powered productivity app..."
-                    className="w-full h-32 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                    className="h-32 w-full resize-none rounded-xl border border-gray-300 px-4 py-3 focus:border-transparent focus:ring-2 focus:ring-blue-500"
                   />
 
                   <div>
-                    <p className="text-sm font-medium text-gray-700 mb-2">Or try these examples:</p>
+                    <p className="mb-2 text-sm font-medium text-gray-700">Or try these examples:</p>
                     <div className="space-y-2">
                       {EXAMPLE_PROMPTS.map((example, idx) => (
                         <button
                           key={idx}
                           onClick={() => setPrompt(example)}
-                          className="block w-full text-left px-4 py-2 text-sm text-gray-600 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                          className="block w-full rounded-lg bg-gray-50 px-4 py-2 text-left text-sm text-gray-600 transition-colors hover:bg-gray-100"
                         >
                           {example}
                         </button>
@@ -308,13 +328,13 @@ export default function NewProjectModal({ isOpen, onClose, onSuccess }) {
 
         {/* Footer */}
         {!generating && (
-          <div className="flex items-center justify-between gap-3 p-6 border-t border-gray-200 bg-gray-50">
+          <div className="flex items-center justify-between gap-3 border-t border-gray-200 bg-gray-50 p-6">
             {step > 1 ? (
               <button
                 onClick={() => setStep(step - 1)}
-                className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-gray-900 font-medium transition-colors"
+                className="flex items-center gap-2 px-4 py-2 font-medium text-gray-700 transition-colors hover:text-gray-900"
               >
-                <ChevronLeft className="w-4 h-4" />
+                <ChevronLeft className="h-4 w-4" />
                 Back
               </button>
             ) : (
@@ -325,18 +345,18 @@ export default function NewProjectModal({ isOpen, onClose, onSuccess }) {
               <button
                 onClick={() => setStep(step + 1)}
                 disabled={!canProceed()}
-                className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed font-semibold transition-colors"
+                className="flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 Next
-                <ChevronRight className="w-4 h-4" />
+                <ChevronRight className="h-4 w-4" />
               </button>
             ) : (
               <button
                 onClick={handleGenerate}
                 disabled={!canProceed()}
-                className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed font-semibold transition-all shadow-lg"
+                className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-3 font-semibold text-white shadow-lg transition-all hover:from-blue-700 hover:to-purple-700 disabled:cursor-not-allowed disabled:opacity-50"
               >
-                <Sparkles className="w-4 h-4" />
+                <Sparkles className="h-4 w-4" />
                 Generate Website
               </button>
             )}

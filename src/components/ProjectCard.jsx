@@ -16,78 +16,74 @@ export default function ProjectCard({ project, onEdit, onView }) {
   };
 
   return (
-    <div className="group relative bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
+    <div className="group relative overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:shadow-xl">
       {/* Preview Thumbnail */}
-      <div className="relative h-48 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 overflow-hidden">
+      <div className="relative h-48 overflow-hidden bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
         {project.thumbnail ? (
-          <img 
-            src={project.thumbnail} 
-            alt={project.name}
-            className="w-full h-full object-cover"
-          />
+          <img src={project.thumbnail} alt={project.name} className="h-full w-full object-cover" />
         ) : (
-          <div className="flex items-center justify-center h-full">
-            <FileText className="w-16 h-16 text-gray-300" />
+          <div className="flex h-full items-center justify-center">
+            <FileText className="h-16 w-16 text-gray-300" />
           </div>
         )}
-        
+
         {/* AI Badge */}
         {project.isAiGenerated && (
-          <div className="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-purple-500 text-white text-xs font-semibold shadow-lg">
-            <Sparkles className="w-3.5 h-3.5" />
+          <div className="absolute top-3 right-3 flex items-center gap-1.5 rounded-full bg-purple-500 px-2.5 py-1 text-xs font-semibold text-white shadow-lg">
+            <Sparkles className="h-3.5 w-3.5" />
             AI
           </div>
         )}
 
         {/* Status Badge */}
-        <div className={`absolute top-3 left-3 px-2.5 py-1 rounded-full border text-xs font-semibold ${getStatusColor(project.status)}`}>
+        <div
+          className={`absolute top-3 left-3 rounded-full border px-2.5 py-1 text-xs font-semibold ${getStatusColor(project.status)}`}
+        >
           {project.status || 'draft'}
         </div>
 
         {/* Hover Overlay */}
-        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
+        <div className="absolute inset-0 flex items-center justify-center gap-3 bg-black/50 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
           <button
             onClick={() => onView && onView(project)}
-            className="p-3 bg-white rounded-lg hover:bg-gray-100 transition-colors"
+            className="rounded-lg bg-white p-3 transition-colors hover:bg-gray-100"
             title="View"
           >
-            <Eye className="w-5 h-5 text-gray-700" />
+            <Eye className="h-5 w-5 text-gray-700" />
           </button>
           <button
             onClick={() => onEdit && onEdit(project)}
-            className="p-3 bg-white rounded-lg hover:bg-gray-100 transition-colors"
+            className="rounded-lg bg-white p-3 transition-colors hover:bg-gray-100"
             title="Edit"
           >
-            <Edit className="w-5 h-5 text-gray-700" />
+            <Edit className="h-5 w-5 text-gray-700" />
           </button>
         </div>
       </div>
 
       {/* Content */}
-      <div className="p-5 space-y-3">
+      <div className="space-y-3 p-5">
         {/* Title */}
-        <h3 className="text-lg font-bold text-gray-900 truncate">
-          {project.name}
-        </h3>
+        <h3 className="truncate text-lg font-bold text-gray-900">{project.name}</h3>
 
         {/* Description */}
         {project.description && (
-          <p className="text-sm text-gray-600 line-clamp-2">
-            {project.description}
-          </p>
+          <p className="line-clamp-2 text-sm text-gray-600">{project.description}</p>
         )}
 
         {/* Metadata */}
         <div className="flex items-center justify-between text-sm text-gray-500">
           <div className="flex items-center gap-1">
-            <FileText className="w-4 h-4" />
-            <span>{project.pageCount || 1} page{project.pageCount !== 1 ? 's' : ''}</span>
+            <FileText className="h-4 w-4" />
+            <span>
+              {project.pageCount || 1} page{project.pageCount !== 1 ? 's' : ''}
+            </span>
           </div>
-          
+
           {project.domain && (
             <div className="flex items-center gap-1 text-blue-600">
-              <Globe className="w-4 h-4" />
-              <span className="truncate max-w-[120px]">{project.domain}</span>
+              <Globe className="h-4 w-4" />
+              <span className="max-w-[120px] truncate">{project.domain}</span>
             </div>
           )}
         </div>
@@ -101,7 +97,8 @@ export default function ProjectCard({ project, onEdit, onView }) {
 
         {/* Updated Date */}
         <div className="pt-2 text-xs text-gray-400">
-          Updated {project.updatedAt ? new Date(project.updatedAt).toLocaleDateString() : 'recently'}
+          Updated{' '}
+          {project.updatedAt ? new Date(project.updatedAt).toLocaleDateString() : 'recently'}
         </div>
       </div>
     </div>

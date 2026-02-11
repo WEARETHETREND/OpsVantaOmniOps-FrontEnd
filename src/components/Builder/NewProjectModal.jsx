@@ -11,11 +11,11 @@ export default function NewProjectModal({ onClose, onSuccess }) {
   const navigate = useNavigate();
 
   const examples = [
-    "A modern landing page for a SaaS productivity tool with pricing tiers",
-    "Portfolio website for a freelance photographer with gallery",
-    "Restaurant website with menu, reservations, and contact form",
-    "E-commerce store for handmade jewelry with product catalog",
-    "Personal blog about travel and adventure with featured posts"
+    'A modern landing page for a SaaS productivity tool with pricing tiers',
+    'Portfolio website for a freelance photographer with gallery',
+    'Restaurant website with menu, reservations, and contact form',
+    'E-commerce store for handmade jewelry with product catalog',
+    'Personal blog about travel and adventure with featured posts',
   ];
 
   const handleGenerate = async () => {
@@ -35,18 +35,17 @@ export default function NewProjectModal({ onClose, onSuccess }) {
           prompt,
           options: {
             type: projectType,
-            generateImages: true
-          }
-        })
+            generateImages: true,
+          },
+        }),
       });
 
       setProgress('✅ Website generated!');
-      
+
       setTimeout(() => {
         onSuccess();
         navigate(`/builder/editor/${result.project.id}`);
       }, 1000);
-
     } catch (error) {
       console.error('Generation failed:', error);
       setProgress('');
@@ -55,27 +54,23 @@ export default function NewProjectModal({ onClose, onSuccess }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
+      <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-xl bg-white shadow-2xl">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b">
+        <div className="flex items-center justify-between border-b p-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-purple-600">
               <SparklesIcon size={20} className="text-white" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-gray-900">
-                Generate with AI
-              </h2>
-              <p className="text-sm text-gray-600">
-                Describe your website and let AI build it
-              </p>
+              <h2 className="text-xl font-bold text-gray-900">Generate with AI</h2>
+              <p className="text-sm text-gray-600">Describe your website and let AI build it</p>
             </div>
           </div>
           <button
             onClick={onClose}
             disabled={generating}
-            className="p-2 hover:bg-gray-100 rounded-lg"
+            className="rounded-lg p-2 hover:bg-gray-100"
           >
             <XIcon size={20} />
           </button>
@@ -87,26 +82,24 @@ export default function NewProjectModal({ onClose, onSuccess }) {
             <>
               {/* Project Type */}
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Project Type
-                </label>
+                <label className="mb-2 block text-sm font-medium text-gray-700">Project Type</label>
                 <div className="grid grid-cols-3 gap-3">
                   {[
                     { value: 'website', label: '🌐 Website', desc: 'Multi-page site' },
                     { value: 'landing-page', label: '🚀 Landing Page', desc: 'Single page' },
-                    { value: 'portfolio', label: '💼 Portfolio', desc: 'Showcase work' }
-                  ].map(type => (
+                    { value: 'portfolio', label: '💼 Portfolio', desc: 'Showcase work' },
+                  ].map((type) => (
                     <button
                       key={type.value}
                       onClick={() => setProjectType(type.value)}
-                      className={`p-3 border-2 rounded-lg text-left transition-all ${
+                      className={`rounded-lg border-2 p-3 text-left transition-all ${
                         projectType === type.value
                           ? 'border-blue-500 bg-blue-50'
                           : 'border-gray-200 hover:border-gray-300'
                       }`}
                     >
-                      <div className="font-medium text-sm">{type.label}</div>
-                      <div className="text-xs text-gray-500 mt-1">{type.desc}</div>
+                      <div className="text-sm font-medium">{type.label}</div>
+                      <div className="mt-1 text-xs text-gray-500">{type.desc}</div>
                     </button>
                   ))}
                 </div>
@@ -114,24 +107,24 @@ export default function NewProjectModal({ onClose, onSuccess }) {
 
               {/* Prompt Input */}
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="mb-2 block text-sm font-medium text-gray-700">
                   Describe Your Website
                 </label>
                 <textarea
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
                   placeholder="E.g., A modern landing page for a SaaS product with pricing, testimonials, and a contact form. Use a blue and white color scheme with a tech-forward design."
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                  className="w-full resize-none rounded-lg border border-gray-300 px-4 py-3 focus:border-transparent focus:ring-2 focus:ring-blue-500"
                   rows={4}
                 />
-                <p className="text-xs text-gray-500 mt-2">
+                <p className="mt-2 text-xs text-gray-500">
                   Be specific! Include details about pages, features, colors, and style.
                 </p>
               </div>
 
               {/* Examples */}
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="mb-2 block text-sm font-medium text-gray-700">
                   Example Prompts
                 </label>
                 <div className="space-y-2">
@@ -139,7 +132,7 @@ export default function NewProjectModal({ onClose, onSuccess }) {
                     <button
                       key={i}
                       onClick={() => setPrompt(example)}
-                      className="w-full text-left px-3 py-2 text-sm text-gray-700 bg-gray-50 hover:bg-gray-100 rounded border border-gray-200"
+                      className="w-full rounded border border-gray-200 bg-gray-50 px-3 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
                     >
                       {example}
                     </button>
@@ -151,7 +144,7 @@ export default function NewProjectModal({ onClose, onSuccess }) {
               <button
                 onClick={handleGenerate}
                 disabled={!prompt.trim()}
-                className="w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:from-blue-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 py-3 font-medium text-white hover:from-blue-700 hover:to-purple-700 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <SparklesIcon size={20} />
                 Generate Website with AI
@@ -159,17 +152,13 @@ export default function NewProjectModal({ onClose, onSuccess }) {
             </>
           ) : (
             <div className="py-12 text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 mb-4 animate-pulse">
+              <div className="mb-4 inline-flex h-16 w-16 animate-pulse items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-600">
                 <SparklesIcon size={32} className="text-white" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                {progress}
-              </h3>
-              <p className="text-sm text-gray-600 mb-6">
-                This usually takes 10-30 seconds...
-              </p>
-              <div className="w-full max-w-xs mx-auto h-2 bg-gray-200 rounded-full overflow-hidden">
-                <div className="h-full bg-gradient-to-r from-blue-500 to-purple-600 animate-progress"></div>
+              <h3 className="mb-2 text-lg font-semibold text-gray-900">{progress}</h3>
+              <p className="mb-6 text-sm text-gray-600">This usually takes 10-30 seconds...</p>
+              <div className="mx-auto h-2 w-full max-w-xs overflow-hidden rounded-full bg-gray-200">
+                <div className="animate-progress h-full bg-gradient-to-r from-blue-500 to-purple-600"></div>
               </div>
             </div>
           )}

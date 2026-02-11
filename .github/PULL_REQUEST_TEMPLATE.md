@@ -35,18 +35,20 @@ Describe the tests you ran and/or added to verify your changes:
 
 ### Test Configuration
 
-- **Node version**: 
-- **Browser(s)**: 
-- **OS**: 
+- **Node version**:
+- **Browser(s)**:
+- **OS**:
 
 ## 📸 Screenshots/Videos
 
 If applicable, add screenshots or videos to demonstrate the changes.
 
 **Before:**
+
 <!-- Add screenshots/videos here -->
 
 **After:**
+
 <!-- Add screenshots/videos here -->
 
 ## ✅ Checklist

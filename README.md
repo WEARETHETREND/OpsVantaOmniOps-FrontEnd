@@ -45,24 +45,28 @@ Before you begin, ensure you have the following installed:
 ## 📦 Installation
 
 1. **Clone the repository**:
+
    ```bash
    git clone https://github.com/WEARETHETREND/omniops-frontend.git
    cd omniops-frontend
    ```
 
 2. **Install dependencies**:
+
    ```bash
    npm install
    ```
 
 3. **Set up environment variables**:
-   
+
    Copy the `.env.example` file to `.env`:
+
    ```bash
    cp .env.example .env
    ```
-   
+
    Update the `.env` file with your Supabase credentials:
+
    ```env
    VITE_SUPABASE_URL=your_supabase_url
    VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
@@ -149,6 +153,7 @@ npm run build
 ```
 
 This will:
+
 - Bundle and minify your code
 - Optimize assets
 - Generate production-ready files in the `dist/` directory

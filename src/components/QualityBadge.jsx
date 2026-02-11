@@ -16,8 +16,8 @@ export default function QualityBadge({ score }) {
   };
 
   return (
-    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
-      <Star className={`w-4 h-4 ${getColor(score)} text-white fill-current`} />
+    <div className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 backdrop-blur-sm">
+      <Star className={`h-4 w-4 ${getColor(score)} fill-current text-white`} />
       <span className="text-sm font-semibold text-white">{score}/100</span>
       <span className="text-xs text-white/80">{getLabel(score)}</span>
     </div>
