@@ -1,140 +1,71 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const BASE_URL = 'https://api.example.com'; // Replace with actual API base URL
+const AUTH_TOKEN = 'YOUR_AUTH_TOKEN'; // Replace with actual token or implement a function to obtain it
 
-export const hubApi = {
-  // Today screen
-  getToday: async () => {
-    const res = await fetch(`${API_URL}/api/hub/today`, {
-      headers: { 
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json'
-      }
-    });
-    if (!res.ok) throw new Error('Failed to fetch today data');
-    return res.json();
-  },
+const headers = {
+  'Content-Type': 'application/json',
+  'Authorization': `Bearer ${AUTH_TOKEN}`,
+};
 
-  // API Keys
-  getKeys: async () => {
-    const res = await fetch(`${API_URL}/api/hub/keys`, {
-      headers: { 
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json'
-      }
-    });
-    if (!res.ok) throw new Error('Failed to fetch keys');
-    return res.json();
-  },
+export const getToday = async () => {
+  const response = await fetch(`${BASE_URL}/today`, { headers });
+  return response.json();
+};
 
-  saveKey: async (data) => {
-    const res = await fetch(`${API_URL}/api/hub/keys`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      },
-      body: JSON.stringify(data)
-    });
-    if (!res.ok) throw new Error('Failed to save key');
-    return res.json();
-  },
+export const getKeys = async () => {
+  const response = await fetch(`${BASE_URL}/keys`, { headers });
+  return response.json();
+};
 
-  toggleKey: async (id, system, active) => {
-    const res = await fetch(`${API_URL}/api/hub/keys/${id}/toggle`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      },
-      body: JSON.stringify({ system, active })
-    });
-    if (!res.ok) throw new Error('Failed to toggle key');
-    return res.json();
-  },
+export const saveKey = async (keyData) => {
+  const response = await fetch(`${BASE_URL}/keys`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(keyData),
+  });
+  return response.json();
+};
 
-  // Inbox
-  getInbox: async () => {
-    const res = await fetch(`${API_URL}/api/hub/inbox`, {
-      headers: { 
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json'
-      }
-    });
-    if (!res.ok) throw new Error('Failed to fetch inbox');
-    return res.json();
-  },
+export const toggleKey = async (keyId) => {
+  const response = await fetch(`${BASE_URL}/keys/${keyId}/toggle`, {
+    method: 'PATCH',
+    headers,
+  });
+  return response.json();
+};
 
-  approveInboxItem: async (id) => {
-    const res = await fetch(`${API_URL}/api/hub/inbox/${id}/approve`, {
-      method: 'POST',
-      headers: { 
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json'
-      }
-    });
-    if (!res.ok) throw new Error('Failed to approve');
-    return res.json();
-  },
+export const getInbox = async () => {
+  const response = await fetch(`${BASE_URL}/inbox`, { headers });
+  return response.json();
+};
 
-  // Autopilot
-  getAutopilot: async () => {
-    const res = await fetch(`${API_URL}/api/hub/autopilot`, {
-      headers: { 
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json'
-      }
-    });
-    if (!res.ok) throw new Error('Failed to fetch autopilot');
-    return res.json();
-  },
+export const approveInboxItem = async (itemId) => {
+  const response = await fetch(`${BASE_URL}/inbox/${itemId}/approve`, {
+    method: 'POST',
+    headers,
+  });
+  return response.json();
+};
 
-  updateAutopilot: async (settings) => {
-    const res = await fetch(`${API_URL}/api/hub/autopilot`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      },
-      body: JSON.stringify(settings)
-    });
-    if (!res.ok) throw new Error('Failed to update autopilot');
-    return res.json();
-  },
+export const getAutopilot = async () => {
+  const response = await fetch(`${BASE_URL}/autopilot`, { headers });
+  return response.json();
+};
 
-  // Revenue
-  getRevenue: async () => {
-    const res = await fetch(`${API_URL}/api/hub/revenue`, {
-      headers: { 
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json'
-      }
-    });
-    if (!res.ok) throw new Error('Failed to fetch revenue');
-    return res.json();
-  },
+export const updateAutopilot = async (autopilotData) => {
+  const response = await fetch(`${BASE_URL}/autopilot`, {
+    method: 'PUT',
+    headers,
+    body: JSON.stringify(autopilotData),
+  });
+  return response.json();
+};
 
-  // System Health
-  getSystemHealth: async () => {
-    const res = await fetch(`${API_URL}/api/hub/health`, {
-      headers: { 
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json'
-      }
-    });
-    if (!res.ok) throw new Error('Failed to fetch system health');
-    return res.json();
-  },
+export const getRevenue = async () => {
+  const response = await fetch(`${BASE_URL}/revenue`, { headers });
+  return response.json();
+};
 
-  // Command Bus
-  executeCommand: async (command) => {
-    const res = await fetch(`${API_URL}/api/hub/command`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      },
-      body: JSON.stringify({ command })
-    });
-    if (!res.ok) throw new Error('Failed to execute command');
-    return res.json();
-  }
+export const getHealth = async () => {
+  const response = await fetch(`${BASE_URL}/health`, { headers });
+  return response.json();
 };
