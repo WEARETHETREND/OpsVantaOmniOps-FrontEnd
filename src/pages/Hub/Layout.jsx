@@ -1,8 +1,11 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { Home, Settings, Inbox, Zap, TrendingUp, Key, Activity } from 'lucide-react';
+import { useState } from 'react';
+import { Home, Settings, Inbox, Zap, TrendingUp, Book, Command } from 'lucide-react';
+import CommandBus from '../../components/Hub/CommandBus';
 
 export function HubLayout() {
   const location = useLocation();
+  const [commandBusOpen, setCommandBusOpen] = useState(false);
   
   const isActive = (path) => location.pathname.startsWith(path);
 
@@ -30,25 +33,33 @@ export function HubLayout() {
                 <NavLink to="/hub/inbox" icon={Inbox} isActive={isActive('/hub/inbox')}> 
                   Inbox
                 </NavLink>
+                <NavLink to="/hub/playbooks" icon={Book} isActive={isActive('/hub/playbooks')}> 
+                  Playbooks
+                </NavLink>
                 <NavLink to="/hub/revenue" icon={TrendingUp} isActive={isActive('/hub/revenue')}> 
                   Revenue
-                </NavLink>
-                <NavLink to="/hub/keys" icon={Key} isActive={isActive('/hub/keys')}> 
-                  Keys
-                </NavLink>
-                <NavLink to="/hub/health" icon={Activity} isActive={isActive('/hub/health')}> 
-                  Health
                 </NavLink>
               </div>
             </div>
 
-            <Link 
-              to="/hub/settings" 
-              className="text-slate-600 hover:text-slate-900 transition-colors"
-              title="Settings"
-            >
-              <Settings className="w-5 h-5" />
-            </Link>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setCommandBusOpen(true)}
+                className="flex items-center gap-2 px-3 py-1.5 text-sm text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors"
+                title="Command Bus (Cmd+K)"
+              >
+                <Command className="w-4 h-4" />
+                <span className="hidden md:inline">Cmd+K</span>
+              </button>
+              
+              <Link 
+                to="/hub/settings" 
+                className="text-slate-600 hover:text-slate-900 transition-colors"
+                title="Settings"
+              >
+                <Settings className="w-5 h-5" />
+              </Link>
+            </div>
           </div>
         </div>
       </nav>
@@ -64,6 +75,9 @@ export function HubLayout() {
           <p>WEARETHETREND Empire Hub • Managing 6 products • Powered by AI</p>
         </div>
       </footer>
+      
+      {/* Command Bus Modal */}
+      <CommandBus isOpen={commandBusOpen} onClose={() => setCommandBusOpen(!commandBusOpen)} />
     </div>
   );
 }
