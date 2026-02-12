@@ -1,8 +1,15 @@
-# OmniOps Frontend
+# 🔒 PROPRIETARY & CONFIDENTIAL - TRADE SECRET
 
-**🔒 PROPRIETARY AND CONFIDENTIAL - TRADE SECRET**
+**© 2026 WEARETHETREND / OpsVanta LLC - ALL RIGHTS RESERVED**
+
+⚠️ **This is NOT open source software.**  
+Unauthorized access, use, copying, or distribution is **strictly prohibited** and **illegal**.
+
+See [COPYRIGHT.md](./COPYRIGHT.md) for complete legal terms.
 
 ---
+
+# OmniOps Frontend
 
 [![Security](https://img.shields.io/badge/Security-Proprietary-red)](COPYRIGHT.md)
 [![License](https://img.shields.io/badge/License-All%20Rights%20Reserved-red)](COPYRIGHT.md)
@@ -12,15 +19,10 @@
 
 **© 2026 WEARETHETREND / OpsVanta LLC - ALL RIGHTS RESERVED**
 
-⚠️ **THIS IS NOT OPEN SOURCE SOFTWARE**
+This is proprietary software containing trade secrets. Unauthorized use, copying, distribution, or disclosure is **strictly prohibited** and **illegal**.
 
-This software contains trade secrets and confidential information. Unauthorized access, use, copying, or distribution is **strictly prohibited** and **illegal** under trade secret law.
+**⚠️ This is NOT open source software.**
 
-**Penalties for violation:**
-- Up to 10 years imprisonment
-- Up to $5,000,000 in fines
-- Civil damages and injunctions
-
-For authorized licensing only: **young.monte@omniops-ai.com** (Minimum: $50,000)
+For licensing: young.monte@omniops-ai.com (Minimum: $50,000)
 
 See [COPYRIGHT.md](./COPYRIGHT.md) for complete legal terms.
