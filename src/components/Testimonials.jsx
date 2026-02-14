@@ -174,7 +174,7 @@ export default function Testimonials() {
           {/* Testimonials Grid */}
           <div className="overflow-hidden px-2">
             <div
-              className="grid gap-6 transition-transform duration-500 ease-in-out md:grid-cols-2 lg:grid-cols-3"
+              className="grid gap-6 transition-transform duration-500 ease-in-out"
               style={{
                 gridTemplateColumns: `repeat(${itemsPerView}, minmax(0, 1fr))`,
               }}
