@@ -1,17 +1,16 @@
 /**
  * PROPRIETARY AND CONFIDENTIAL - TRADE SECRET
- * 
+ *
  * © 2026 OpsVanta LLC
  * ALL RIGHTS RESERVED
- * 
+ *
  * UNAUTHORIZED ACCESS, USE, OR DISTRIBUTION PROHIBITED
- * 
+ *
  * This file contains trade secrets and confidential information.
  * Violators will be prosecuted under trade secret law.
- * 
+ *
  * For licensing: contact@opsvanta.com
  */
-
 
 import { useState } from 'react';
 import { login } from '../api/auth';
@@ -35,7 +34,7 @@ export default function Login({ onLogin }) {
 
   return (
     <div style={{ padding: '40px' }}>
-      <h2>OmniOps Login</h2>
+      <h2>OpsVanta Login</h2>
       <form onSubmit={handleLogin}>
         <input
           type="email"

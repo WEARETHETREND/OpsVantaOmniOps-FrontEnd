@@ -1,12 +1,13 @@
 # AWS ECS Task Definition
 
-This directory contains the ECS task definition for deploying the OmniOps frontend to AWS ECS.
+This directory contains the ECS task definition for deploying the OpsVanta web application to AWS ECS.
 
 ## Configuration Required
 
 Before deploying, you need to update the following placeholders in `task-definition.json`:
 
 ### 1. IAM Role ARNs (Lines 41-42)
+
 Replace `ACCOUNT_ID` with your actual AWS account ID:
 
 ```json
@@ -15,11 +16,13 @@ Replace `ACCOUNT_ID` with your actual AWS account ID:
 ```
 
 To find your AWS account ID:
+
 ```bash
 aws sts get-caller-identity --query Account --output text
 ```
 
 ### 2. CloudWatch Logs
+
 Ensure the log group `/ecs/omniops-frontend` exists in your AWS account:
 
 ```bash
@@ -27,6 +30,7 @@ aws logs create-log-group --log-group-name /ecs/omniops-frontend --region us-eas
 ```
 
 ### 3. IAM Roles
+
 Create the required IAM roles if they don't exist:
 
 - **ecsTaskExecutionRole**: Allows ECS to pull images and write logs
