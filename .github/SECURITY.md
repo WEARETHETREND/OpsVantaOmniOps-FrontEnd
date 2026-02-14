@@ -2,13 +2,13 @@
 
 ## 🚨 UNAUTHORIZED ACCESS IS ILLEGAL
 
-If you have accessed this repository without authorization, you are in violation of trade secret law. Contact legal@omniops-ai.com immediately.
+If you have accessed this repository without authorization, you are in violation of trade secret law. Contact contact@opsvanta.com immediately.
 
 ## 🔐 Reporting Security Issues
 
 **For authorized users only:**
 
-📧 **Email:** security@omniops-ai.com
+📧 **Email:** contact@opsvanta.com
 
 **DO NOT:**
 - ❌ Open public GitHub issues

@@ -1,7 +1,7 @@
 /**
  * PROPRIETARY AND CONFIDENTIAL - TRADE SECRET
  * 
- * © 2026 WEARETHETREND / OpsVanta LLC
+ * © 2026 OpsVanta LLC
  * ALL RIGHTS RESERVED
  * 
  * UNAUTHORIZED ACCESS, USE, OR DISTRIBUTION PROHIBITED
@@ -9,7 +9,7 @@
  * This file contains trade secrets and confidential information.
  * Violators will be prosecuted under trade secret law.
  * 
- * For licensing: young.monte@omniops-ai.com
+ * For licensing: contact@opsvanta.com
  */
 
 
@@ -27,7 +27,7 @@ import {
 } from 'lucide-react';
 import ProgressIndicator from './ProgressIndicator';
 import QualityBadge from './QualityBadge';
-import { generateWebsite, getGenerationProgress } from '../api/omniops';
+import { generateWebsite, getGenerationProgress } from '../api/opsvanta';
 
 const PROJECT_TYPES = [
   { id: 'website', name: 'Website', icon: Layout, description: 'General purpose website' },
@@ -64,12 +64,11 @@ const COLOR_SCHEMES = [
 ];
 
 const EXAMPLE_PROMPTS = [
-  'Create a modern SaaS landing page for a productivity app',
-  'Build an elegant portfolio website for a photographer',
-  'Design a bold e-commerce store for streetwear fashion',
-  'Generate a professional blog about web development',
-  "Make a playful landing page for a kids' education app",
-  'Create a minimal portfolio for a UX designer',
+  'Create a modern landing page for a SaaS application',
+  'Build a professional portfolio website',
+  'Design an e-commerce storefront',
+  'Generate a business blog with featured articles',
+  'Create a product showcase website',
 ];
 
 export default function NewProjectModal({ isOpen, onClose, onSuccess }) {
@@ -179,8 +178,8 @@ export default function NewProjectModal({ isOpen, onClose, onSuccess }) {
           <div className="flex items-center gap-3">
             <Sparkles className="h-8 w-8" />
             <div>
-              <h2 className="text-2xl font-bold">Generate with AI</h2>
-              <p className="mt-1 text-sm text-white/90">Create your website in 30 seconds</p>
+              <h2 className="text-2xl font-bold">Generate with OpsVanta AI</h2>
+              <p className="mt-1 text-sm text-white/90">Create your website in 30 seconds - Powered by OpsVanta</p>
             </div>
           </div>
 
