@@ -1,20 +1,20 @@
 /**
  * PROPRIETARY AND CONFIDENTIAL - TRADE SECRET
- *
- * © 2026 WEARETHETREND / OpsVanta LLC
+ * 
+ * © 2026 OpsVanta LLC
  * ALL RIGHTS RESERVED
  *
  * UNAUTHORIZED ACCESS, USE, OR DISTRIBUTION PROHIBITED
  *
  * This file contains trade secrets and confidential information.
  * Violators will be prosecuted under trade secret law.
- *
- * For licensing: young.monte@omniops-ai.com
+ * 
+ * For licensing: contact@opsvanta.com
  */
 
 import { useState, useEffect } from 'react';
 import { Plus, Search, Filter, Sparkles, FileText, Globe, Archive } from 'lucide-react';
-import { getProjects } from '../api/omniops';
+import { getProjects } from '../api/opsvanta';
 import ProjectCard from '../components/ProjectCard';
 import NewProjectModal from '../components/NewProjectModal';
 import Testimonials from '../components/Testimonials';
@@ -39,30 +39,8 @@ export default function BuilderDashboard() {
       setProjects(data || []);
     } catch (err) {
       console.error('Failed to load projects:', err);
-      // Use mock data for demo if API fails
-      setProjects([
-        {
-          id: 1,
-          name: 'My Portfolio',
-          description: 'Personal portfolio showcasing my work',
-          status: 'published',
-          pageCount: 5,
-          domain: 'myportfolio.com',
-          isAiGenerated: true,
-          qualityScore: 92,
-          updatedAt: new Date().toISOString(),
-        },
-        {
-          id: 2,
-          name: 'E-commerce Store',
-          description: 'Online store for fashion products',
-          status: 'draft',
-          pageCount: 12,
-          isAiGenerated: true,
-          qualityScore: 85,
-          updatedAt: new Date().toISOString(),
-        },
-      ]);
+      // Show empty state instead of fake data
+      setProjects([]);
     } finally {
       setLoading(false);
     }
@@ -113,8 +91,8 @@ export default function BuilderDashboard() {
         <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="mb-2 text-4xl font-bold">Website Builder</h1>
-              <p className="text-lg text-white/90">Create stunning websites with AI in seconds</p>
+              <h1 className="mb-2 text-4xl font-bold">OpsVanta Website Builder</h1>
+              <p className="text-lg text-white/90">Create stunning websites with AI - Powered by OpsVanta</p>
             </div>
 
             <button

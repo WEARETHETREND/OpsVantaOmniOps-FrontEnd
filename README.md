@@ -9,7 +9,7 @@ See [COPYRIGHT.md](./COPYRIGHT.md) for complete legal terms.
 
 ---
 
-# OmniOps Frontend
+# OpsVanta Web
 
 [![Security](https://img.shields.io/badge/Security-Proprietary-red)](COPYRIGHT.md)
 [![License](https://img.shields.io/badge/License-All%20Rights%20Reserved-red)](COPYRIGHT.md)
@@ -23,6 +23,6 @@ This is proprietary software containing trade secrets. Unauthorized use, copying
 
 **⚠️ This is NOT open source software.**
 
-For licensing: young.monte@omniops-ai.com (Minimum: $50,000)
+For licensing: contact@opsvanta.com
 
 See [COPYRIGHT.md](./COPYRIGHT.md) for complete legal terms.
