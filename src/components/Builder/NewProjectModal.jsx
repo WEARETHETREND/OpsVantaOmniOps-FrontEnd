@@ -1,7 +1,7 @@
 /**
  * PROPRIETARY AND CONFIDENTIAL - TRADE SECRET
  * 
- * © 2026 WEARETHETREND / OpsVanta LLC
+ * © 2026 OpsVanta LLC
  * ALL RIGHTS RESERVED
  * 
  * UNAUTHORIZED ACCESS, USE, OR DISTRIBUTION PROHIBITED
@@ -9,7 +9,7 @@
  * This file contains trade secrets and confidential information.
  * Violators will be prosecuted under trade secret law.
  * 
- * For licensing: young.monte@omniops-ai.com
+ * For licensing: contact@opsvanta.com
  */
 
 
@@ -78,8 +78,8 @@ export default function NewProjectModal({ onClose, onSuccess }) {
               <SparklesIcon size={20} className="text-white" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-gray-900">Generate with AI</h2>
-              <p className="text-sm text-gray-600">Describe your website and let AI build it</p>
+              <h2 className="text-xl font-bold text-gray-900">Generate with OpsVanta AI</h2>
+              <p className="text-sm text-gray-600">Describe your website and let OpsVanta AI build it</p>
             </div>
           </div>
           <button

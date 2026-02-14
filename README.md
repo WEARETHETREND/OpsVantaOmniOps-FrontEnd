@@ -9,7 +9,7 @@ See [COPYRIGHT.md](./COPYRIGHT.md) for complete legal terms.
 
 ---
 
-# 🚀 OpsVanta - AI-Powered Website Builder
+# OpsVanta Web
 
 <div align="center">
 
@@ -192,11 +192,7 @@ This software is proprietary and confidential. It contains trade secrets and is 
 
 **⚠️ This is NOT open source software.**
 
-Unauthorized access, use, copying, modification, or distribution is **strictly prohibited** and **illegal**.
-
-**For licensing inquiries:**
-- Email: young.monte@omniops-ai.com
-- Minimum license: $50,000
+For licensing: contact@opsvanta.com
 
 See [COPYRIGHT.md](./COPYRIGHT.md) for complete legal terms.
 
