@@ -1,24 +1,23 @@
 /**
  * PROPRIETARY AND CONFIDENTIAL - TRADE SECRET
- * 
- * © 2026 WEARETHETREND / OpsVanta LLC
+ *
+ * © 2026 OpsVanta LLC
  * ALL RIGHTS RESERVED
- * 
+ *
  * UNAUTHORIZED ACCESS, USE, OR DISTRIBUTION PROHIBITED
- * 
+ *
  * This file contains trade secrets and confidential information.
  * Violators will be prosecuted under trade secret law.
- * 
- * For licensing: young.monte@omniops-ai.com
+ *
+ * For licensing: contact@opsvanta.com
  */
-
 
 import { Link } from 'react-router-dom';
 
 export default function Dashboard() {
   return (
     <div style={{ padding: '40px' }}>
-      <h1>OmniOps Dashboard</h1>
+      <h1>OpsVanta Dashboard</h1>
 
       <ul>
         <li>

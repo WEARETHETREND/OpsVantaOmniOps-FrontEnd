@@ -20,4 +20,4 @@ By submitting ANY contribution (code, documentation, issues, pull requests):
 
 ## Contact
 
-For questions: young.monte@omniops-ai.com
+For questions: contact@opsvanta.com

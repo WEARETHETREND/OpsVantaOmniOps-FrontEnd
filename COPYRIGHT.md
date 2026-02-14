@@ -35,7 +35,7 @@ Without explicit written authorization from WEARETHETREND / OpsVanta LLC, you ar
 - ❌ Using for commercial purposes
 - ❌ Incorporating into other products
 - ❌ Reselling, sublicensing, or transferring
-- ❌ Competing with OmniOps products
+- ❌ Competing with OpsVanta products
 - ❌ Creating similar UIs or user experiences
 
 ### Legal Protection
@@ -82,13 +82,13 @@ This software is protected under:
 
 **Owner:** WEARETHETREND / OpsVanta LLC  
 **Jurisdiction:** United States of America  
-**Contact:** young.monte@omniops-ai.com
+**Contact:** contact@opsvanta.com
 
 ## 📞 AUTHORIZED LICENSING
 
 **For authorized licensing inquiries ONLY:**
 
-📧 **Email:** young.monte@omniops-ai.com  
+📧 **Email:** contact@opsvanta.com  
 🏢 **Company:** OpsVanta LLC
 
 All licensing requests require:
@@ -97,8 +97,6 @@ All licensing requests require:
 - Financial terms and payment guarantee
 - Legal entity verification
 
-**Licensing fees start at $50,000 minimum.**
-
 ## ⚠️ WARNING TO DEVELOPERS
 
 If you are a developer who has accessed this code:
@@ -106,7 +104,7 @@ If you are a developer who has accessed this code:
 1. **STOP IMMEDIATELY** if you don't have written authorization
 2. **DELETE** any copies you have made
 3. **DO NOT** discuss what you have seen
-4. **CONTACT** legal@omniops-ai.com immediately
+4. **CONTACT** contact@opsvanta.com immediately
 5. **PRESERVE** evidence of how you accessed it
 
 ## 🕵️ MONITORING & ENFORCEMENT
@@ -146,4 +144,4 @@ Any previous MIT License references were **POSTED IN ERROR** and are **HEREBY RE
 
 **TRADE SECRET - UNAUTHORIZED DISCLOSURE PROHIBITED**
 
-**IF YOU HAVE ACCESSED THIS WITHOUT AUTHORIZATION, CONTACT legal@omniops-ai.com IMMEDIATELY**
+**IF YOU HAVE ACCESSED THIS WITHOUT AUTHORIZATION, CONTACT contact@opsvanta.com IMMEDIATELY**
