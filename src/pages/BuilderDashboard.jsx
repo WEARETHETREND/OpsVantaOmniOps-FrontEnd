@@ -1,23 +1,23 @@
 /**
  * PROPRIETARY AND CONFIDENTIAL - TRADE SECRET
- * 
+ *
  * © 2026 WEARETHETREND / OpsVanta LLC
  * ALL RIGHTS RESERVED
- * 
+ *
  * UNAUTHORIZED ACCESS, USE, OR DISTRIBUTION PROHIBITED
- * 
+ *
  * This file contains trade secrets and confidential information.
  * Violators will be prosecuted under trade secret law.
- * 
+ *
  * For licensing: young.monte@omniops-ai.com
  */
-
 
 import { useState, useEffect } from 'react';
 import { Plus, Search, Filter, Sparkles, FileText, Globe, Archive } from 'lucide-react';
 import { getProjects } from '../api/omniops';
 import ProjectCard from '../components/ProjectCard';
 import NewProjectModal from '../components/NewProjectModal';
+import Testimonials from '../components/Testimonials';
 import { useNavigate } from 'react-router-dom';
 
 export default function BuilderDashboard() {
@@ -166,6 +166,9 @@ export default function BuilderDashboard() {
           </div>
         </div>
       </div>
+
+      {/* Testimonials Section */}
+      <Testimonials />
 
       {/* Main Content */}
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
