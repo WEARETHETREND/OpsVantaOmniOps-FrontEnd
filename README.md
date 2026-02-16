@@ -46,6 +46,7 @@ See [COPYRIGHT.md](./COPYRIGHT.md) for complete legal terms.
 - Node.js 18+ installed
 - npm or yarn package manager
 - Git for version control
+- A Supabase account (sign up at https://supabase.com)
 
 ### Installation
 
@@ -59,8 +60,32 @@ npm install --legacy-peer-deps
 
 # Set up environment variables
 cp .env.example .env
-# Edit .env with your configuration
+# Edit .env with your Supabase credentials
+```
 
+### Environment Configuration
+
+⚠️ **IMPORTANT**: You must configure Supabase before running the application.
+
+1. **Create a Supabase project** (if you haven't already):
+   - Go to https://app.supabase.com
+   - Create a new project
+   - Note your project URL and anon key
+
+2. **Configure `.env` file**:
+
+   ```env
+   VITE_SUPABASE_URL=https://your-project-id.supabase.co
+   VITE_SUPABASE_ANON_KEY=your-supabase-anon-key-here
+   ```
+
+3. **Set up database schema**:
+   - See [SUPABASE_SETUP.md](./SUPABASE_SETUP.md) for complete database setup instructions
+   - Run the SQL migrations provided in the setup guide
+
+### Start Development
+
+```bash
 # Start development server
 npm run dev
 ```
@@ -83,17 +108,43 @@ npm run format:check # Check code formatting
 
 Comprehensive documentation is available:
 
+### Setup & Configuration
+
+- **[Supabase Setup Guide](./SUPABASE_SETUP.md)** - Complete Supabase integration guide
+  - Database schema setup
+  - Row Level Security (RLS) policies
+  - Authentication configuration
+  - Testing and troubleshooting
+- **[Deployment Guide](./DEPLOYMENT.md)** - Production deployment instructions
+  - Vercel deployment steps
+  - Environment variable configuration
+  - Domain setup and SSL
+  - CI/CD configuration
+  - Rollback procedures
+
+- **[Error Monitoring Setup](./ERROR_MONITORING.md)** - Error tracking and monitoring
+  - Built-in error handling
+  - Sentry integration
+  - Vercel Analytics setup
+  - Best practices
+
+### User Documentation
+
 - **[User Guide](./docs/user-guide/)** - Learn how to use OpsVanta
   - [Quick Start](./docs/user-guide/getting-started/quick-start.md)
   - [Account Setup](./docs/user-guide/getting-started/account-setup.md)
   - [Building Your First Website](./docs/user-guide/getting-started/first-project.md)
   - [AI Generation Guide](./docs/user-guide/ai-builder/ai-generation-guide.md)
 
+### Administrator Documentation
+
 - **[Administrator Guide](./docs/admin-guide/)** - Setup and configuration
   - Installation & deployment
   - Configuration & environment
   - User management & security
   - Monitoring & maintenance
+
+### Developer Documentation
 
 - **[Developer Documentation](./docs/developer/)** - API reference and integration
   - API documentation
@@ -140,6 +191,7 @@ omniops-frontend/
 ## 🔧 Tech Stack
 
 **Frontend:**
+
 - React 19 - Modern UI library
 - Vite (Rolldown) - Lightning-fast build tool
 - TailwindCSS 4 - Utility-first CSS framework
@@ -147,17 +199,20 @@ omniops-frontend/
 - React Router 7 - Client-side routing
 
 **State & Data:**
+
 - React Hooks - Built-in state management
 - Native Fetch API - HTTP client
 - Supabase - Authentication & backend
 
 **Development:**
+
 - ESLint 10 - Code linting
 - Prettier - Code formatting
 - Husky - Git hooks
 - lint-staged - Pre-commit checks
 
 **Deployment:**
+
 - AWS - Cloud infrastructure
 - Vercel - Deployment platform
 - GitHub Actions - CI/CD pipelines
@@ -176,6 +231,7 @@ We welcome contributions! Please follow these steps:
 7. Submit a pull request
 
 **Coding Standards:**
+
 - Follow ESLint configuration
 - Use Prettier for formatting
 - Write meaningful commit messages
@@ -208,6 +264,7 @@ Security is our top priority. We implement:
 - ✅ Secure development practices
 
 **Report Security Issues:**
+
 - Email: security@opsvanta.com
 - See [Security Policy](./.github/SECURITY.md)
 - Responsible disclosure guidelines in [Security Documentation](./docs/security/)
@@ -215,6 +272,7 @@ Security is our top priority. We implement:
 ## 🆘 Support
 
 **Get Help:**
+
 - 📧 Email: support@opsvanta.com
 - 📖 Documentation: [./docs/](./docs/)
 - 💬 Community: [community.opsvanta.com](https://community.opsvanta.com)
@@ -222,6 +280,78 @@ Security is our top priority. We implement:
 
 **Enterprise Support:**
 For dedicated support, contact: young.monte@omniops-ai.com
+
+## 🔧 Troubleshooting
+
+### Common Issues
+
+#### Build Errors with Dependencies
+
+**Problem**: `ERESOLVE could not resolve` error when installing dependencies
+
+**Solution**: Always use the `--legacy-peer-deps` flag:
+
+```bash
+npm install --legacy-peer-deps
+npm run build
+```
+
+This is required due to ESLint version conflicts and is documented in all build commands.
+
+#### Supabase Connection Errors
+
+**Problem**: "Invalid API key" or authentication errors
+
+**Solutions**:
+
+1. Verify `.env` file exists and contains correct credentials
+2. Check that environment variables start with `VITE_` prefix
+3. Restart development server after changing `.env`
+4. Verify Supabase project is active and not paused
+5. See [SUPABASE_SETUP.md](./SUPABASE_SETUP.md) for detailed troubleshooting
+
+#### 404 Errors on Page Refresh (Production)
+
+**Problem**: Direct URL access returns 404 in production
+
+**Solution**: Already configured! The `vercel.json` includes SPA rewrites. If deploying to other platforms, ensure all routes redirect to `index.html`.
+
+#### Environment Variables Not Working
+
+**Problem**: `undefined` when accessing `import.meta.env.VITE_*`
+
+**Solutions**:
+
+1. Ensure variable names start with `VITE_` prefix
+2. Restart development server after adding variables
+3. Check `.env` file is in project root
+4. For Vercel: Set in Dashboard → Settings → Environment Variables
+
+#### Slow Build Times
+
+**Problem**: Build takes longer than expected
+
+**Solutions**:
+
+1. Clear node_modules and reinstall: `rm -rf node_modules && npm install --legacy-peer-deps`
+2. Clear Vite cache: `rm -rf node_modules/.vite`
+3. Ensure no large files in `src/` directory
+4. Check `.gitignore` excludes `node_modules` and `dist`
+
+### Getting More Help
+
+If you encounter issues not covered here:
+
+1. Check the comprehensive setup guides:
+   - [SUPABASE_SETUP.md](./SUPABASE_SETUP.md)
+   - [DEPLOYMENT.md](./DEPLOYMENT.md)
+   - [ERROR_MONITORING.md](./ERROR_MONITORING.md)
+
+2. Search [existing GitHub issues](https://github.com/WEARETHETREND/omniops-frontend/issues)
+
+3. Review browser console for error messages
+
+4. Contact support: support@opsvanta.com
 
 ## 🚀 Deployment
 
@@ -262,6 +392,7 @@ See [Deployment Guide](./docs/admin-guide/deployment.md) for complete AWS deploy
 Built with ❤️ by the WEARETHETREND team.
 
 **Technologies & Services:**
+
 - React Team for React 19
 - Vite/Rolldown teams
 - TailwindCSS team

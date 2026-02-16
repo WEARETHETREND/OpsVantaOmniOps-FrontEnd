@@ -1,14 +1,14 @@
 /**
  * PROPRIETARY AND CONFIDENTIAL - TRADE SECRET
- * 
+ *
  * © 2026 WEARETHETREND / OpsVanta LLC
  * ALL RIGHTS RESERVED
- * 
+ *
  * UNAUTHORIZED ACCESS, USE, COPYING, OR DISTRIBUTION PROHIBITED
- * 
+ *
  * This file contains trade secrets and confidential information.
  * Violators will be prosecuted under trade secret law.
- * 
+ *
  * Authorized use only. See COPYRIGHT.md for terms.
  */
 
@@ -18,39 +18,31 @@ import { X, CheckCircle, XCircle, AlertCircle, Info } from 'lucide-react';
 const ToastContext = createContext(null);
 
 /**
- * Hook to access toast notifications
- */
-export const useToast = () => {
-  const context = useContext(ToastContext);
-  if (!context) {
-    throw new Error('useToast must be used within a ToastProvider');
-  }
-  return context;
-};
-
-/**
  * Toast Provider Component
  */
-export const ToastProvider = ({ children }) => {
+export function ToastProvider({ children }) {
   const [toasts, setToasts] = useState([]);
-
-  const addToast = useCallback((message, type = 'info', duration = 5000) => {
-    const id = Date.now() + Math.random();
-
-    setToasts((prev) => [...prev, { id, message, type, duration }]);
-
-    if (duration > 0) {
-      setTimeout(() => {
-        removeToast(id);
-      }, duration);
-    }
-
-    return id;
-  }, []);
 
   const removeToast = useCallback((id) => {
     setToasts((prev) => prev.filter((toast) => toast.id !== id));
   }, []);
+
+  const addToast = useCallback(
+    (message, type = 'info', duration = 5000) => {
+      const id = Date.now() + Math.random();
+
+      setToasts((prev) => [...prev, { id, message, type, duration }]);
+
+      if (duration > 0) {
+        setTimeout(() => {
+          removeToast(id);
+        }, duration);
+      }
+
+      return id;
+    },
+    [removeToast]
+  );
 
   const toast = {
     success: (message, duration) => addToast(message, 'success', duration),
@@ -66,27 +58,38 @@ export const ToastProvider = ({ children }) => {
       <ToastContainer toasts={toasts} onRemove={removeToast} />
     </ToastContext.Provider>
   );
-};
+}
+
+/**
+ * Hook to access toast notifications
+ */
+export function useToast() {
+  const context = useContext(ToastContext);
+  if (!context) {
+    throw new Error('useToast must be used within a ToastProvider');
+  }
+  return context;
+}
 
 /**
  * Toast Container Component
  */
-const ToastContainer = ({ toasts, onRemove }) => {
+function ToastContainer({ toasts, onRemove }) {
   if (toasts.length === 0) return null;
 
   return (
-    <div className="fixed top-4 right-4 z-50 flex flex-col gap-3 max-w-md w-full pointer-events-none">
+    <div className="pointer-events-none fixed top-4 right-4 z-50 flex w-full max-w-md flex-col gap-3">
       {toasts.map((toast) => (
         <Toast key={toast.id} toast={toast} onRemove={onRemove} />
       ))}
     </div>
   );
-};
+}
 
 /**
  * Individual Toast Component
  */
-const Toast = ({ toast, onRemove }) => {
+function Toast({ toast, onRemove }) {
   const { id, message, type } = toast;
 
   const config = {
@@ -124,18 +127,18 @@ const Toast = ({ toast, onRemove }) => {
 
   return (
     <div
-      className={`${bgColor} ${borderColor} border-2 rounded-lg shadow-lg p-4 flex items-start gap-3 pointer-events-auto animate-slide-in-right`}
+      className={`${bgColor} ${borderColor} animate-slide-in-right pointer-events-auto flex items-start gap-3 rounded-lg border-2 p-4 shadow-lg`}
       role="alert"
     >
-      <Icon className={`w-5 h-5 ${iconColor} flex-shrink-0 mt-0.5`} />
-      <p className={`${textColor} text-sm font-medium flex-1`}>{message}</p>
+      <Icon className={`h-5 w-5 ${iconColor} mt-0.5 flex-shrink-0`} />
+      <p className={`${textColor} flex-1 text-sm font-medium`}>{message}</p>
       <button
         onClick={() => onRemove(id)}
-        className="text-gray-400 hover:text-gray-600 transition-colors flex-shrink-0"
+        className="flex-shrink-0 text-gray-400 transition-colors hover:text-gray-600"
         aria-label="Close notification"
       >
-        <X className="w-5 h-5" />
+        <X className="h-5 w-5" />
       </button>
     </div>
   );
-};
+}
