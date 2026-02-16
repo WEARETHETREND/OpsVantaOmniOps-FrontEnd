@@ -30,18 +30,23 @@ export default defineConfig({
       output: {
         // Manual chunks for better code splitting
         manualChunks: (id) => {
+          // Define vendor packages
+          const reactPackages = /node_modules\/(react|react-dom|react-router-dom)/;
+          const supabasePackages = /node_modules\/@supabase/;
+          const iconPackages = /node_modules\/lucide-react/;
+          
           // Vendor chunk for React and related libraries
-          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom') || id.includes('node_modules/react-router-dom')) {
+          if (reactPackages.test(id)) {
             return 'react-vendor';
           }
           
           // Supabase chunk
-          if (id.includes('node_modules/@supabase')) {
+          if (supabasePackages.test(id)) {
             return 'supabase-vendor';
           }
           
           // Icons chunk
-          if (id.includes('node_modules/lucide-react')) {
+          if (iconPackages.test(id)) {
             return 'icons-vendor';
           }
         },
