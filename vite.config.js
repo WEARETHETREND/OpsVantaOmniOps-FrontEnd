@@ -22,9 +22,6 @@ export default defineConfig({
     // Output directory
     outDir: 'dist',
     
-    // Generate sourcemaps for production debugging
-    sourcemap: false,
-    
     // Chunk size warnings at 500kb
     chunkSizeWarningLimit: 500,
     
@@ -32,43 +29,22 @@ export default defineConfig({
     rollupOptions: {
       output: {
         // Manual chunks for better code splitting
-        manualChunks: {
+        manualChunks: (id) => {
           // Vendor chunk for React and related libraries
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom') || id.includes('node_modules/react-router-dom')) {
+            return 'react-vendor';
+          }
           
           // Supabase chunk
-          'supabase-vendor': ['@supabase/supabase-js'],
+          if (id.includes('node_modules/@supabase')) {
+            return 'supabase-vendor';
+          }
           
           // Icons chunk
-          'icons-vendor': ['lucide-react'],
-        },
-        
-        // Asset file naming
-        assetFileNames: (assetInfo) => {
-          const info = assetInfo.name.split('.');
-          let extType = info[info.length - 1];
-          if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
-            extType = 'img';
-          } else if (/woff|woff2|ttf|otf|eot/i.test(extType)) {
-            extType = 'fonts';
+          if (id.includes('node_modules/lucide-react')) {
+            return 'icons-vendor';
           }
-          return `assets/${extType}/[name]-[hash][extname]`;
         },
-        
-        // Chunk file naming
-        chunkFileNames: 'assets/js/[name]-[hash].js',
-        
-        // Entry file naming
-        entryFileNames: 'assets/js/[name]-[hash].js',
-      },
-    },
-    
-    // Minification
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true, // Remove console.logs in production
-        drop_debugger: true,
       },
     },
     
