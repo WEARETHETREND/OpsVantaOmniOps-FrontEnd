@@ -1,26 +1,19 @@
 /**
  * PROPRIETARY AND CONFIDENTIAL - TRADE SECRET
- *
- * © 2026 WEARETHETREND / OpsVanta LLC
+ * 
+ * © 2026 OpsVanta LLC
  * ALL RIGHTS RESERVED
- *
- * UNAUTHORIZED ACCESS, USE, COPYING, OR DISTRIBUTION PROHIBITED
- *
+ * 
+ * UNAUTHORIZED ACCESS, USE, OR DISTRIBUTION PROHIBITED
+ * 
  * This file contains trade secrets and confidential information.
  * Violators will be prosecuted under trade secret law.
- *
- * Authorized use only. See COPYRIGHT.md for terms.
+ * 
+ * For licensing: contact@opsvanta.com
  */
 
 import { Component } from 'react';
-import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
 
-/**
- * ErrorBoundary Component
- *
- * Catches JavaScript errors anywhere in the child component tree,
- * logs those errors, and displays a fallback UI instead of crashing.
- */
 class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
@@ -40,21 +33,18 @@ class ErrorBoundary extends Component {
     // Log error details for debugging
     console.error('ErrorBoundary caught an error:', error, errorInfo);
 
-    // You can also log the error to an error reporting service here
-    // Example: Sentry.captureException(error);
-
+    // Update state with error details
     this.setState({
       error,
       errorInfo,
     });
+
+    // TODO: Send error to monitoring service (e.g., Sentry)
+    // Example: Sentry.captureException(error, { contexts: { react: { componentStack: errorInfo.componentStack } } });
   }
 
-  handleReset = () => {
-    this.setState({
-      hasError: false,
-      error: null,
-      errorInfo: null,
-    });
+  handleReload = () => {
+    window.location.reload();
   };
 
   handleGoHome = () => {
@@ -63,77 +53,71 @@ class ErrorBoundary extends Component {
 
   render() {
     if (this.state.hasError) {
-      const { error, errorInfo } = this.state;
-      const isDevelopment = import.meta.env.DEV;
-
       return (
-        <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 p-4">
-          <div className="w-full max-w-2xl rounded-2xl bg-white p-8 shadow-2xl">
-            {/* Error Icon */}
-            <div className="mb-6 flex justify-center">
+        <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 px-4">
+          <div className="w-full max-w-2xl rounded-2xl bg-white p-8 shadow-xl">
+            <div className="mb-6 flex items-center justify-center">
               <div className="rounded-full bg-red-100 p-4">
-                <AlertTriangle className="h-12 w-12 text-red-600" />
+                <svg
+                  className="h-12 w-12 text-red-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                  />
+                </svg>
               </div>
             </div>
 
-            {/* Error Title */}
             <h1 className="mb-4 text-center text-3xl font-bold text-gray-900">
               Oops! Something went wrong
             </h1>
 
-            {/* Error Description */}
-            <p className="mb-8 text-center text-gray-600">
-              We're sorry for the inconvenience. An unexpected error has occurred.
-              {isDevelopment && ' Check the console for more details.'}
+            <p className="mb-6 text-center text-gray-600">
+              We apologize for the inconvenience. An unexpected error has occurred. Please try
+              refreshing the page or returning to the home page.
             </p>
 
-            {/* Error Details (Development Only) */}
-            {isDevelopment && error && (
-              <div className="mb-6 rounded-lg border border-gray-200 bg-gray-50 p-4">
-                <h3 className="mb-2 text-sm font-semibold text-gray-700">Error Details:</h3>
-                <pre className="max-h-40 overflow-auto text-xs whitespace-pre-wrap text-red-600">
-                  {error.toString()}
-                </pre>
-                {errorInfo && errorInfo.componentStack && (
-                  <details className="mt-4">
-                    <summary className="cursor-pointer text-xs font-semibold text-gray-700">
-                      Component Stack
-                    </summary>
-                    <pre className="mt-2 max-h-40 overflow-auto text-xs whitespace-pre-wrap text-gray-600">
-                      {errorInfo.componentStack}
+            {import.meta.env.DEV && this.state.error && (
+              <details className="mb-6 rounded-lg bg-red-50 p-4">
+                <summary className="cursor-pointer font-semibold text-red-800">
+                  Error Details (Development Only)
+                </summary>
+                <div className="mt-4 space-y-2">
+                  <p className="text-sm font-mono text-red-700">{this.state.error.toString()}</p>
+                  {this.state.errorInfo && (
+                    <pre className="mt-2 max-h-64 overflow-auto rounded bg-red-100 p-2 text-xs text-red-900">
+                      {this.state.errorInfo.componentStack}
                     </pre>
-                  </details>
-                )}
-              </div>
+                  )}
+                </div>
+              </details>
             )}
 
-            {/* Action Buttons */}
-            <div className="flex flex-col justify-center gap-4 sm:flex-row">
+            <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
               <button
-                onClick={this.handleReset}
-                className="flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-3 font-medium text-white shadow-lg transition-all duration-200 hover:from-blue-700 hover:to-purple-700 hover:shadow-xl"
+                onClick={this.handleReload}
+                className="rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               >
-                <RefreshCw className="h-5 w-5" />
-                Try Again
+                Refresh Page
               </button>
-
               <button
                 onClick={this.handleGoHome}
-                className="flex items-center justify-center gap-2 rounded-lg border-2 border-gray-300 bg-white px-6 py-3 font-medium text-gray-700 transition-all duration-200 hover:border-gray-400 hover:bg-gray-50"
+                className="rounded-lg border-2 border-gray-300 bg-white px-6 py-3 font-semibold text-gray-700 transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
               >
-                <Home className="h-5 w-5" />
-                Go Home
+                Go to Home
               </button>
             </div>
 
-            {/* Support Information */}
-            <div className="mt-8 border-t border-gray-200 pt-6 text-center">
-              <p className="text-sm text-gray-500">
+            <div className="mt-8 text-center text-sm text-gray-500">
+              <p>
                 If this problem persists, please contact support at{' '}
-                <a
-                  href="mailto:support@opsvanta.com"
-                  className="text-blue-600 underline hover:text-blue-700"
-                >
+                <a href="mailto:support@opsvanta.com" className="text-blue-600 hover:underline">
                   support@opsvanta.com
                 </a>
               </p>

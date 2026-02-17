@@ -1,5 +1,5 @@
 # EditorConfig helps maintain consistent coding styles across different editors
-# https://editorconfig.org
+# Visit https://editorconfig.org for more information
 
 # Top-most EditorConfig file
 root = true
@@ -17,6 +17,13 @@ indent_size = 2
 [*.{js,jsx,mjs,cjs}]
 indent_style = space
 indent_size = 2
+max_line_length = 100
+
+# TypeScript files
+[*.{ts,tsx}]
+indent_style = space
+indent_size = 2
+max_line_length = 100
 
 # JSON files
 [*.json]
@@ -31,29 +38,14 @@ indent_size = 2
 # Markdown files
 [*.md]
 trim_trailing_whitespace = false
-indent_size = 2
+max_line_length = off
 
-# CSS and related files
-[*.{css,scss,sass,less}]
-indent_style = space
-indent_size = 2
-
-# HTML files
-[*.html]
-indent_style = space
-indent_size = 2
-
-# Shell scripts
-[*.sh]
-indent_style = space
-indent_size = 2
-end_of_line = lf
-
-# Makefile
-[Makefile]
-indent_style = tab
-
-# Package.json (already formatted by npm)
+# Package.json
 [package.json]
+indent_style = space
+indent_size = 2
+
+# Configuration files
+[*.config.{js,ts,mjs,cjs}]
 indent_style = space
 indent_size = 2

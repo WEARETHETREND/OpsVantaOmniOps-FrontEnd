@@ -1,193 +1,146 @@
-# Deployment Guide
+# 🚀 Deployment Guide
 
-## Overview
+**OpsVanta Web - Production Deployment on Vercel**
 
-This guide provides step-by-step instructions for deploying OpsVanta Web to production using Vercel, along with CI/CD setup and operational procedures.
+---
 
 ## Table of Contents
 
-1. [Vercel Deployment](#vercel-deployment)
-2. [Environment Variables](#environment-variables)
-3. [Domain Configuration](#domain-configuration)
-4. [CI/CD Setup](#cicd-setup)
-5. [Rollback Procedures](#rollback-procedures)
-6. [Monitoring & Observability](#monitoring--observability)
-7. [Troubleshooting](#troubleshooting)
+1. [Prerequisites](#prerequisites)
+2. [Environment Setup](#environment-setup)
+3. [Vercel Deployment](#vercel-deployment)
+4. [Environment Variables Configuration](#environment-variables-configuration)
+5. [Build Configuration](#build-configuration)
+6. [Domain Configuration](#domain-configuration)
+7. [Monitoring & Analytics](#monitoring--analytics)
+8. [Troubleshooting](#troubleshooting)
+9. [Rollback Procedures](#rollback-procedures)
+10. [Security Checklist](#security-checklist)
+
+---
+
+## Prerequisites
+
+Before deploying to Vercel, ensure you have:
+
+- ✅ **Vercel Account** - Sign up at [vercel.com](https://vercel.com)
+- ✅ **GitHub Repository Access** - Repository must be accessible to Vercel
+- ✅ **Supabase Project** - Set up at [supabase.com](https://supabase.com)
+- ✅ **Node.js 20+** - Required for local builds
+- ✅ **Git** - For version control
+
+---
+
+## Environment Setup
+
+### 1. Supabase Configuration
+
+1. Create a Supabase project at https://app.supabase.com
+2. Navigate to **Settings → API**
+3. Copy the following values:
+   - **Project URL** (e.g., `https://xxxxx.supabase.co`)
+   - **Anon/Public Key** (safe for client-side use)
+
+### 2. Local Environment Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/WEARETHETREND/omniops-frontend.git
+cd omniops-frontend
+
+# Install dependencies (IMPORTANT: use --legacy-peer-deps flag)
+npm install --legacy-peer-deps
+
+# Create environment file from template
+cp .env.example .env
+
+# Edit .env with your Supabase credentials
+nano .env  # or use your preferred editor
+```
+
+**Example .env file:**
+```env
+VITE_SUPABASE_URL=https://your-project-id.supabase.co
+VITE_SUPABASE_ANON_KEY=your-supabase-anon-key-here
+VITE_API_URL=http://localhost:8000
+```
+
+⚠️ **CRITICAL**: Never commit `.env` files to version control!
 
 ---
 
 ## Vercel Deployment
 
-### Prerequisites
+### Method 1: Deploy via Vercel Dashboard (Recommended)
 
-- Vercel account (sign up at https://vercel.com)
-- GitHub repository access
-- Supabase project configured (see [SUPABASE_SETUP.md](./SUPABASE_SETUP.md))
+1. **Connect Repository**
+   - Go to [vercel.com/new](https://vercel.com/new)
+   - Click "Import Project"
+   - Select your GitHub repository
+   - Authorize Vercel to access the repository
 
-### Initial Deployment
+2. **Configure Project**
+   - **Framework Preset**: Vite
+   - **Root Directory**: `./` (leave as default)
+   - **Build Command**: `npm install --legacy-peer-deps && npm run build`
+   - **Output Directory**: `dist`
+   - **Install Command**: `npm install --legacy-peer-deps`
 
-#### Step 1: Connect Repository to Vercel
+3. **Add Environment Variables** (see next section)
 
-1. Go to https://vercel.com/dashboard
-2. Click "Add New..." → "Project"
-3. Import your GitHub repository: `WEARETHETREND/omniops-frontend`
-4. Authorize Vercel to access your repository
+4. **Deploy**
+   - Click "Deploy"
+   - Wait for the build to complete (2-5 minutes)
+   - Your site will be live at `your-project.vercel.app`
 
-#### Step 2: Configure Build Settings
+### Method 2: Deploy via Vercel CLI
 
-Vercel should auto-detect the framework, but verify:
+```bash
+# Install Vercel CLI globally
+npm install -g vercel
 
-- **Framework Preset**: Vite
-- **Root Directory**: `./` (default)
-- **Build Command**: `npm install --legacy-peer-deps && npm run build`
-- **Output Directory**: `dist`
-- **Install Command**: `npm install --legacy-peer-deps`
+# Login to Vercel
+vercel login
 
-⚠️ **IMPORTANT**: The `--legacy-peer-deps` flag is REQUIRED due to ESLint version conflicts.
+# Deploy to production
+vercel --prod
 
-#### Step 3: Configure Environment Variables
-
-See [Environment Variables](#environment-variables) section below.
-
-#### Step 4: Deploy
-
-1. Click "Deploy"
-2. Wait for build to complete (typically 2-3 minutes)
-3. Vercel will provide a preview URL: `https://your-project.vercel.app`
+# Follow the interactive prompts
+```
 
 ---
 
-## Environment Variables
+## Environment Variables Configuration
 
-### Required Variables
+### Adding Environment Variables in Vercel
 
-Set these in Vercel Dashboard → Settings → Environment Variables:
+1. Go to your project in Vercel Dashboard
+2. Navigate to **Settings → Environment Variables**
+3. Add the following variables:
 
 | Variable | Value | Environment |
 |----------|-------|-------------|
 | `VITE_SUPABASE_URL` | Your Supabase project URL | Production, Preview, Development |
 | `VITE_SUPABASE_ANON_KEY` | Your Supabase anon key | Production, Preview, Development |
+| `VITE_API_URL` | (Optional) Backend API URL | Production only |
+| `NODE_VERSION` | `20` | Production, Preview, Development |
 
-### Setting Environment Variables
+### Environment Scopes
 
-#### Via Vercel Dashboard
-
-1. Go to your project in Vercel
-2. Navigate to **Settings** → **Environment Variables**
-3. Click "Add New"
-4. Enter:
-   - **Key**: `VITE_SUPABASE_URL`
-   - **Value**: `https://your-project.supabase.co`
-   - **Environments**: Check Production, Preview, and Development
-5. Repeat for `VITE_SUPABASE_ANON_KEY`
-6. Click "Save"
-
-#### Via Vercel CLI
-
-```bash
-# Install Vercel CLI
-npm i -g vercel
-
-# Login to Vercel
-vercel login
-
-# Set environment variables
-vercel env add VITE_SUPABASE_URL
-# Enter value when prompted
-# Select environments: Production, Preview, Development
-
-vercel env add VITE_SUPABASE_ANON_KEY
-# Enter value when prompted
-# Select environments: Production, Preview, Development
-```
-
-### Environment-Specific Configuration
-
-You can set different values for different environments:
-
-- **Production**: Live application environment
-- **Preview**: Pull request preview deployments
+- **Production**: Live site for end users
+- **Preview**: Pull request and branch deployments
 - **Development**: Local development (use `.env` file instead)
 
-### Updating Environment Variables
-
-1. Update values in Vercel Dashboard
-2. Redeploy for changes to take effect:
-   ```bash
-   vercel --prod
-   ```
+⚠️ **Security Note**: 
+- Use different Supabase projects for production and development
+- Never share production keys in public channels
+- Rotate keys immediately if compromised
 
 ---
 
-## Domain Configuration
+## Build Configuration
 
-### Adding a Custom Domain
-
-#### Step 1: Add Domain in Vercel
-
-1. Go to your project → **Settings** → **Domains**
-2. Click "Add"
-3. Enter your domain: `yourdomain.com`
-4. Click "Add"
-
-#### Step 2: Configure DNS
-
-Vercel will provide DNS configuration instructions. You have two options:
-
-**Option A: Use Vercel Nameservers (Recommended)**
-
-1. Go to your domain registrar (GoDaddy, Namecheap, etc.)
-2. Update nameservers to Vercel's:
-   ```
-   ns1.vercel-dns.com
-   ns2.vercel-dns.com
-   ```
-3. Wait for DNS propagation (up to 48 hours)
-
-**Option B: Use CNAME Record**
-
-1. Add a CNAME record:
-   - **Name**: `www` (or `@` for root)
-   - **Value**: `cname.vercel-dns.com`
-2. Add an A record for root domain:
-   - **Name**: `@`
-   - **Value**: `76.76.21.21`
-
-#### Step 3: SSL Certificate
-
-Vercel automatically provisions SSL certificates:
-- Free SSL via Let's Encrypt
-- Auto-renewal
-- HTTPS enforced automatically
-
-### Multiple Domains
-
-You can add multiple domains (e.g., `www` and root):
-
-1. Add both `yourdomain.com` and `www.yourdomain.com`
-2. Set one as primary (redirects others to it)
-3. Configure in **Settings** → **Domains**
-
----
-
-## CI/CD Setup
-
-### Automatic Deployments
-
-Vercel automatically deploys:
-- **Production**: Pushes to `main` branch
-- **Preview**: Pull requests and other branches
-
-### GitHub Integration
-
-Vercel creates:
-- ✅ Deployment status checks on PRs
-- ✅ Preview URLs for each commit
-- ✅ Automatic comments on PRs with preview links
-
-### Deployment Configuration
-
-Edit `vercel.json` for advanced configuration:
+The project uses a pre-configured `vercel.json` file with optimal settings:
 
 ```json
 {
@@ -196,335 +149,287 @@ Edit `vercel.json` for advanced configuration:
   "buildCommand": "npm install --legacy-peer-deps && npm run build",
   "outputDirectory": "dist",
   "installCommand": "npm install --legacy-peer-deps",
-  "regions": ["iad1"],
-  "env": {
-    "NODE_VERSION": "20"
-  }
+  "regions": ["iad1"]
 }
 ```
 
-### Build Hooks
+### Important Build Notes
 
-Create build hooks for external triggers:
+1. **Legacy Peer Dependencies**: The `--legacy-peer-deps` flag is **required** due to ESLint version conflicts
+2. **Build Time**: Average build time is 2-5 minutes
+3. **Node Version**: Node.js 20 is specified in `vercel.json`
 
-1. Go to **Settings** → **Git** → **Deploy Hooks**
-2. Create a hook: "Production Rebuild"
-3. Copy the webhook URL
-4. Use with external services or manual triggers:
-   ```bash
-   curl -X POST https://api.vercel.com/v1/integrations/deploy/...
-   ```
+### Verifying Local Build
 
-### GitHub Actions Integration
+Before deploying, test the build locally:
 
-Create `.github/workflows/deploy.yml` for custom workflows:
+```bash
+# Build for production
+npm run build
 
-```yaml
-name: Vercel Production Deployment
-env:
-  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+# Preview the production build
+npm run preview
 
-on:
-  push:
-    branches:
-      - main
+# Visit http://localhost:4173 to test
+```
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      
-      - name: Install Vercel CLI
-        run: npm install --global vercel@latest
-      
-      - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-      
-      - name: Build Project
-        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
-      
-      - name: Deploy to Vercel
-        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+---
+
+## Domain Configuration
+
+### 1. Add Custom Domain
+
+1. Go to **Settings → Domains** in Vercel Dashboard
+2. Click "Add Domain"
+3. Enter your domain name (e.g., `app.opsvanta.com`)
+4. Follow DNS configuration instructions
+
+### 2. DNS Configuration
+
+**For root domain (opsvanta.com):**
+```
+A Record: 76.76.21.21
+```
+
+**For subdomain (app.opsvanta.com):**
+```
+CNAME: cname.vercel-dns.com
+```
+
+### 3. SSL Certificate
+
+- Vercel automatically provisions SSL certificates
+- HTTPS is enabled by default
+- Certificate renewal is automatic
+
+---
+
+## Monitoring & Analytics
+
+### Vercel Analytics
+
+Analytics are **automatically enabled** with the `@vercel/analytics` package.
+
+**Features:**
+- Real-time visitor tracking
+- Page view analytics
+- Conversion tracking
+- Geographic data
+
+**Access Analytics:**
+1. Go to your project in Vercel Dashboard
+2. Click the "Analytics" tab
+3. View real-time and historical data
+
+### Vercel Speed Insights
+
+Speed Insights are **automatically enabled** with the `@vercel/speed-insights` package.
+
+**Metrics Tracked:**
+- First Contentful Paint (FCP)
+- Largest Contentful Paint (LCP)
+- First Input Delay (FID)
+- Cumulative Layout Shift (CLS)
+- Time to First Byte (TTFB)
+
+**Access Speed Insights:**
+1. Go to your project in Vercel Dashboard
+2. Click the "Speed Insights" tab
+3. Review Core Web Vitals
+
+### Health Checks
+
+Monitor your deployment:
+
+```bash
+# Check deployment status
+curl https://your-project.vercel.app
+
+# Expected: 200 OK response with HTML content
+```
+
+---
+
+## Troubleshooting
+
+### Build Failures
+
+#### Error: "ERESOLVE unable to resolve dependency tree"
+
+**Solution**: Ensure `--legacy-peer-deps` flag is used in build commands.
+
+```bash
+# Update build command in Vercel
+npm install --legacy-peer-deps && npm run build
+```
+
+#### Error: "Module not found"
+
+**Solution**: Clear Vercel build cache and redeploy.
+
+1. Go to **Settings → General**
+2. Scroll to "Build & Development Settings"
+3. Enable "Override" for Build Command
+4. Save and redeploy
+
+### Runtime Errors
+
+#### Error: "Supabase connection failed"
+
+**Checklist:**
+- ✅ Verify `VITE_SUPABASE_URL` is correct
+- ✅ Verify `VITE_SUPABASE_ANON_KEY` is correct
+- ✅ Check Supabase project is active
+- ✅ Verify Row Level Security (RLS) policies
+
+#### Error: "Blank page after deployment"
+
+**Solutions:**
+1. Check browser console for JavaScript errors
+2. Verify all environment variables are set
+3. Check Content Security Policy headers in `vercel.json`
+4. Test with `npm run preview` locally
+
+### Deployment Issues
+
+#### Issue: Deployments are slow
+
+**Solutions:**
+- Check dependency count (run `npm list --depth=0`)
+- Review build logs for bottlenecks
+- Consider using Vercel's edge regions
+
+#### Issue: Environment variables not updating
+
+**Solution**: Redeploy after updating environment variables.
+
+```bash
+# Trigger new deployment via CLI
+vercel --prod
+
+# Or via dashboard: Deployments → Redeploy
 ```
 
 ---
 
 ## Rollback Procedures
 
-### Via Vercel Dashboard
+### Method 1: Via Vercel Dashboard (Recommended)
 
-#### Step 1: View Deployments
+1. Go to **Deployments** tab
+2. Find the last working deployment
+3. Click the three dots (⋯) menu
+4. Select "Promote to Production"
+5. Confirm the rollback
 
-1. Go to your project in Vercel
-2. Click "Deployments" tab
-3. See list of all deployments with status
+**Rollback time**: ~30 seconds
 
-#### Step 2: Rollback to Previous Deployment
-
-1. Find the last known good deployment
-2. Click the three dots (⋯) menu
-3. Click "Promote to Production"
-4. Confirm the rollback
-
-**Time to rollback**: ~30 seconds
-
-### Via Vercel CLI
+### Method 2: Via Git Revert
 
 ```bash
-# List deployments
-vercel ls
+# Find the commit to revert to
+git log --oneline
 
-# Promote a specific deployment to production
-vercel promote <deployment-url> --scope=<team-name>
-```
+# Revert to specific commit
+git revert <commit-hash>
 
-### Git-Based Rollback
-
-```bash
-# Revert to previous commit
-git revert HEAD
+# Push to trigger new deployment
 git push origin main
-
-# Or reset to specific commit
-git reset --hard <commit-sha>
-git push --force origin main
 ```
 
-⚠️ **Warning**: Force push may trigger unintended consequences. Use `revert` when possible.
+### Emergency Rollback
 
-### Emergency Rollback Checklist
+For critical issues, use Vercel's instant rollback:
 
-- [ ] Identify the issue and last known good deployment
-- [ ] Notify team of rollback
-- [ ] Execute rollback via Vercel Dashboard or CLI
-- [ ] Verify application is working
-- [ ] Check monitoring/logs for errors
-- [ ] Update incident log
-- [ ] Schedule post-mortem
+1. Navigate to **Deployments**
+2. Click on the previous production deployment
+3. Click "Promote to Production"
+4. Deployment is instantly switched
 
 ---
 
-## Monitoring & Observability
+## Security Checklist
 
-### Built-in Vercel Monitoring
+Before going live, verify:
 
-#### Analytics
+### Environment & Secrets
+- [ ] `.env` file is NOT committed to git
+- [ ] `.env` is in `.gitignore`
+- [ ] Production keys are different from development keys
+- [ ] Environment variables are set in Vercel Dashboard
+- [ ] No secrets in source code
 
-Enable Vercel Analytics:
+### Supabase Security
+- [ ] Row Level Security (RLS) policies are enabled
+- [ ] Anonymous key is used (not service_role key)
+- [ ] Database is not publicly accessible
+- [ ] Realtime features are secured
+- [ ] Storage buckets have proper policies
 
-1. Go to **Analytics** tab in your project
-2. Enable Web Analytics
-3. Add to your app:
-   ```bash
-   npm install @vercel/analytics
-   ```
+### Application Security
+- [ ] Content Security Policy (CSP) is configured
+- [ ] HTTPS is enforced (automatic on Vercel)
+- [ ] Security headers are set in `vercel.json`
+- [ ] Error boundaries catch runtime errors
+- [ ] Sensitive data is not logged
+- [ ] CORS policies are configured
 
-4. Update `src/main.jsx`:
-   ```javascript
-   import { inject } from '@vercel/analytics';
-   inject();
-   ```
+### Dependencies
+- [ ] Run `npm audit` regularly
+- [ ] All dependencies are up to date
+- [ ] No known vulnerabilities (check `npm audit`)
+- [ ] Dependabot is enabled on GitHub
 
-#### Speed Insights
+---
 
-Enable Vercel Speed Insights:
+## Post-Deployment Checklist
 
-1. Go to **Speed Insights** tab
-2. Enable it
-3. Add to your app:
-   ```bash
-   npm install @vercel/speed-insights
-   ```
+After successful deployment:
 
-4. Update `src/main.jsx`:
-   ```javascript
-   import { injectSpeedInsights } from '@vercel/speed-insights';
-   injectSpeedInsights();
-   ```
+1. ✅ Test all major user flows
+2. ✅ Verify environment variables are working
+3. ✅ Check Analytics is tracking visits
+4. ✅ Verify Speed Insights is collecting data
+5. ✅ Test on multiple devices and browsers
+6. ✅ Check SSL certificate is valid
+7. ✅ Verify custom domain is working
+8. ✅ Monitor error logs for issues
+9. ✅ Set up uptime monitoring (optional)
+10. ✅ Document deployment for team
 
-### External Monitoring
+---
 
-#### Sentry Error Tracking
+## Support & Resources
 
-1. Sign up at https://sentry.io
-2. Create a new project
-3. Install Sentry:
-   ```bash
-   npm install @sentry/react
-   ```
+### Documentation
+- [Vercel Documentation](https://vercel.com/docs)
+- [Supabase Documentation](https://supabase.com/docs)
+- [Vite Documentation](https://vitejs.dev/guide/)
 
-4. Configure in `src/main.jsx`:
-   ```javascript
-   import * as Sentry from "@sentry/react";
-   
-   Sentry.init({
-     dsn: "your-sentry-dsn",
-     environment: import.meta.env.MODE,
-     tracesSampleRate: 1.0,
-   });
-   ```
+### Contact
+- **General Support**: support@opsvanta.com
+- **Security Issues**: security@opsvanta.com
+- **Enterprise Support**: young.monte@omniops-ai.com
 
-#### Uptime Monitoring
-
-Recommended services:
-- **UptimeRobot**: https://uptimerobot.com (Free tier available)
-- **Pingdom**: https://www.pingdom.com
-- **StatusCake**: https://www.statuscake.com
-
-### Logs
-
-#### View Deployment Logs
-
-1. Vercel Dashboard → Deployments
-2. Click on a deployment
-3. View build logs and function logs
-
-#### Runtime Logs
+### Useful Commands
 
 ```bash
-# Stream logs in real-time
-vercel logs <deployment-url> --follow
+# View deployment logs
+vercel logs <deployment-url>
 
-# Get recent logs
-vercel logs <deployment-url> --since 1h
+# List all deployments
+vercel list
+
+# Remove a deployment
+vercel remove <deployment-id>
+
+# Inspect deployment details
+vercel inspect <deployment-url>
 ```
-
-### Performance Monitoring
-
-Check these metrics regularly:
-- **Lighthouse Score**: Aim for >90
-- **Time to First Byte (TTFB)**: <200ms
-- **First Contentful Paint (FCP)**: <1.5s
-- **Largest Contentful Paint (LCP)**: <2.5s
-- **Cumulative Layout Shift (CLS)**: <0.1
 
 ---
 
-## Troubleshooting
+**Last Updated**: February 2026  
+**Maintained By**: WEARETHETREND / OpsVanta LLC
 
-### Common Deployment Issues
-
-#### 1. Build Failing with Dependency Errors
-
-**Symptom**: `ERESOLVE could not resolve` errors
-
-**Solution**:
-```bash
-# Ensure build command uses --legacy-peer-deps
-npm install --legacy-peer-deps && npm run build
-```
-
-Update `vercel.json`:
-```json
-{
-  "buildCommand": "npm install --legacy-peer-deps && npm run build",
-  "installCommand": "npm install --legacy-peer-deps"
-}
-```
-
-#### 2. Environment Variables Not Available
-
-**Symptom**: `undefined` errors for `import.meta.env.VITE_*`
-
-**Solution**:
-- Verify environment variables are set in Vercel Dashboard
-- Ensure variable names start with `VITE_`
-- Redeploy after adding variables
-- Check correct environment (Production/Preview/Development)
-
-#### 3. 404 Errors on Page Refresh
-
-**Symptom**: Direct URL access returns 404
-
-**Solution**:
-Ensure `vercel.json` has SPA rewrites:
-```json
-{
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ]
-}
-```
-
-#### 4. Supabase Connection Errors
-
-**Symptom**: "Invalid API key" or CORS errors
-
-**Solution**:
-- Verify Supabase URL in environment variables
-- Check CORS settings in Supabase Dashboard
-- Add Vercel domain to Supabase allowed origins:
-  - Dashboard → Authentication → URL Configuration
-  - Add: `https://your-domain.vercel.app`
-
-#### 5. Slow Build Times
-
-**Symptom**: Builds taking >5 minutes
-
-**Solution**:
-- Optimize dependencies (remove unused packages)
-- Check for large files in repository
-- Use proper `.gitignore` patterns
-- Consider using Vercel's build cache
-
-### Getting Help
-
-- **Vercel Support**: https://vercel.com/support
-- **Community Discord**: https://vercel.com/discord
-- **Documentation**: https://vercel.com/docs
-- **OpsVanta Support**: contact@opsvanta.com
-
----
-
-## Best Practices
-
-### Pre-Deployment Checklist
-
-- [ ] All tests passing locally
-- [ ] Linter passes: `npm run lint`
-- [ ] Build succeeds: `npm run build`
-- [ ] Environment variables documented
-- [ ] No secrets in code
-- [ ] `.env` not committed
-- [ ] Dependencies up to date (security patches)
-- [ ] Change log updated
-- [ ] Team notified of deployment
-
-### Production Readiness
-
-- [ ] Custom domain configured
-- [ ] SSL certificate active
-- [ ] Environment variables set correctly
-- [ ] Monitoring enabled (Analytics, Speed Insights)
-- [ ] Error tracking configured (Sentry)
-- [ ] Backup strategy defined
-- [ ] Rollback procedure tested
-- [ ] Performance metrics baseline established
-
-### Security Checklist
-
-- [ ] HTTPS enforced
-- [ ] Security headers configured in `vercel.json`
-- [ ] No secrets in frontend code
-- [ ] Supabase RLS policies enabled
-- [ ] Authentication working correctly
-- [ ] CORS properly configured
-- [ ] Dependencies have no known vulnerabilities
-
----
-
-## Additional Resources
-
-- **Vercel Documentation**: https://vercel.com/docs
-- **Vite Deployment Guide**: https://vitejs.dev/guide/static-deploy.html
-- **Supabase Setup**: [SUPABASE_SETUP.md](./SUPABASE_SETUP.md)
-- **Main README**: [README.md](./README.md)
-
----
-
-**© 2026 OpsVanta LLC - Proprietary and Confidential**
+For the latest deployment guide, visit the repository README.
