@@ -1,3 +1,17 @@
+/**
+ * PROPRIETARY AND CONFIDENTIAL - TRADE SECRET
+ *
+ * © 2026 WEARETHETREND / OpsVanta LLC
+ * ALL RIGHTS RESERVED
+ *
+ * UNAUTHORIZED ACCESS, USE, COPYING, OR DISTRIBUTION PROHIBITED
+ *
+ * This file contains trade secrets and confidential information.
+ * Violators will be prosecuted under trade secret law.
+ *
+ * Authorized use only. See COPYRIGHT.md for terms.
+ */
+
 import js from '@eslint/js';
 import globals from 'globals';
 import reactHooks from 'eslint-plugin-react-hooks';
@@ -5,7 +19,7 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import { defineConfig, globalIgnores } from 'eslint/config';
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(['dist', 'docs-site/**']),
   {
     files: ['**/*.{js,jsx}'],
     extends: [
@@ -24,6 +38,10 @@ export default defineConfig([
     },
     rules: {
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      'react-refresh/only-export-components': [
+        'warn',
+        { allowConstantExport: true, allowExportNames: ['useToast'] },
+      ],
     },
   },
 ]);

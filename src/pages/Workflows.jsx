@@ -1,17 +1,20 @@
 /**
  * PROPRIETARY AND CONFIDENTIAL - TRADE SECRET
  * 
- * © 2026 WEARETHETREND / OpsVanta LLC
+ * © 2026 OpsVanta LLC
  * ALL RIGHTS RESERVED
  * 
- * UNAUTHORIZED USE PROHIBITED
+ * UNAUTHORIZED ACCESS, USE, OR DISTRIBUTION PROHIBITED
  * 
- * This file contains trade secrets. Violators will be prosecuted.
- * See COPYRIGHT.md for terms.
+ * This file contains trade secrets and confidential information.
+ * Violators will be prosecuted under trade secret law.
+ * 
+ * For licensing: contact@opsvanta.com
  */
 
+
 import { useEffect, useState } from 'react';
-import { getWorkflows } from '../api/omniops';
+import { getWorkflows } from '../api/opsvanta';
 
 export default function Workflows() {
   const [workflows, setWorkflows] = useState([]);

@@ -1,14 +1,17 @@
 /**
  * PROPRIETARY AND CONFIDENTIAL - TRADE SECRET
  * 
- * © 2026 WEARETHETREND / OpsVanta LLC
+ * © 2026 OpsVanta LLC
  * ALL RIGHTS RESERVED
  * 
- * UNAUTHORIZED USE PROHIBITED
+ * UNAUTHORIZED ACCESS, USE, OR DISTRIBUTION PROHIBITED
  * 
- * This file contains trade secrets. Violators will be prosecuted.
- * See COPYRIGHT.md for terms.
+ * This file contains trade secrets and confidential information.
+ * Violators will be prosecuted under trade secret law.
+ * 
+ * For licensing: contact@opsvanta.com
  */
+
 
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -44,9 +47,9 @@ export default function BuilderDashboard() {
         <div className="mx-auto max-w-7xl px-6 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">🚀 AI Website Builder</h1>
+              <h1 className="text-2xl font-bold text-gray-900">🚀 OpsVanta Website Builder</h1>
               <p className="mt-1 text-sm text-gray-600">
-                Create stunning websites with AI in minutes
+                Create stunning websites with AI in minutes - Powered by OpsVanta
               </p>
             </div>
 

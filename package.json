@@ -1,7 +1,10 @@
 {
-  "name": "omniops-frontend",
+  "name": "opsvanta-web",
   "license": "UNLICENSED",
   "private": true,
+  "author": "WEARETHETREND / OpsVanta LLC",
+  "copyright": "© 2026 WEARETHETREND / OpsVanta LLC. All Rights Reserved.",
+  "confidential": true,
   "version": "0.0.0",
   "type": "module",
   "author": "WEARETHETREND / OpsVanta LLC",
@@ -18,7 +21,9 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.95.3",
-    "lucide-react": "^0.563.0",
+    "@vercel/analytics": "^1.6.1",
+    "@vercel/speed-insights": "^1.3.1",
+    "lucide-react": "^0.564.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-router-dom": "^7.10.1"

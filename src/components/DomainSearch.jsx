@@ -1,18 +1,21 @@
 /**
  * PROPRIETARY AND CONFIDENTIAL - TRADE SECRET
  * 
- * © 2026 WEARETHETREND / OpsVanta LLC
+ * © 2026 OpsVanta LLC
  * ALL RIGHTS RESERVED
  * 
- * UNAUTHORIZED USE PROHIBITED
+ * UNAUTHORIZED ACCESS, USE, OR DISTRIBUTION PROHIBITED
  * 
- * This file contains trade secrets. Violators will be prosecuted.
- * See COPYRIGHT.md for terms.
+ * This file contains trade secrets and confidential information.
+ * Violators will be prosecuted under trade secret law.
+ * 
+ * For licensing: contact@opsvanta.com
  */
+
 
 import { useState } from 'react';
 import { Search, Globe, Check, X, ExternalLink, Shield } from 'lucide-react';
-import { searchDomains, connectDomain } from '../api/omniops';
+import { searchDomains, connectDomain } from '../api/opsvanta';
 
 export default function DomainSearch({ projectId, onConnected }) {
   const [query, setQuery] = useState('');

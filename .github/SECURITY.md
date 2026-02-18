@@ -2,19 +2,42 @@
 
 ## 🚨 UNAUTHORIZED ACCESS IS ILLEGAL
 
-This is a private repository containing trade secrets. Unauthorized access is a federal crime.
+If you have accessed this repository without authorization, you are in violation of trade secret law. Contact contact@opsvanta.com immediately.
 
-## 🔐 For Authorized Users Only
+## 🔐 Reporting Security Issues
 
-Security issues: security@omniops-ai.com
+**For authorized users only:**
+
+📧 **Email:** contact@opsvanta.com
 
 **DO NOT:**
-- Open public issues
-- Discuss on social media  
-- Disclose to third parties
+- ❌ Open public GitHub issues
+- ❌ Discuss on social media
+- ❌ Post to security forums
+- ❌ Disclose to anyone outside OpsVanta
 
-## ⚖️ Legal Notice
+## ⚖️ Responsible Disclosure Policy
+
+We do NOT have a bug bounty program.
+
+Authorized security researchers must:
+1. Have signed NDA before testing
+2. Obtain written permission before testing
+3. Report findings confidentially
+4. Not disclose for 90 days minimum
 
 Unauthorized testing is considered hacking and will be prosecuted.
 
-All findings are confidential and subject to NDA.
+## 🛡️ Confidentiality Requirements
+
+All users with access must:
+- Treat all code, designs, and documentation as CONFIDENTIAL
+- Not share screenshots, recordings, or descriptions
+- Not discuss implementation details publicly
+- Report any suspected breaches immediately
+
+Violation of confidentiality may result in:
+- Immediate access revocation
+- Civil litigation
+- Criminal prosecution
+- Financial damages
