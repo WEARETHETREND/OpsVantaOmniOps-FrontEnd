@@ -82,6 +82,20 @@ Configured in `package.json`:
 
 ## Testing Approach
 
+### App Builder Health Check
+
+Run the full App Builder readiness check (API function export validation + lint + production build):
+
+```bash
+npm run health:app-builder
+```
+
+If you only need to verify the App Builder API functions are exported correctly:
+
+```bash
+npm run health:functions
+```
+
 ### 1. Static Analysis
 
 **ESLint** catches common errors:
