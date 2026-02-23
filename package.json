@@ -7,8 +7,6 @@
   "confidential": true,
   "version": "0.0.0",
   "type": "module",
-  "author": "WEARETHETREND / OpsVanta LLC",
-  "copyright": "© 2026 WEARETHETREND / OpsVanta LLC. All Rights Reserved.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -17,7 +15,9 @@
     "format": "prettier --write \"**/*.{js,jsx,json,css,md}\"",
     "format:check": "prettier --check \"**/*.{js,jsx,json,css,md}\"",
     "preview": "vite preview",
-    "prepare": "husky"
+    "prepare": "husky",
+    "health:functions": "node scripts/check-app-builder-health.mjs",
+    "health:app-builder": "npm run health:functions && npm run lint && npm run build"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.95.3",
@@ -29,13 +29,13 @@
     "react-router-dom": "^7.10.1"
   },
   "devDependencies": {
-    "@eslint/js": "^10.0.1",
+    "@eslint/js": "^9.39.0",
     "@tailwindcss/postcss": "^4.1.18",
     "@types/react": "^19.2.13",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.4",
     "autoprefixer": "^10.4.24",
-    "eslint": "^10.0.0",
+    "eslint": "^9.39.0",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.0",
     "globals": "^17.3.0",
