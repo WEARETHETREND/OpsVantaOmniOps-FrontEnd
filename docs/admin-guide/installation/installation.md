@@ -5,6 +5,7 @@ Complete guide to installing and setting up OpsVanta.
 ## Prerequisites
 
 ### System Requirements
+
 - Node.js 18+ installed
 - npm 8+ or yarn
 - Git 2.x+
@@ -14,6 +15,7 @@ Complete guide to installing and setting up OpsVanta.
 See [System Requirements](./system-requirements.md) for complete details.
 
 ### Required Services
+
 - PostgreSQL 14+ (optional for self-hosted)
 - Redis 6+ (optional for self-hosted)
 - AWS S3 or compatible storage
@@ -29,7 +31,7 @@ git clone https://github.com/WEARETHETREND/omniops-frontend.git
 cd omniops-frontend
 
 # Install dependencies
-npm install --legacy-peer-deps
+npm install
 
 # Configure environment
 cp .env.example .env
@@ -45,7 +47,7 @@ Visit http://localhost:5173
 
 ```bash
 # Install dependencies
-npm install --legacy-peer-deps
+npm install
 
 # Build for production
 npm run build
@@ -66,20 +68,23 @@ cd omniops-frontend
 ### Step 2: Install Dependencies
 
 **Using npm:**
+
 ```bash
-npm install --legacy-peer-deps
+npm install
 ```
 
 **Using yarn:**
+
 ```bash
 yarn install
 ```
 
-**Note:** Use `--legacy-peer-deps` due to ESLint version conflicts.
+**Note:** All peer dependencies are compatible with the current package versions.
 
 ### Step 3: Environment Configuration
 
 Copy the example environment file:
+
 ```bash
 cp .env.example .env
 ```
@@ -115,12 +120,14 @@ This creates a `dist/` directory with production files.
 #### Option 1: Static Hosting (Vercel, Netlify)
 
 **Vercel:**
+
 ```bash
 npm install -g vercel
 vercel --prod
 ```
 
 **Netlify:**
+
 ```bash
 npm install -g netlify-cli
 netlify deploy --prod
@@ -188,12 +195,14 @@ Application should be accessible and functional at configured URL.
 ### Build Fails
 
 **Error: "Cannot find module"**
+
 ```bash
 rm -rf node_modules package-lock.json
-npm install --legacy-peer-deps
+npm install
 ```
 
 **Error: "EACCES permission denied"**
+
 ```bash
 sudo chown -R $USER ~/.npm
 ```
@@ -201,11 +210,13 @@ sudo chown -R $USER ~/.npm
 ### Runtime Errors
 
 **Blank page after deployment:**
+
 - Check browser console for errors
 - Verify BASE_URL in vite.config.js
 - Ensure environment variables are set
 
 **API connection fails:**
+
 - Verify VITE_API_URL is correct
 - Check CORS configuration
 - Ensure API is accessible
@@ -219,7 +230,7 @@ sudo chown -R $USER ~/.npm
 git pull origin main
 
 # Update dependencies
-npm install --legacy-peer-deps
+npm install
 
 # Rebuild
 npm run build
@@ -250,6 +261,7 @@ rm ~/.opsvanta
 ## Support
 
 **Installation Help:**
+
 - 📧 Email: support@opsvanta.com
 - 💬 Discord: #installation-help
 - 📖 Docs: [docs.opsvanta.com](https://docs.opsvanta.com)

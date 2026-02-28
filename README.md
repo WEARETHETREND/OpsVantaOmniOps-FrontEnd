@@ -55,8 +55,8 @@ See [COPYRIGHT.md](./COPYRIGHT.md) for complete legal terms.
 git clone https://github.com/WEARETHETREND/omniops-frontend.git
 cd omniops-frontend
 
-# Install dependencies (use --legacy-peer-deps due to eslint version conflicts)
-npm install --legacy-peer-deps
+# Install dependencies
+npm install
 
 # Set up environment variables
 cp .env.example .env
@@ -122,10 +122,11 @@ OpsVanta uses Supabase for authentication, database, and real-time features.
      - **Anon/Public Key**: `eyJhbGciOiJI...` (safe for client-side)
 
 3. **Configure Environment Variables**
+
    ```bash
    # Copy .env.example to .env
    cp .env.example .env
-   
+
    # Edit .env and add your Supabase credentials
    VITE_SUPABASE_URL=https://your-project-id.supabase.co
    VITE_SUPABASE_ANON_KEY=your-supabase-anon-key-here
@@ -163,6 +164,7 @@ OpsVanta supports multiple authentication methods:
 - ✅ **OAuth Providers** - Google, GitHub, etc.
 
 **Enable Auth Providers:**
+
 1. Go to **Authentication → Providers** in Supabase
 2. Enable your desired providers
 3. Configure redirect URLs
@@ -185,6 +187,7 @@ CREATE POLICY "Users access own data" ON your_table_name
 #### Issue: "Failed to connect to Supabase"
 
 **Solutions:**
+
 1. ✅ Verify `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` are correct
 2. ✅ Ensure variables are prefixed with `VITE_` (required for Vite)
 3. ✅ Restart development server after changing `.env`
@@ -193,6 +196,7 @@ CREATE POLICY "Users access own data" ON your_table_name
 #### Issue: "Authentication failed"
 
 **Solutions:**
+
 1. ✅ Verify authentication provider is enabled in Supabase
 2. ✅ Check email confirmation settings
 3. ✅ Review Supabase Auth logs in dashboard
@@ -201,6 +205,7 @@ CREATE POLICY "Users access own data" ON your_table_name
 #### Issue: "Database query permission denied"
 
 **Solutions:**
+
 1. ✅ Enable Row Level Security (RLS) policies
 2. ✅ Verify user is authenticated
 3. ✅ Check policy conditions match your query
@@ -209,6 +214,7 @@ CREATE POLICY "Users access own data" ON your_table_name
 #### Issue: "CORS errors"
 
 **Solutions:**
+
 1. ✅ Add your domain to Supabase **Authentication → URL Configuration**
 2. ✅ Include `http://localhost:5173` for local development
 3. ✅ Add production domain for deployment
@@ -337,12 +343,14 @@ omniops-frontend/
 - lint-staged - Pre-commit checks
 
 **Performance & Monitoring:**
+
 - Vercel Analytics - Real-time visitor tracking
 - Vercel Speed Insights - Core Web Vitals monitoring
 - React Error Boundaries - Error handling
 - Code splitting & lazy loading - Performance optimization
 
 **Deployment:**
+
 - Vercel - Primary deployment platform (see [DEPLOYMENT.md](./DEPLOYMENT.md))
 - AWS - Cloud infrastructure
 - GitHub Actions - CI/CD pipelines
@@ -457,14 +465,14 @@ For dedicated support, contact: young.monte@omniops-ai.com
 
 **Problem**: `ERESOLVE could not resolve` error when installing dependencies
 
-**Solution**: Always use the `--legacy-peer-deps` flag:
+**Solution**: Ensure all dependencies are up to date and compatible:
 
 ```bash
-npm install --legacy-peer-deps
+npm install
 npm run build
 ```
 
-This is required due to ESLint version conflicts and is documented in all build commands.
+All peer dependencies are resolved and compatible with the current package versions.
 
 #### Supabase Connection Errors
 
@@ -501,7 +509,7 @@ This is required due to ESLint version conflicts and is documented in all build 
 
 **Solutions**:
 
-1. Clear node_modules and reinstall: `rm -rf node_modules && npm install --legacy-peer-deps`
+1. Clear node_modules and reinstall: `rm -rf node_modules && npm install`
 2. Clear Vite cache: `rm -rf node_modules/.vite`
 3. Ensure no large files in `src/` directory
 4. Check `.gitignore` excludes `node_modules` and `dist`
@@ -538,6 +546,7 @@ For comprehensive deployment instructions, see **[DEPLOYMENT.md](./DEPLOYMENT.md
 5. Deploy!
 
 **Key Features:**
+
 - ✅ Automatic deployments on git push
 - ✅ Built-in Analytics and Speed Insights
 - ✅ Global CDN for fast delivery
@@ -547,8 +556,8 @@ For comprehensive deployment instructions, see **[DEPLOYMENT.md](./DEPLOYMENT.md
 ### Production Build
 
 ```bash
-# Create production build (requires --legacy-peer-deps)
-npm install --legacy-peer-deps
+# Create production build
+npm install
 npm run build
 
 # Preview production build locally
@@ -568,7 +577,7 @@ docker run -p 8080:80 opsvanta-frontend
 ### Other Deployment Options
 
 - **AWS**: See [Deployment Guide](./docs/admin-guide/deployment.md)
-- **Netlify**: Configure build command with `--legacy-peer-deps` flag
+- **Netlify**: Configure build command as `npm run build`
 - **Custom Server**: Deploy `dist` folder to any static hosting
 
 ### Environment Variables for Production
