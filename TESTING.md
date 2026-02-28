@@ -347,7 +347,7 @@ Run all quality checks:
 
 ```bash
 # Install dependencies
-npm install --legacy-peer-deps
+npm install
 
 # Run linter
 npm run lint

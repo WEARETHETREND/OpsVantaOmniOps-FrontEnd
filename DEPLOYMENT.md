@@ -48,8 +48,8 @@ Before deploying to Vercel, ensure you have:
 git clone https://github.com/WEARETHETREND/omniops-frontend.git
 cd omniops-frontend
 
-# Install dependencies (IMPORTANT: use --legacy-peer-deps flag)
-npm install --legacy-peer-deps
+# Install dependencies
+npm install
 
 # Create environment file from template
 cp .env.example .env
@@ -59,6 +59,7 @@ nano .env  # or use your preferred editor
 ```
 
 **Example .env file:**
+
 ```env
 VITE_SUPABASE_URL=https://your-project-id.supabase.co
 VITE_SUPABASE_ANON_KEY=your-supabase-anon-key-here
@@ -82,9 +83,9 @@ VITE_API_URL=http://localhost:8000
 2. **Configure Project**
    - **Framework Preset**: Vite
    - **Root Directory**: `./` (leave as default)
-   - **Build Command**: `npm install --legacy-peer-deps && npm run build`
+   - **Build Command**: `npm run build`
    - **Output Directory**: `dist`
-   - **Install Command**: `npm install --legacy-peer-deps`
+   - **Install Command**: `npm install`
 
 3. **Add Environment Variables** (see next section)
 
@@ -118,12 +119,12 @@ vercel --prod
 2. Navigate to **Settings → Environment Variables**
 3. Add the following variables:
 
-| Variable | Value | Environment |
-|----------|-------|-------------|
-| `VITE_SUPABASE_URL` | Your Supabase project URL | Production, Preview, Development |
-| `VITE_SUPABASE_ANON_KEY` | Your Supabase anon key | Production, Preview, Development |
-| `VITE_API_URL` | (Optional) Backend API URL | Production only |
-| `NODE_VERSION` | `20` | Production, Preview, Development |
+| Variable                 | Value                      | Environment                      |
+| ------------------------ | -------------------------- | -------------------------------- |
+| `VITE_SUPABASE_URL`      | Your Supabase project URL  | Production, Preview, Development |
+| `VITE_SUPABASE_ANON_KEY` | Your Supabase anon key     | Production, Preview, Development |
+| `VITE_API_URL`           | (Optional) Backend API URL | Production only                  |
+| `NODE_VERSION`           | `20`                       | Production, Preview, Development |
 
 ### Environment Scopes
 
@@ -131,7 +132,8 @@ vercel --prod
 - **Preview**: Pull request and branch deployments
 - **Development**: Local development (use `.env` file instead)
 
-⚠️ **Security Note**: 
+⚠️ **Security Note**:
+
 - Use different Supabase projects for production and development
 - Never share production keys in public channels
 - Rotate keys immediately if compromised
@@ -146,16 +148,16 @@ The project uses a pre-configured `vercel.json` file with optimal settings:
 {
   "version": 2,
   "framework": "vite",
-  "buildCommand": "npm install --legacy-peer-deps && npm run build",
+  "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "installCommand": "npm install --legacy-peer-deps",
+  "installCommand": "npm install",
   "regions": ["iad1"]
 }
 ```
 
 ### Important Build Notes
 
-1. **Legacy Peer Dependencies**: The `--legacy-peer-deps` flag is **required** due to ESLint version conflicts
+1. **Peer Dependencies**: All dependencies are compatible — no legacy peer deps flag required
 2. **Build Time**: Average build time is 2-5 minutes
 3. **Node Version**: Node.js 20 is specified in `vercel.json`
 
@@ -187,11 +189,13 @@ npm run preview
 ### 2. DNS Configuration
 
 **For root domain (opsvanta.com):**
+
 ```
 A Record: 76.76.21.21
 ```
 
 **For subdomain (app.opsvanta.com):**
+
 ```
 CNAME: cname.vercel-dns.com
 ```
@@ -211,12 +215,14 @@ CNAME: cname.vercel-dns.com
 Analytics are **automatically enabled** with the `@vercel/analytics` package.
 
 **Features:**
+
 - Real-time visitor tracking
 - Page view analytics
 - Conversion tracking
 - Geographic data
 
 **Access Analytics:**
+
 1. Go to your project in Vercel Dashboard
 2. Click the "Analytics" tab
 3. View real-time and historical data
@@ -226,6 +232,7 @@ Analytics are **automatically enabled** with the `@vercel/analytics` package.
 Speed Insights are **automatically enabled** with the `@vercel/speed-insights` package.
 
 **Metrics Tracked:**
+
 - First Contentful Paint (FCP)
 - Largest Contentful Paint (LCP)
 - First Input Delay (FID)
@@ -233,6 +240,7 @@ Speed Insights are **automatically enabled** with the `@vercel/speed-insights` p
 - Time to First Byte (TTFB)
 
 **Access Speed Insights:**
+
 1. Go to your project in Vercel Dashboard
 2. Click the "Speed Insights" tab
 3. Review Core Web Vitals
@@ -256,11 +264,12 @@ curl https://your-project.vercel.app
 
 #### Error: "ERESOLVE unable to resolve dependency tree"
 
-**Solution**: Ensure `--legacy-peer-deps` flag is used in build commands.
+**Solution**: Ensure all packages are at compatible versions. All peer dependencies are already resolved in the current `package.json`.
 
 ```bash
-# Update build command in Vercel
-npm install --legacy-peer-deps && npm run build
+# Reinstall dependencies
+npm install
+npm run build
 ```
 
 #### Error: "Module not found"
@@ -277,6 +286,7 @@ npm install --legacy-peer-deps && npm run build
 #### Error: "Supabase connection failed"
 
 **Checklist:**
+
 - ✅ Verify `VITE_SUPABASE_URL` is correct
 - ✅ Verify `VITE_SUPABASE_ANON_KEY` is correct
 - ✅ Check Supabase project is active
@@ -285,6 +295,7 @@ npm install --legacy-peer-deps && npm run build
 #### Error: "Blank page after deployment"
 
 **Solutions:**
+
 1. Check browser console for JavaScript errors
 2. Verify all environment variables are set
 3. Check Content Security Policy headers in `vercel.json`
@@ -295,6 +306,7 @@ npm install --legacy-peer-deps && npm run build
 #### Issue: Deployments are slow
 
 **Solutions:**
+
 - Check dependency count (run `npm list --depth=0`)
 - Review build logs for bottlenecks
 - Consider using Vercel's edge regions
@@ -353,6 +365,7 @@ For critical issues, use Vercel's instant rollback:
 Before going live, verify:
 
 ### Environment & Secrets
+
 - [ ] `.env` file is NOT committed to git
 - [ ] `.env` is in `.gitignore`
 - [ ] Production keys are different from development keys
@@ -360,6 +373,7 @@ Before going live, verify:
 - [ ] No secrets in source code
 
 ### Supabase Security
+
 - [ ] Row Level Security (RLS) policies are enabled
 - [ ] Anonymous key is used (not service_role key)
 - [ ] Database is not publicly accessible
@@ -367,6 +381,7 @@ Before going live, verify:
 - [ ] Storage buckets have proper policies
 
 ### Application Security
+
 - [ ] Content Security Policy (CSP) is configured
 - [ ] HTTPS is enforced (automatic on Vercel)
 - [ ] Security headers are set in `vercel.json`
@@ -375,6 +390,7 @@ Before going live, verify:
 - [ ] CORS policies are configured
 
 ### Dependencies
+
 - [ ] Run `npm audit` regularly
 - [ ] All dependencies are up to date
 - [ ] No known vulnerabilities (check `npm audit`)
@@ -402,11 +418,13 @@ After successful deployment:
 ## Support & Resources
 
 ### Documentation
+
 - [Vercel Documentation](https://vercel.com/docs)
 - [Supabase Documentation](https://supabase.com/docs)
 - [Vite Documentation](https://vitejs.dev/guide/)
 
 ### Contact
+
 - **General Support**: support@opsvanta.com
 - **Security Issues**: security@opsvanta.com
 - **Enterprise Support**: young.monte@omniops-ai.com
