@@ -12,22 +12,18 @@
  * For licensing: contact@opsvanta.com
  */
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
-
-if (!import.meta.env.VITE_API_URL) {
-  console.warn('VITE_API_URL is not defined. Falling back to http://localhost:8000');
-}
+import { API_URL } from './config';
 
 async function request(path, options = {}) {
   const res = await fetch(`${API_URL}${path}`, options);
   if (!res.ok) {
     throw new Error(`Request failed (${res.status}) for ${path}`);
   }
-  if (res.status === 204 || res.headers.get('Content-Length') === '0') {
+  if (res.status === 204 || res.headers.get('Content-Length')?.trim() === '0') {
     return null;
   }
   const contentType = res.headers.get('Content-Type');
-  if (!contentType || !contentType.includes('application/json')) {
+  if (!contentType || !contentType.toLowerCase().includes('application/json')) {
     return null;
   }
   return res.json();
