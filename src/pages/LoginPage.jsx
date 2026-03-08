@@ -12,4 +12,16 @@
  * For licensing: contact@opsvanta.com
  */
 
+import { useNavigate } from 'react-router-dom';
+import Login from './Login';
 
+export default function LoginPage() {
+  const navigate = useNavigate();
+
+  const handleLogin = (token) => {
+    localStorage.setItem('opsvanta_token', token);
+    navigate('/builder');
+  };
+
+  return <Login onLogin={handleLogin} />;
+}
