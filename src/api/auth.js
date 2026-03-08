@@ -12,11 +12,10 @@
  * For licensing: contact@opsvanta.com
  */
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
-const API_URL = import.meta.env.VITE_API_URL;
-
-if (!API_URL) {
-  throw new Error('VITE_API_URL is not defined');
+if (!import.meta.env.VITE_API_URL) {
+  console.warn('VITE_API_URL is not defined. Falling back to http://localhost:8000');
 }
 
 export async function login(email, password) {

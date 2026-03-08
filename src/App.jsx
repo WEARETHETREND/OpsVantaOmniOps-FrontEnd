@@ -12,14 +12,23 @@
  * For licensing: contact@opsvanta.com
  */
 
-
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import ErrorBoundary from './components/ErrorBoundary';
+import Layout from './components/Layout';
 
 // Lazy load page components for better performance
 const BuilderDashboard = lazy(() => import('./pages/BuilderDashboard'));
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const Domains = lazy(() => import('./pages/Domains'));
+const JobsPage = lazy(() => import('./pages/JobsPage'));
+const LoginPage = lazy(() => import('./pages/LoginPage'));
 const Projects = lazy(() => import('./pages/Projects'));
+const ReportsPage = lazy(() => import('./pages/ReportsPage'));
+const RoutesPage = lazy(() => import('./pages/RoutesPage'));
+const SettingsPage = lazy(() => import('./pages/SettingsPage'));
+const TechniciansPage = lazy(() => import('./pages/TechniciansPage'));
+const Workflows = lazy(() => import('./pages/Workflows'));
 
 // Loading component
 const LoadingFallback = () => (
@@ -31,6 +40,15 @@ const LoadingFallback = () => (
   </div>
 );
 
+const NotFoundPage = () => (
+  <div className="p-8 text-center">
+    <h1 className="text-2xl font-bold">Page not found</h1>
+    <p className="mt-2 text-gray-600">The page you requested does not exist.</p>
+  </div>
+);
+
+const AppShell = ({ children }) => <Layout>{children}</Layout>;
+
 export default function App() {
   return (
     <ErrorBoundary>
@@ -38,24 +56,41 @@ export default function App() {
         <Suspense fallback={<LoadingFallback />}>
           <Routes>
             <Route path="/" element={<Navigate to="/builder" replace />} />
-            <Route path="/builder" element={<BuilderDashboard />} />
-            <Route path="/projects" element={<Projects />} />
+            <Route path="/login" element={<LoginPage />} />
+
+            <Route path="/builder" element={<AppShell><BuilderDashboard /></AppShell>} />
+            <Route path="/dashboard" element={<AppShell><Dashboard /></AppShell>} />
+            <Route path="/projects" element={<AppShell><Projects /></AppShell>} />
+            <Route path="/workflows" element={<AppShell><Workflows /></AppShell>} />
+            <Route path="/domains" element={<AppShell><Domains /></AppShell>} />
+            <Route path="/technicians" element={<AppShell><TechniciansPage /></AppShell>} />
+            <Route path="/jobs" element={<AppShell><JobsPage /></AppShell>} />
+            <Route path="/routes" element={<AppShell><RoutesPage /></AppShell>} />
+            <Route path="/reports" element={<AppShell><ReportsPage /></AppShell>} />
+            <Route path="/settings" element={<AppShell><SettingsPage /></AppShell>} />
+
             <Route
               path="/builder/editor/:id"
               element={
-                <div className="p-8 text-center">
-                  <h1 className="text-2xl font-bold">Editor Page (To be implemented)</h1>
-                </div>
+                <AppShell>
+                  <div className="p-8 text-center">
+                    <h1 className="text-2xl font-bold">Editor Page (To be implemented)</h1>
+                  </div>
+                </AppShell>
               }
             />
             <Route
               path="/builder/preview/:id"
               element={
-                <div className="p-8 text-center">
-                  <h1 className="text-2xl font-bold">Preview Page (To be implemented)</h1>
-                </div>
+                <AppShell>
+                  <div className="p-8 text-center">
+                    <h1 className="text-2xl font-bold">Preview Page (To be implemented)</h1>
+                  </div>
+                </AppShell>
               }
             />
+
+            <Route path="*" element={<AppShell><NotFoundPage /></AppShell>} />
           </Routes>
         </Suspense>
       </Router>

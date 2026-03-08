@@ -12,4 +12,8 @@
  * For licensing: contact@opsvanta.com
  */
 
+import TechniciansPage from './TechniciansPage';
 
+export default function Technicians() {
+  return <TechniciansPage />;
+}

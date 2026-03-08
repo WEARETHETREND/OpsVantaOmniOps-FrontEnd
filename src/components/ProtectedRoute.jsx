@@ -12,4 +12,16 @@
  * For licensing: contact@opsvanta.com
  */
 
+import { Navigate } from 'react-router-dom';
 
+function hasAuthToken() {
+  return Boolean(localStorage.getItem('opsvanta_token'));
+}
+
+export default function ProtectedRoute({ children }) {
+  if (!hasAuthToken()) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return children;
+}
