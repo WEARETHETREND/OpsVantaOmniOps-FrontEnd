@@ -1,0 +1,277 @@
+/**
+ * OpsVanta Documentation — Accessibility Enhancements
+ * © 2026 OpsVanta LLC
+ *
+ * Targets WCAG 2.1 AA (and where possible AAA) compliance.
+ * These styles complement, not replace, the design-system tokens.
+ */
+
+/* ─── Skip Navigation ────────────────────────────────────────────────────── */
+
+#skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: var(--ov-space-4, 1rem);
+  z-index: var(--ov-z-toast, 500);
+  background: var(--ifm-color-primary, #4f46e5);
+  color: #fff;
+  padding: var(--ov-space-3, 0.75rem) var(--ov-space-6, 1.5rem);
+  border-radius: var(--ov-radius-md, 0.375rem);
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: top 0.15s ease;
+  box-shadow: var(--ov-shadow-lg);
+}
+
+#skip-to-content:focus {
+  top: var(--ov-space-4, 1rem);
+}
+
+/* ─── Focus Styles ───────────────────────────────────────────────────────── */
+
+/* Remove default outline only when custom one is provided */
+:focus:not(:focus-visible) { outline: none; }
+
+:focus-visible {
+  outline: 3px solid var(--ifm-color-primary, #4f46e5);
+  outline-offset: 3px;
+  border-radius: var(--ov-radius-sm, 0.25rem);
+}
+
+/* High-contrast focus for interactive elements */
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--ifm-color-primary, #4f46e5);
+  outline-offset: 3px;
+  border-radius: var(--ov-radius-sm, 0.25rem);
+  box-shadow: 0 0 0 6px rgba(79, 70, 229, 0.15);
+}
+
+/* ─── Colour Contrast Fixes ──────────────────────────────────────────────── */
+
+/* Ensure muted text meets WCAG AA (≥ 4.5:1 for small text, ≥ 3:1 for large) */
+.text-muted,
+.menu__link,
+.footer__link-item,
+.breadcrumbs__item a,
+.table-of-contents__link {
+  color: var(--ov-neutral-600, #475569);
+}
+
+[data-theme='dark'] .text-muted,
+[data-theme='dark'] .menu__link,
+[data-theme='dark'] .footer__link-item,
+[data-theme='dark'] .breadcrumbs__item a,
+[data-theme='dark'] .table-of-contents__link {
+  color: var(--ov-neutral-400, #94a3b8);
+}
+
+/* ─── Keyboard Navigation Indicators ────────────────────────────────────── */
+
+/* Visible current item in sidebar for keyboard users */
+.menu__link:focus-visible {
+  background: var(--ov-primary-50, #eef2ff);
+  color: var(--ifm-color-primary, #4f46e5);
+}
+
+[data-theme='dark'] .menu__link:focus-visible {
+  background: rgba(79, 70, 229, 0.2);
+}
+
+/* Visible focus in pagination */
+.pagination-nav__link:focus-visible {
+  border-color: var(--ifm-color-primary, #4f46e5);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+}
+
+/* ─── Screen-Reader Utilities ────────────────────────────────────────────── */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.not-sr-only {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* ─── ARIA Live Regions ──────────────────────────────────────────────────── */
+
+[aria-live="polite"],
+[aria-live="assertive"] {
+  position: relative;
+}
+
+/* ─── Form Accessibility ─────────────────────────────────────────────────── */
+
+/* Ensure labels are always visible */
+label {
+  display: block;
+  font-size: var(--ov-text-sm, 0.875rem);
+  font-weight: 500;
+  color: var(--ov-text, #0f172a);
+  margin-bottom: var(--ov-space-1, 0.25rem);
+}
+
+/* Required field indicator */
+label[data-required]::after,
+.required-indicator {
+  content: ' *';
+  color: var(--ov-danger-500, #ef4444);
+  font-weight: 700;
+  margin-left: 2px;
+}
+
+/* Error state with visible description */
+[aria-invalid="true"] {
+  border-color: var(--ov-danger-500, #ef4444) !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
+}
+
+/* Fieldset and legend reset */
+fieldset {
+  border: 1px solid var(--ov-border, #e2e8f0);
+  border-radius: var(--ov-radius-lg, 0.5rem);
+  padding: var(--ov-space-4, 1rem);
+}
+
+legend {
+  font-size: var(--ov-text-sm, 0.875rem);
+  font-weight: 600;
+  color: var(--ov-text, #0f172a);
+  padding-inline: var(--ov-space-2, 0.5rem);
+}
+
+/* ─── Interactive Element States ─────────────────────────────────────────── */
+
+/* Hover state for elements with pointer cursor */
+[role="button"]:hover,
+[role="tab"]:hover,
+[role="menuitem"]:hover {
+  cursor: pointer;
+}
+
+/* Disabled state */
+[disabled],
+[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* ─── Image Accessibility ────────────────────────────────────────────────── */
+
+/* Images without alt attribute get a visible red border (development aid) */
+img:not([alt]) {
+  outline: 3px solid var(--ov-danger-500, #ef4444);
+  outline-offset: 2px;
+}
+
+/* Remove debug outline for explicitly decorative images (alt="") */
+img[alt=""] {
+  outline: none;
+}
+
+/* ─── Link Accessibility ─────────────────────────────────────────────────── */
+
+/* External links */
+a[target="_blank"]::after {
+  content: ' ↗';
+  font-size: 0.8em;
+  vertical-align: super;
+  margin-left: 1px;
+  opacity: 0.7;
+}
+
+/* Ensure sufficient underline contrast in body text */
+.markdown a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+}
+
+.markdown a:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* ─── High-Contrast Mode Support ─────────────────────────────────────────── */
+
+@media (forced-colors: active) {
+  .button,
+  .badge,
+  .alert {
+    forced-color-adjust: none;
+    border: 1px solid ButtonText;
+  }
+
+  .card {
+    border: 1px solid ButtonText;
+  }
+
+  .navbar {
+    border-bottom: 1px solid ButtonText;
+  }
+
+  :focus-visible {
+    outline: 3px solid Highlight;
+  }
+}
+
+/* ─── Motion Preferences ─────────────────────────────────────────────────── */
+
+/* Covered globally in animations.css, reinforced here for safety */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Heading Hierarchy Helpers ──────────────────────────────────────────── */
+
+/* Visual hierarchy without breaking semantic order */
+.heading-eyebrow {
+  display: block;
+  font-size: var(--ov-text-xs, 0.75rem);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ifm-color-primary, #4f46e5);
+  margin-bottom: var(--ov-space-2, 0.5rem);
+}
+
+/* ─── Landmark Regions ───────────────────────────────────────────────────── */
+
+main:focus { outline: none; }
+
+/* Visible landmark borders in Windows High Contrast */
+@media (forced-colors: active) {
+  header, nav, main, footer, aside {
+    border: 1px solid transparent;
+  }
+}

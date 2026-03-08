@@ -1,0 +1,226 @@
+/**
+ * OpsVanta Documentation — Mobile-First Responsive System
+ * © 2026 OpsVanta LLC
+ *
+ * Breakpoints (matching Docusaurus defaults):
+ *   xs   < 480px
+ *   sm   480px - 767px
+ *   md   768px - 996px   (Docusaurus tablet)
+ *   lg   997px - 1279px  (Docusaurus desktop)
+ *   xl   1280px - 1535px
+ *   2xl  ≥ 1536px
+ */
+
+/* ─── Container ──────────────────────────────────────────────────────────── */
+.container {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--ov-space-4, 1rem);
+}
+
+@media (min-width: 480px)  { .container { max-width: 100%; } }
+@media (min-width: 768px)  { .container { padding-inline: var(--ov-space-6, 1.5rem); } }
+@media (min-width: 997px)  { .container { max-width: 1100px; padding-inline: var(--ov-space-8, 2rem); } }
+@media (min-width: 1280px) { .container { max-width: 1280px; } }
+@media (min-width: 1536px) { .container { max-width: 1440px; } }
+
+/* ─── Responsive Grid ────────────────────────────────────────────────────── */
+.grid {
+  display: grid;
+  gap: var(--ov-space-6, 1.5rem);
+}
+
+.grid-cols-1 { grid-template-columns: 1fr; }
+
+@media (min-width: 480px) {
+  .grid-cols-sm-2 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 768px) {
+  .grid-cols-md-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-cols-md-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-cols-md-4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (min-width: 997px) {
+  .grid-cols-lg-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-cols-lg-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-cols-lg-4 { grid-template-columns: repeat(4, 1fr); }
+  .grid-cols-lg-5 { grid-template-columns: repeat(5, 1fr); }
+}
+
+/* ─── Responsive Typography ──────────────────────────────────────────────── */
+html {
+  font-size: 16px;
+}
+
+/* Fluid headings */
+h1, .h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); }
+h2, .h2 { font-size: clamp(1.375rem, 3vw, 1.875rem); }
+h3, .h3 { font-size: clamp(1.125rem, 2.5vw, 1.5rem); }
+
+/* ─── Responsive Spacing ─────────────────────────────────────────────────── */
+.section { padding-block: var(--ov-space-12, 3rem); }
+
+@media (min-width: 768px) {
+  .section { padding-block: var(--ov-space-16, 4rem); }
+}
+
+@media (min-width: 997px) {
+  .section { padding-block: var(--ov-space-20, 5rem); }
+}
+
+/* ─── Hero Responsive ────────────────────────────────────────────────────── */
+.hero {
+  padding-block: var(--ov-space-16, 4rem);
+  padding-inline: var(--ov-space-4, 1rem);
+}
+
+@media (min-width: 768px) {
+  .hero {
+    padding-block: var(--ov-space-20, 5rem);
+    padding-inline: var(--ov-space-8, 2rem);
+  }
+}
+
+@media (min-width: 997px) {
+  .hero {
+    padding-block: var(--ov-space-24, 6rem);
+    padding-inline: var(--ov-space-12, 3rem);
+  }
+}
+
+/* ─── Features Grid Responsive ───────────────────────────────────────────── */
+.features-grid {
+  grid-template-columns: 1fr;
+  gap: var(--ov-space-4, 1rem);
+}
+
+@media (min-width: 480px) {
+  .features-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 997px) {
+  .features-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--ov-space-6, 1.5rem);
+  }
+}
+
+@media (min-width: 1280px) {
+  .features-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ─── Stats Grid Responsive ──────────────────────────────────────────────── */
+.stats-grid {
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--ov-space-3, 0.75rem);
+}
+
+@media (min-width: 768px) {
+  .stats-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ─── Navbar Responsive ──────────────────────────────────────────────────── */
+@media (max-width: 996px) {
+  .navbar__toggle { display: flex; }
+  .navbar-sidebar { width: min(320px, 90vw); }
+  .navbar-sidebar__brand { padding: var(--ov-space-4, 1rem) var(--ov-space-5, 1.25rem); }
+  .navbar-sidebar__items { padding: var(--ov-space-2, 0.5rem) var(--ov-space-3, 0.75rem); }
+}
+
+/* ─── Sidebar Responsive ─────────────────────────────────────────────────── */
+@media (max-width: 996px) {
+  .theme-doc-sidebar-container {
+    display: none;
+  }
+  .theme-doc-sidebar-container--show {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: var(--ov-z-overlay, 300);
+    overflow-y: auto;
+    background: var(--ov-surface, #fff);
+    box-shadow: var(--ov-shadow-2xl);
+    animation: ov-slide-in-left 0.25s ease both;
+  }
+}
+
+/* ─── Cards Responsive ───────────────────────────────────────────────────── */
+@media (max-width: 479px) {
+  .card__body   { padding: var(--ov-space-4, 1rem); }
+  .card__header { padding: var(--ov-space-3, 0.75rem) var(--ov-space-4, 1rem); }
+  .card__footer { padding: var(--ov-space-3, 0.75rem) var(--ov-space-4, 1rem); }
+}
+
+/* ─── Tables Responsive ──────────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  .markdown table,
+  table.table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    font-size: 0.8125rem;
+  }
+}
+
+/* ─── Code Blocks Responsive ─────────────────────────────────────────────── */
+@media (max-width: 479px) {
+  .prism-code { font-size: 0.8rem !important; }
+  .theme-code-block { border-radius: 0.5rem !important; }
+}
+
+/* ─── Pagination Responsive ──────────────────────────────────────────────── */
+@media (max-width: 479px) {
+  .pagination-nav {
+    grid-template-columns: 1fr;
+    gap: var(--ov-space-3, 0.75rem);
+  }
+}
+
+/* ─── Buttons Responsive ─────────────────────────────────────────────────── */
+@media (max-width: 479px) {
+  .hero__cta { flex-direction: column; align-items: stretch; }
+  .hero__cta .button { text-align: center; justify-content: center; }
+}
+
+/* ─── Touch-friendly Targets ─────────────────────────────────────────────── */
+@media (pointer: coarse) {
+  .button { min-height: 44px; }
+  .menu__link { min-height: 44px; display: flex; align-items: center; }
+  .navbar__link { min-height: 44px; display: inline-flex; align-items: center; }
+  .tabs__item { min-height: 44px; }
+}
+
+/* ─── Print Styles ───────────────────────────────────────────────────────── */
+@media print {
+  .navbar,
+  .footer,
+  .theme-doc-sidebar-container,
+  .pagination-nav,
+  .table-of-contents {
+    display: none !important;
+  }
+
+  .main-wrapper {
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .markdown { font-size: 12pt; line-height: 1.5; }
+  h1, h2, h3, h4, h5, h6 { page-break-after: avoid; }
+  .theme-code-block { border: 1px solid #ccc !important; box-shadow: none !important; }
+  a[href]::after { content: ' (' attr(href) ')'; font-size: 0.85em; color: #666; }
+}
+
+/* ─── Flexible Spacing Helpers ───────────────────────────────────────────── */
+.mt-auto { margin-top: auto; }
+.mb-auto { margin-bottom: auto; }
+.mx-auto { margin-inline: auto; }
+
+/* Gap helpers that apply at breakpoints */
+@media (min-width: 768px) {
+  .gap-md-6 { gap: var(--ov-space-6, 1.5rem); }
+  .gap-md-8 { gap: var(--ov-space-8, 2rem); }
+}

@@ -1,0 +1,260 @@
+/**
+ * OpsVanta Documentation — Animations & Transitions
+ * © 2026 OpsVanta LLC
+ *
+ * All animations respect prefers-reduced-motion.
+ */
+
+/* ─── Keyframe Definitions ───────────────────────────────────────────────── */
+
+@keyframes ov-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes ov-fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ov-fade-down {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ov-slide-in-left {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes ov-slide-in-right {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes ov-scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes ov-scale-in-bounce {
+  0%   { opacity: 0; transform: scale(0.9); }
+  60%  { opacity: 1; transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+@keyframes ov-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes ov-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: .5; }
+}
+
+@keyframes ov-bounce {
+  0%, 100% { transform: translateY(0); animation-timing-function: cubic-bezier(0.8,0,1,1); }
+  50%       { transform: translateY(-8px); animation-timing-function: cubic-bezier(0,0,0.2,1); }
+}
+
+@keyframes ov-shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-6px); }
+  40%       { transform: translateX(6px); }
+  60%       { transform: translateX(-4px); }
+  80%       { transform: translateX(4px); }
+}
+
+@keyframes ov-ping {
+  75%, 100% { transform: scale(2); opacity: 0; }
+}
+
+@keyframes ov-shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+@keyframes ov-gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+
+@keyframes ov-float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+/* ─── Animation Utility Classes ──────────────────────────────────────────── */
+
+.animate-fade-in       { animation: ov-fade-in        0.3s ease both; }
+.animate-fade-up       { animation: ov-fade-up        0.4s ease both; }
+.animate-fade-down     { animation: ov-fade-down      0.4s ease both; }
+.animate-slide-left    { animation: ov-slide-in-left  0.4s ease both; }
+.animate-slide-right   { animation: ov-slide-in-right 0.4s ease both; }
+.animate-scale-in      { animation: ov-scale-in       0.3s ease both; }
+.animate-scale-bounce  { animation: ov-scale-in-bounce 0.4s ease both; }
+.animate-spin          { animation: ov-spin           1s linear infinite; }
+.animate-pulse         { animation: ov-pulse          2s ease-in-out infinite; }
+.animate-bounce        { animation: ov-bounce         1s infinite; }
+.animate-float         { animation: ov-float          3s ease-in-out infinite; }
+
+/* Staggered entrance delays */
+.animate-delay-75  { animation-delay:  75ms; }
+.animate-delay-100 { animation-delay: 100ms; }
+.animate-delay-150 { animation-delay: 150ms; }
+.animate-delay-200 { animation-delay: 200ms; }
+.animate-delay-300 { animation-delay: 300ms; }
+.animate-delay-500 { animation-delay: 500ms; }
+.animate-delay-700 { animation-delay: 700ms; }
+
+/* ─── Skeleton Screens ───────────────────────────────────────────────────── */
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--ov-bg-muted, #e2e8f0);
+  border-radius: var(--ov-radius-md, 0.375rem);
+  color: transparent;
+  pointer-events: none;
+  user-select: none;
+}
+
+.skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255,255,255,.4) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: ov-shimmer 1.5s ease-in-out infinite;
+}
+
+[data-theme='dark'] .skeleton { background: rgba(255,255,255,.06); }
+
+[data-theme='dark'] .skeleton::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255,255,255,.08) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+}
+
+/* ─── Loading Spinner ────────────────────────────────────────────────────── */
+
+.spinner {
+  display: inline-block;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid var(--ov-border, #e2e8f0);
+  border-top-color: var(--ifm-color-primary, #4f46e5);
+  border-radius: 50%;
+  animation: ov-spin 0.7s linear infinite;
+}
+
+.spinner--sm { width: .875rem; height: .875rem; border-width: 2px; }
+.spinner--lg { width: 2rem;    height: 2rem;    border-width: 3px; }
+
+/* ─── Page Transition ────────────────────────────────────────────────────── */
+
+main,
+.main-wrapper {
+  animation: ov-fade-up 0.35s cubic-bezier(0.4,0,0.2,1) both;
+}
+
+/* ─── Card Hover Effects ─────────────────────────────────────────────────── */
+
+.card,
+.feature-card,
+.pricing-card,
+.stat-card {
+  will-change: transform, box-shadow;
+}
+
+/* ─── Button Press Effect ────────────────────────────────────────────────── */
+
+.button:active:not(:disabled) {
+  transform: scale(0.98) translateY(1px);
+}
+
+/* ─── Animated Gradient Hero ─────────────────────────────────────────────── */
+
+.hero--animated {
+  background-size: 300% 300%;
+  animation: ov-gradient-shift 8s ease infinite;
+}
+
+/* ─── Tooltip Fade ───────────────────────────────────────────────────────── */
+
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: var(--ov-neutral-900, #0f172a);
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 500;
+}
+
+[data-tooltip]:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ─── Accordion ──────────────────────────────────────────────────────────── */
+
+details > summary {
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  transition: background 0.15s ease;
+}
+
+details > summary::-webkit-details-marker { display: none; }
+details > summary::before {
+  content: '▶';
+  display: inline-block;
+  margin-right: 0.5rem;
+  font-size: 0.75em;
+  transition: transform 0.2s ease;
+}
+
+details[open] > summary::before { transform: rotate(90deg); }
+details[open] > summary { background: var(--ov-primary-50, #eef2ff); }
+
+[data-theme='dark'] details[open] > summary { background: rgba(79,70,229,.15); }
+
+details > *:not(summary) {
+  animation: ov-fade-down 0.25s ease both;
+}
+
+/* ─── Reduced Motion ─────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .hero--animated { animation: none; background-position: 0 0; }
+}
