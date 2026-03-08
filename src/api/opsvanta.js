@@ -12,11 +12,7 @@
  * For licensing: contact@opsvanta.com
  */
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
-
-if (!import.meta.env.VITE_API_URL) {
-  console.warn('VITE_API_URL is not defined. Falling back to http://localhost:8000');
-}
+import { API_URL } from './config';
 
 async function request(path, options = {}) {
   const res = await fetch(`${API_URL}${path}`, options);
