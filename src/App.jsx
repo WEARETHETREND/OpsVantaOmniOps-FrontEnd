@@ -1,14 +1,14 @@
 /**
  * PROPRIETARY AND CONFIDENTIAL - TRADE SECRET
- * 
+ *
  * © 2026 OpsVanta LLC
  * ALL RIGHTS RESERVED
- * 
+ *
  * UNAUTHORIZED ACCESS, USE, OR DISTRIBUTION PROHIBITED
- * 
+ *
  * This file contains trade secrets and confidential information.
  * Violators will be prosecuted under trade secret law.
- * 
+ *
  * For licensing: contact@opsvanta.com
  */
 
@@ -16,6 +16,7 @@ import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-d
 import { lazy, Suspense } from 'react';
 import ErrorBoundary from './components/ErrorBoundary';
 import Layout from './components/Layout';
+import ProtectedRoute from './components/ProtectedRoute';
 
 // Lazy load page components for better performance
 const BuilderDashboard = lazy(() => import('./pages/BuilderDashboard'));
@@ -47,7 +48,11 @@ const NotFoundPage = () => (
   </div>
 );
 
-const AppShell = ({ children }) => <Layout>{children}</Layout>;
+const AppShell = ({ children }) => (
+  <ProtectedRoute>
+    <Layout>{children}</Layout>
+  </ProtectedRoute>
+);
 
 export default function App() {
   return (
@@ -58,16 +63,86 @@ export default function App() {
             <Route path="/" element={<Navigate to="/builder" replace />} />
             <Route path="/login" element={<LoginPage />} />
 
-            <Route path="/builder" element={<AppShell><BuilderDashboard /></AppShell>} />
-            <Route path="/dashboard" element={<AppShell><Dashboard /></AppShell>} />
-            <Route path="/projects" element={<AppShell><Projects /></AppShell>} />
-            <Route path="/workflows" element={<AppShell><Workflows /></AppShell>} />
-            <Route path="/domains" element={<AppShell><Domains /></AppShell>} />
-            <Route path="/technicians" element={<AppShell><TechniciansPage /></AppShell>} />
-            <Route path="/jobs" element={<AppShell><JobsPage /></AppShell>} />
-            <Route path="/routes" element={<AppShell><RoutesPage /></AppShell>} />
-            <Route path="/reports" element={<AppShell><ReportsPage /></AppShell>} />
-            <Route path="/settings" element={<AppShell><SettingsPage /></AppShell>} />
+            <Route
+              path="/builder"
+              element={
+                <AppShell>
+                  <BuilderDashboard />
+                </AppShell>
+              }
+            />
+            <Route
+              path="/dashboard"
+              element={
+                <AppShell>
+                  <Dashboard />
+                </AppShell>
+              }
+            />
+            <Route
+              path="/projects"
+              element={
+                <AppShell>
+                  <Projects />
+                </AppShell>
+              }
+            />
+            <Route
+              path="/workflows"
+              element={
+                <AppShell>
+                  <Workflows />
+                </AppShell>
+              }
+            />
+            <Route
+              path="/domains"
+              element={
+                <AppShell>
+                  <Domains />
+                </AppShell>
+              }
+            />
+            <Route
+              path="/technicians"
+              element={
+                <AppShell>
+                  <TechniciansPage />
+                </AppShell>
+              }
+            />
+            <Route
+              path="/jobs"
+              element={
+                <AppShell>
+                  <JobsPage />
+                </AppShell>
+              }
+            />
+            <Route
+              path="/routes"
+              element={
+                <AppShell>
+                  <RoutesPage />
+                </AppShell>
+              }
+            />
+            <Route
+              path="/reports"
+              element={
+                <AppShell>
+                  <ReportsPage />
+                </AppShell>
+              }
+            />
+            <Route
+              path="/settings"
+              element={
+                <AppShell>
+                  <SettingsPage />
+                </AppShell>
+              }
+            />
 
             <Route
               path="/builder/editor/:id"
@@ -90,7 +165,14 @@ export default function App() {
               }
             />
 
-            <Route path="*" element={<AppShell><NotFoundPage /></AppShell>} />
+            <Route
+              path="*"
+              element={
+                <AppShell>
+                  <NotFoundPage />
+                </AppShell>
+              }
+            />
           </Routes>
         </Suspense>
       </Router>
