@@ -1,242 +1,209 @@
 # OpsVanta Documentation Site
 
-This is the source for the comprehensive OpsVanta documentation website, built with Docusaurus.
+> Source for the comprehensive OpsVanta documentation website, built with [Docusaurus 3](https://docusaurus.io).
+
+---
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 
-- Node.js 18+
-- npm or yarn
+| Requirement | Version |
+|-------------|---------|
+| Node.js | 18+ |
+| npm / yarn | latest |
 
-### Installation
+### Installation & Development
 
 ```bash
 cd docs-site
 npm install
+npm start        # http://localhost:3000
 ```
 
-### Local Development
+### Build for Production
 
 ```bash
-npm start
+npm run build    # Output → build/
+npm run serve    # Preview the production build locally
 ```
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+---
 
-### Build
-
-```bash
-npm run build
-```
-
-This command generates static content into the `build` directory that can be served using any static hosting service.
-
-## 📚 Documentation Structure
+## 📁 Structure
 
 ```
 docs-site/
-├── docs/                           # Documentation markdown files
-│   ├── user-guide/                # User documentation
-│   │   ├── getting-started/       # Getting started guides
-│   │   ├── ai-builder/            # AI generation guides
-│   │   ├── project-management/    # Project management
-│   │   ├── editor/                # Editor documentation
-│   │   ├── domain-publishing/     # Domain & publishing
-│   │   ├── workflows/             # Workflows & automation
-│   │   ├── integrations/          # Integration guides
-│   │   ├── analytics-seo/         # Analytics & SEO
-│   │   ├── billing/               # Billing & plans
-│   │   └── troubleshooting/       # Troubleshooting
-│   ├── admin-guide/               # Administrator documentation
-│   │   ├── installation/          # Installation guides
-│   │   ├── configuration/         # Configuration
-│   │   ├── user-management/       # User management
-│   │   ├── security/              # Security
-│   │   └── monitoring/            # Monitoring & maintenance
-│   ├── developer/                 # Developer documentation
-│   │   ├── api/                   # API documentation
-│   │   ├── sdk/                   # SDKs & libraries
-│   │   ├── integration-guides/    # Integration guides
-│   │   ├── architecture/          # Architecture docs
-│   │   └── contributing/          # Contributing guides
-│   ├── knowledge-base/            # Knowledge base articles
-│   └── security/                  # Security & compliance
-├── blog/                          # Blog posts
-├── src/                           # React components
-│   ├── components/                # Custom components
-│   ├── pages/                     # Custom pages
-│   └── css/                       # Custom CSS
-├── static/                        # Static assets
-│   ├── img/                       # Images
-│   └── videos/                    # Video files
-├── docusaurus.config.js           # Docusaurus configuration
-├── sidebars.js                    # Sidebar navigation
-└── package.json                   # Dependencies
+├── docs/                      # Documentation markdown files
+│   ├── user-guide/            #   User documentation
+│   ├── admin-guide/           #   Administrator docs
+│   ├── developer/             #   Developer API & SDK docs
+│   ├── knowledge-base/        #   100+ KB articles
+│   └── security/              #   Security & compliance
+├── blog/                      # Blog posts (MDX)
+├── src/
+│   ├── components/
+│   │   └── ProfessionalComponents.jsx   # Reusable UI components
+│   ├── pages/                 # Custom Docusaurus pages
+│   └── css/
+│       ├── custom.css         # Design tokens + global base  ← load first
+│       ├── animations.css     # Keyframes, transitions, skeleton screens
+│       ├── responsive.css     # Mobile-first breakpoints, print styles
+│       ├── accessibility.css  # WCAG focus states, reduced-motion, a11y
+│       └── professional.css   # Component library (cards, CTAs, kbd…)
+├── static/
+│   ├── img/                   # Images and logos
+│   └── videos/                # Embedded video files
+├── docusaurus.config.js       # Site configuration
+├── sidebars.js                # Sidebar navigation tree
+└── package.json
 ```
 
-## ✨ Features
+---
 
-- 🔍 **Full-text search** with Algolia DocSearch
-- 🎨 **Dark mode** support
-- 📱 **Mobile-responsive** design
-- 🌐 **Multi-language** support (English, Spanish, French, German)
-- 📊 **Interactive** API explorer
-- 💻 **Code examples** with syntax highlighting
-- 🎥 **Video tutorials** embedded
-- 📝 **Versioned** documentation
-- 🔗 **Deep linking** to sections
-- 📈 **Analytics** integration
+## 🎨 CSS Architecture
+
+The design system is split into five focused files, loaded in order:
+
+| File | Purpose |
+|------|---------|
+| `custom.css` | Design tokens (color, type, spacing, shadow, radius, z-index) + global reset |
+| `animations.css` | Keyframes, animation utility classes, skeleton shimmer, reduced-motion |
+| `responsive.css` | Mobile-first breakpoints, fluid typography, touch targets, print styles |
+| `accessibility.css` | Skip links, focus rings, ARIA helpers, high-contrast mode |
+| `professional.css` | Component styles: CTA sections, testimonials, pricing cards, kbd, glass panels |
+
+All CSS custom properties use the `--ov-` prefix to avoid conflicts with Docusaurus's `--ifm-` tokens.
+
+For the full design language reference, see [`.github/DESIGN_SYSTEM.md`](../.github/DESIGN_SYSTEM.md).
+
+---
+
+## 🧩 Professional Components
+
+Import from `@site/src/components/ProfessionalComponents`:
+
+```jsx
+import {
+  FeatureCard, FeaturesGrid,
+  CTA,
+  DocCard, DocCardGrid,
+  StatCard, StatsGrid,
+  Badge, Alert, NoticeBar,
+  TestimonialCard,
+  VersionChip, MethodBadge,
+  HighlightCard,
+  KeyboardShortcut,
+  GlassPanel,
+  SectionDivider,
+} from '@site/src/components/ProfessionalComponents';
+```
+
+Example usage in MDX:
+
+```mdx
+import { CTA, StatsGrid } from '@site/src/components/ProfessionalComponents';
+
+<StatsGrid stats={[
+  { value: '200+', label: 'Docs pages' },
+  { value: '50+',  label: 'Integrations' },
+  { value: '99.9%', label: 'Uptime' },
+]} />
+
+<CTA
+  title="Ready to build your website?"
+  body="Start for free — no credit card required."
+  primaryLabel="Get Started Free"
+  primaryHref="https://app.opsvanta.com"
+  secondaryLabel="Read the Docs"
+  secondaryHref="/docs"
+/>
+```
+
+---
 
 ## 📖 Writing Documentation
 
-### Markdown Files
-
-All documentation is written in Markdown with MDX support:
-
-```markdown
----
-id: my-doc
-title: My Document Title
-sidebar_label: Short Label
----
-
-# My Document
-
-Content goes here...
-
-## Code Examples
-
-```javascript
-const example = 'code';
-```
-```
-
-### Frontmatter
-
-Required frontmatter for each doc:
+### Frontmatter (required)
 
 ```yaml
 ---
-id: unique-id
+id: unique-slug
 title: Page Title
-sidebar_label: Label in Sidebar
+sidebar_label: Short Sidebar Label
 ---
 ```
 
-### Components
+### Code Tabs
 
-Use React components in MDX:
-
-```jsx
+```mdx
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 <Tabs>
   <TabItem value="js" label="JavaScript">
     ```js
-    console.log('Hello');
+    const x = 1;
     ```
   </TabItem>
   <TabItem value="py" label="Python">
     ```python
-    print('Hello')
+    x = 1
     ```
   </TabItem>
 </Tabs>
 ```
 
-## 🎨 Styling
+### Standards
 
-Custom styles are in `src/css/custom.css`. We use CSS variables for theming:
+- Clear, concise language
+- Code examples for every API call
+- Screenshots for UI flows
+- Short paragraphs (2–3 sentences)
+- Bullet points for lists
+- Test all links before merging
 
-```css
-:root {
-  --ifm-color-primary: #4f46e5;
-  /* Other variables... */
-}
-```
+---
 
 ## 🌐 Internationalization
 
-To add translations:
-
 ```bash
 npm run write-translations -- --locale es
+# Edit translation files in i18n/es/
 ```
 
-Edit translation files in `i18n/es/` directory.
+Supported locales: `en` (default), `es`, `fr`, `de`.
 
-## 📊 Analytics
+---
 
-Google Analytics is configured in `docusaurus.config.js`:
+## 📊 Analytics & Search
 
-```javascript
-gtag: {
-  trackingID: 'G-XXXXXXXXXX',
-  anonymizeIP: true,
-}
-```
+- **Google Analytics**: configure `gtag.trackingID` in `docusaurus.config.js`
+- **Algolia DocSearch**: configure `themeConfig.algolia` in `docusaurus.config.js`
 
-## 🔍 Search
-
-Algolia DocSearch configuration in `docusaurus.config.js`:
-
-```javascript
-algolia: {
-  appId: 'YOUR_APP_ID',
-  apiKey: 'YOUR_SEARCH_API_KEY',
-  indexName: 'opsvanta',
-}
-```
+---
 
 ## 🚀 Deployment
 
-### Build for Production
+Documentation is automatically deployed via GitHub Actions when changes are merged to `main`.
 
 ```bash
-npm run build
+npm run build    # Static output in build/
 ```
 
-### Serve Locally
-
-```bash
-npm run serve
-```
-
-### Deploy to Production
-
-Documentation is automatically deployed via GitHub Actions when changes are merged to main.
+---
 
 ## 🤝 Contributing
 
-1. Create a new branch
-2. Make your changes
-3. Test locally with `npm start`
+1. Create a feature branch
+2. Make your changes and test with `npm start`
+3. Run `npm run build` to verify no build errors
 4. Submit a pull request
 
-### Documentation Standards
-
-- Use clear, concise language
-- Include code examples
-- Add screenshots when helpful
-- Keep paragraphs short (2-3 sentences)
-- Use bullet points for lists
-- Test all links
-- Follow the [Documentation Standards](../docs/developer/contributing/documentation-standards.md)
+---
 
 ## 📝 License
 
-© 2026 WEARETHETREND / OpsVanta LLC. All Rights Reserved.
-
-This documentation is proprietary and confidential.
-
-## 🆘 Support
-
-- 📧 Email: docs@opsvanta.com
-- 💬 Discord: #documentation channel
-- 🐛 Issues: [GitHub Issues](https://github.com/WEARETHETREND/omniops-frontend/issues)
-
----
+© 2026 OpsVanta LLC. All Rights Reserved.
 
 Built with ❤️ using [Docusaurus](https://docusaurus.io/)

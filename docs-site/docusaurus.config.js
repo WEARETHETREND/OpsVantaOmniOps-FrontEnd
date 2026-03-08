@@ -39,7 +39,13 @@ const config = {
           editUrl: 'https://github.com/WEARETHETREND/omniops-frontend/edit/main/docs-site/blog/',
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: [
+            require.resolve('./src/css/custom.css'),
+            require.resolve('./src/css/animations.css'),
+            require.resolve('./src/css/responsive.css'),
+            require.resolve('./src/css/accessibility.css'),
+            require.resolve('./src/css/professional.css'),
+          ],
         },
       }),
     ],
@@ -55,6 +61,8 @@ const config = {
           alt: 'OpsVanta Logo',
           src: 'img/logo.svg',
         },
+        hideOnScroll: false,
+        style: 'primary',
         items: [
           {
             type: 'doc',
@@ -78,9 +86,16 @@ const config = {
             position: 'right',
           },
           {
-            href: 'https://github.com/WEARETHETREND/omniops-frontend',
-            label: 'GitHub',
+            type: 'html',
             position: 'right',
+            value: '<a href="https://app.opsvanta.com" class="navbar__link header-app-link" target="_blank" rel="noopener noreferrer">Open App ↗</a>',
+          },
+          {
+            href: 'https://github.com/WEARETHETREND/omniops-frontend',
+            position: 'right',
+            className: 'header-github-link',
+            'aria-label': 'GitHub repository',
+            label: 'GitHub',
           },
         ],
       },
@@ -90,19 +105,41 @@ const config = {
           {
             title: 'Documentation',
             items: [
-              {label: 'Quick Start', to: '/docs/user-guide/getting-started/quick-start'},
-              {label: 'API Reference', to: '/docs/developer/api/api-overview'},
+              {label: '⚡ Quick Start',    to: '/docs/user-guide/getting-started/quick-start'},
+              {label: '📖 User Guide',     to: '/docs/user-guide/getting-started/quick-start'},
+              {label: '🔌 API Reference',  to: '/docs/developer/api/api-overview'},
+              {label: '🏗️ Architecture',   to: '/docs/developer/architecture'},
             ],
           },
           {
             title: 'Community',
             items: [
-              {label: 'Discord', href: 'https://discord.gg/opsvanta'},
-              {label: 'Twitter', href: 'https://twitter.com/opsvanta'},
+              {label: '💬 Discord',        href: 'https://discord.gg/opsvanta'},
+              {label: '🐦 Twitter',        href: 'https://twitter.com/opsvanta'},
+              {label: '💼 LinkedIn',       href: 'https://linkedin.com/company/opsvanta'},
+              {label: '📝 Blog',           to:   '/blog'},
+            ],
+          },
+          {
+            title: 'Product',
+            items: [
+              {label: '🚀 Open App',       href: 'https://app.opsvanta.com'},
+              {label: '💰 Pricing',        href: 'https://opsvanta.com/pricing'},
+              {label: '📊 Status Page',    href: 'https://status.opsvanta.com'},
+              {label: '🔒 Security',       href: 'https://opsvanta.com/security'},
+            ],
+          },
+          {
+            title: 'Company',
+            items: [
+              {label: '🏠 Website',        href: 'https://opsvanta.com'},
+              {label: '📧 Contact',        href: 'mailto:contact@opsvanta.com'},
+              {label: '⚖️ Privacy Policy', href: 'https://opsvanta.com/privacy'},
+              {label: '📄 Terms of Use',   href: 'https://opsvanta.com/terms'},
             ],
           },
         ],
-        copyright: `© ${new Date().getFullYear()} WEARETHETREND / OpsVanta LLC. All Rights Reserved.`,
+        copyright: `© ${new Date().getFullYear()} OpsVanta LLC. All Rights Reserved.`,
       },
       prism: {
         theme: lightTheme,
