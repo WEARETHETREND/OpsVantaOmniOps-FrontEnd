@@ -1,14 +1,14 @@
 /**
  * PROPRIETARY AND CONFIDENTIAL - TRADE SECRET
- * 
+ *
  * © 2026 OpsVanta LLC
  * ALL RIGHTS RESERVED
- * 
+ *
  * UNAUTHORIZED ACCESS, USE, OR DISTRIBUTION PROHIBITED
- * 
+ *
  * This file contains trade secrets and confidential information.
  * Violators will be prosecuted under trade secret law.
- * 
+ *
  * For licensing: contact@opsvanta.com
  */
 
@@ -22,6 +22,13 @@ async function request(path, options = {}) {
   const res = await fetch(`${API_URL}${path}`, options);
   if (!res.ok) {
     throw new Error(`Request failed (${res.status}) for ${path}`);
+  }
+  if (res.status === 204 || res.headers.get('Content-Length') === '0') {
+    return null;
+  }
+  const contentType = res.headers.get('Content-Type');
+  if (!contentType || !contentType.includes('application/json')) {
+    return null;
   }
   return res.json();
 }
