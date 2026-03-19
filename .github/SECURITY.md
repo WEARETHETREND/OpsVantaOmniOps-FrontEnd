@@ -1,43 +1,60 @@
-# Security & Confidentiality Policy
+# Security Policy
 
-## 🚨 UNAUTHORIZED ACCESS IS ILLEGAL
+## Supported Versions
 
-If you have accessed this repository without authorization, you are in violation of trade secret law. Contact contact@opsvanta.com immediately.
+| Version | Supported |
+|---------|-----------|
+| Latest (`main`) | ✅ Yes |
 
-## 🔐 Reporting Security Issues
+## Reporting a Vulnerability
 
-**For authorized users only:**
+**Please do NOT open a public GitHub issue for security vulnerabilities.**
 
-📧 **Email:** contact@opsvanta.com
+Report security issues privately by emailing:
 
-**DO NOT:**
-- ❌ Open public GitHub issues
-- ❌ Discuss on social media
-- ❌ Post to security forums
-- ❌ Disclose to anyone outside OpsVanta
+📧 **security@opsvanta.com**
 
-## ⚖️ Responsible Disclosure Policy
+Include in your report:
+- Description of the vulnerability
+- Steps to reproduce the issue
+- Potential impact assessment
+- Suggested remediation (if any)
 
-We do NOT have a bug bounty program.
+### Response Timeline
 
-Authorized security researchers must:
-1. Have signed NDA before testing
-2. Obtain written permission before testing
-3. Report findings confidentially
-4. Not disclose for 90 days minimum
+| Stage | Target |
+|-------|--------|
+| Acknowledgement | Within 48 hours |
+| Assessment | Within 5 business days |
+| Fix (Critical/High) | Within 14 days |
+| Fix (Medium/Low) | Next scheduled release |
 
-Unauthorized testing is considered hacking and will be prosecuted.
+## Security Measures
 
-## 🛡️ Confidentiality Requirements
+This repository uses the following automated security controls:
 
-All users with access must:
-- Treat all code, designs, and documentation as CONFIDENTIAL
-- Not share screenshots, recordings, or descriptions
-- Not discuss implementation details publicly
-- Report any suspected breaches immediately
+- **CodeQL scanning** — static analysis runs on every push and pull request targeting `main`, and weekly on a schedule.
+- **Secret scanning** — GitHub secret scanning is enabled to detect accidentally committed credentials.
+- **Dependabot** — automated dependency update PRs are opened weekly for both npm packages and GitHub Actions.
+- **Branch protection** — direct pushes to `main` are blocked; at least one approved review and passing CodeQL status check are required.
 
-Violation of confidentiality may result in:
-- Immediate access revocation
-- Civil litigation
-- Criminal prosecution
-- Financial damages
+## Scope
+
+The following are in scope for responsible disclosure:
+
+- Authentication and authorization flaws
+- Cross-site scripting (XSS)
+- Cross-site request forgery (CSRF)
+- Injection vulnerabilities
+- Sensitive data exposure
+- Insecure direct object references
+
+## Legal
+
+OpsVanta LLC supports responsible disclosure. Good-faith security research conducted within this policy will not result in legal action. We ask that you:
+
+- Give us reasonable time to address the issue before public disclosure
+- Avoid accessing, modifying, or deleting data that does not belong to you
+- Avoid disrupting production services
+
+© 2026 OpsVanta LLC / WEARETHETREND. All rights reserved.
