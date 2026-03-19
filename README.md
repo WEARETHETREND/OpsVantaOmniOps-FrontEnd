@@ -381,9 +381,8 @@ NODE_VERSION=20
 |---------|------|
 | 📧 Email | support@opsvanta.com |
 | 📖 Documentation | [./docs/](./docs/) |
-| 💬 Community | [community.opsvanta.com](https://community.opsvanta.com) |
-| 🐛 Bug Reports | [GitHub Issues](https://github.com/WEARETHETREND/omniops-frontend/issues) |
 | 🏢 Enterprise | young.monte@omniops-ai.com |
+| 🐛 Issue Tracking | Internal — contact your team lead or email support@opsvanta.com |
 
 ---
 
