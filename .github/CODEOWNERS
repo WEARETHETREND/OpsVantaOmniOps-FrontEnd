@@ -1,9 +1,9 @@
-# CODEOWNERS
-# All paths default to OpsVanta LLC owner review requirement.
-# See https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+# CODEOWNERS — required reviewers for all pull requests targeting protected branches.
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
 
+# Default owner for every file in the repository.
+# A review from this owner is required before any PR can be merged.
 * @WEARETHETREND
-/docs/ @WEARETHETREND
-/.github/ @WEARETHETREND
-/src/ @WEARETHETREND
-/scripts/ @WEARETHETREND
+
+# GitHub Actions workflows require an extra level of scrutiny.
+.github/workflows/ @WEARETHETREND

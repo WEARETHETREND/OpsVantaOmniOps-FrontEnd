@@ -2,50 +2,59 @@
 
 ## Supported Versions
 
-This repository is private and maintained internally by OpsVanta LLC.
-Only the current production release is actively supported.
+| Version | Supported |
+|---------|-----------|
+| Latest (`main`) | ✅ Yes |
 
 ## Reporting a Vulnerability
 
-**Do not disclose vulnerabilities publicly.**
+**Please do NOT open a public GitHub issue for security vulnerabilities.**
 
-Report security issues to:
+Report security issues privately by emailing:
 
-- **Email:** contact@opsvanta.com
-- **Subject:** Security Disclosure – OpsVanta
+📧 **security@opsvanta.com**
 
-Please include:
+Include in your report:
+- Description of the vulnerability
+- Steps to reproduce the issue
+- Potential impact assessment
+- Suggested remediation (if any)
 
-- Affected component or module
-- Reproduction steps
-- Impact assessment
-- Suggested remediation if available
+### Response Timeline
 
-Do not open public GitHub issues, post to security forums, or discuss
-on social media. All disclosures must be made directly and confidentially.
+| Stage | Target |
+|-------|--------|
+| Acknowledgement | Within 48 hours |
+| Assessment | Within 5 business days |
+| Fix (Critical/High) | Within 14 days |
+| Fix (Medium/Low) | Next scheduled release |
 
-## Responsible Disclosure
+## Security Measures
 
-Authorized researchers acting in good faith will be acknowledged at our
-discretion. We do not operate a public bug bounty program.
+This repository uses the following automated security controls:
 
-All security research must:
+- **CodeQL scanning** — static analysis runs on every push and pull request targeting `main`, and weekly on a schedule.
+- **Secret scanning** — GitHub secret scanning is enabled to detect accidentally committed credentials.
+- **Dependabot** — automated dependency update PRs are opened weekly for both npm packages and GitHub Actions.
+- **Branch protection** — direct pushes to `main` are blocked; at least one approved review and passing CodeQL status check are required.
 
-1. Be conducted by authorized personnel under a signed NDA
-2. Obtain written permission from OpsVanta LLC before testing
-3. Report findings confidentially and exclusively to OpsVanta LLC
-4. Observe a minimum 90-day non-disclosure period
+## Scope
 
-Unauthorized security testing is prohibited and will be treated as a
-violation of applicable computer fraud and access laws.
+The following are in scope for responsible disclosure:
 
-## Confidentiality Requirements
+- Authentication and authorization flaws
+- Cross-site scripting (XSS)
+- Cross-site request forgery (CSRF)
+- Injection vulnerabilities
+- Sensitive data exposure
+- Insecure direct object references
 
-All authorized users must:
+## Legal
 
-- Treat all code, designs, and documentation as CONFIDENTIAL
-- Not share screenshots, recordings, or implementation descriptions externally
-- Report any suspected security breaches or unauthorized access immediately
+OpsVanta LLC supports responsible disclosure. Good-faith security research conducted within this policy will not result in legal action. We ask that you:
 
-See [ACCESS_POLICY.md](../ACCESS_POLICY.md) for full access rules and
-[COPYRIGHT.md](../COPYRIGHT.md) for complete legal terms.
+- Give us reasonable time to address the issue before public disclosure
+- Avoid accessing, modifying, or deleting data that does not belong to you
+- Avoid disrupting production services
+
+© 2026 OpsVanta LLC / WEARETHETREND. All rights reserved.
