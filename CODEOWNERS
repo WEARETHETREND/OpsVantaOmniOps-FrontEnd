@@ -1,0 +1,9 @@
+# CODEOWNERS
+# All paths default to OpsVanta LLC owner review requirement.
+# See https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+* @WEARETHETREND
+/docs/ @WEARETHETREND
+/.github/ @WEARETHETREND
+/src/ @WEARETHETREND
+/scripts/ @WEARETHETREND
