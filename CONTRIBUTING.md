@@ -1,23 +1,49 @@
-# Contributing Guidelines
+# Internal Development Process
 
-## ⚠️ Proprietary Software Notice
+This repository is maintained by authorized OpsVanta personnel and approved contractors only.
 
-This is proprietary software containing trade secrets. All contributions become the exclusive property of WEARETHETREND / OpsVanta LLC.
+Access to contribute is restricted. See [ACCESS_POLICY.md](./ACCESS_POLICY.md) for access rules.
 
-## Contributor Agreement
+---
 
-By submitting ANY contribution (code, documentation, issues, pull requests):
+## Change Control
 
-1. ✅ You **ASSIGN ALL RIGHTS** to WEARETHETREND / OpsVanta LLC
-2. ✅ You **WAIVE ALL CLAIMS** to the contribution  
-3. ✅ You agree the contribution becomes a **TRADE SECRET**
-4. ✅ You are bound by **CONFIDENTIALITY INDEFINITELY**
-5. ✅ You will **NOT DISCLOSE** your contribution to anyone
-6. ✅ You acknowledge **NO COMPENSATION** is owed
-7. ✅ You have **LEGAL AUTHORITY** to assign these rights
+- All changes must be made through protected branches
+- All pull requests require review and approval from a CODEOWNER
+- All production-impacting changes require test validation before merge
+- Access is restricted to authorized collaborators operating under NDA
+- Secrets, credentials, and environment files must never be committed
 
-**NO open source license applies. ALL contributions are proprietary.**
+## Branch Naming
 
-## Contact
+| Type | Pattern |
+|------|---------|
+| Feature | `feature/<short-description>` |
+| Bug fix | `fix/<short-description>` |
+| Hotfix | `hotfix/<short-description>` |
+| Release | `release/<version>` |
 
-For questions: contact@opsvanta.com
+## Pull Request Requirements
+
+1. Target the appropriate protected branch (`main` or `develop`)
+2. Provide a clear description of the change and its business justification
+3. Ensure all automated checks pass before requesting review
+4. Request review from at least one authorized CODEOWNER
+5. Do not merge without explicit approval
+
+## Coding Standards
+
+- Follow the ESLint configuration in `eslint.config.js`
+- Format code with Prettier before committing
+- Write meaningful commit messages describing the change
+- Update relevant documentation alongside code changes
+
+## Contributor Rights Assignment
+
+By submitting any contribution (code, documentation, pull requests) to this repository,
+contributors assign all rights to OpsVanta LLC and agree the contribution is proprietary
+and confidential under the terms of their executed NDA and authorized access agreement.
+
+---
+
+For questions or access requests: contact@opsvanta.com

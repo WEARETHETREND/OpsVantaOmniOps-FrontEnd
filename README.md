@@ -1,18 +1,24 @@
-<!-- Trade Secret Header -->
-> 🔒 **PROPRIETARY & CONFIDENTIAL — TRADE SECRET**
-> **© 2026 OpsVanta LLC — ALL RIGHTS RESERVED**
-> Unauthorized access, use, copying, or distribution is strictly prohibited and illegal.
-> See [COPYRIGHT.md](./COPYRIGHT.md) for complete legal terms.
+# OpsVanta Enterprise Platform
+
+Private frontend platform powering OpsVanta LLC products and internal intelligence systems.
+
+## Repository Classification
+
+**Private / Proprietary / Confidential**
+
+This repository contains production software, internal architecture, trade secrets, deployment
+assets, and operational documentation for OpsVanta LLC.
+
+No open-source license applies to this repository.
+Unauthorized access, copying, distribution, or reuse is prohibited.
+
+For licensing or partnership inquiries: contact@opsvanta.com
 
 ---
 
 <div align="center">
 
 <img src="docs/assets/opsvanta-logo.svg" alt="OpsVanta Logo" width="80" height="80" />
-
-# OpsVanta Web
-
-**Build stunning websites in seconds with AI**
 
 [![License](https://img.shields.io/badge/license-Proprietary-dc2626.svg?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAxTDMgNXY2YzAgNS41NSAzLjg0IDEwLjc0IDkgMTIgNS4xNi0xLjI2IDktNi40NSA5LTEyVjVsLTktNHoiLz48L3N2Zz4=)](COPYRIGHT.md)
 [![Version](https://img.shields.io/badge/version-1.0.0-4f46e5.svg?style=flat-square)](package.json)
@@ -31,7 +37,7 @@
 [🚀 Quick Start](#-quick-start) &nbsp;•&nbsp;
 [🔧 Configuration](#-supabase-setup) &nbsp;•&nbsp;
 [🏗️ Architecture](#%EF%B8%8F-architecture) &nbsp;•&nbsp;
-[🤝 Contributing](./CONTRIBUTING.md) &nbsp;•&nbsp;
+[🔧 Change Process](./CONTRIBUTING.md) &nbsp;•&nbsp;
 [🔒 Security](./.github/SECURITY.md)
 
 </div>
@@ -296,15 +302,15 @@ omniops-frontend/
 
 ---
 
-## 🤝 Contributing
+## 🔧 Internal Development Process
 
-We welcome contributions! Please follow these steps:
+This repository is maintained by authorized OpsVanta personnel and approved contractors only.
+Access to contribute is restricted — see [Internal Development Process](./CONTRIBUTING.md) and [Access Policy](./ACCESS_POLICY.md).
 
-1. Read the [Contributing Guide](./CONTRIBUTING.md) and [Code of Conduct](./CODE_OF_CONDUCT.md)
-2. Check existing issues or create a new one
-3. Fork the repository and create a feature branch
-4. Make your changes following the coding standards
-5. Submit a pull request
+- All changes require review approval from a designated CODEOWNER
+- All pull requests target protected branches
+- All production-impacting changes require test validation
+- Access is restricted to authorized collaborators under NDA
 
 **Coding standards:** ESLint config · Prettier formatting · Meaningful commit messages · Tests for new features · Updated documentation.
 
@@ -387,7 +393,9 @@ NODE_VERSION=20
 
 This software is proprietary and confidential. It contains trade secrets and is protected by copyright law. **This is NOT open source software.**
 
-For licensing inquiries: contact@opsvanta.com · See [COPYRIGHT.md](./COPYRIGHT.md)
+For licensing, partnership, or authorized access inquiries: contact@opsvanta.com
+
+See [LICENSE](./LICENSE) · [COPYRIGHT.md](./COPYRIGHT.md) · [NOTICE.md](./NOTICE.md) · [ACCESS_POLICY.md](./ACCESS_POLICY.md)
 
 ---
 
