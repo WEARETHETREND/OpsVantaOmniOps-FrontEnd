@@ -48,11 +48,41 @@ const NotFoundPage = () => (
   </div>
 );
 
-const AppShell = ({ children }) => (
+const renderProtected = (page) => (
   <ProtectedRoute>
-    <Layout>{children}</Layout>
+    <Layout>{page}</Layout>
   </ProtectedRoute>
 );
+
+const protectedRoutes = [
+  { path: '/builder', element: <BuilderDashboard /> },
+  { path: '/dashboard', element: <Dashboard /> },
+  { path: '/projects', element: <Projects /> },
+  { path: '/workflows', element: <Workflows /> },
+  { path: '/domains', element: <Domains /> },
+  { path: '/technicians', element: <TechniciansPage /> },
+  { path: '/jobs', element: <JobsPage /> },
+  { path: '/routes', element: <RoutesPage /> },
+  { path: '/reports', element: <ReportsPage /> },
+  { path: '/settings', element: <SettingsPage /> },
+  {
+    path: '/builder/editor/:id',
+    element: (
+      <div className="p-8 text-center">
+        <h1 className="text-2xl font-bold">Editor Page (To be implemented)</h1>
+      </div>
+    ),
+  },
+  {
+    path: '/builder/preview/:id',
+    element: (
+      <div className="p-8 text-center">
+        <h1 className="text-2xl font-bold">Preview Page (To be implemented)</h1>
+      </div>
+    ),
+  },
+  { path: '*', element: <NotFoundPage /> },
+];
 
 export default function App() {
   return (
@@ -63,116 +93,9 @@ export default function App() {
             <Route path="/" element={<Navigate to="/builder" replace />} />
             <Route path="/login" element={<LoginPage />} />
 
-            <Route
-              path="/builder"
-              element={
-                <AppShell>
-                  <BuilderDashboard />
-                </AppShell>
-              }
-            />
-            <Route
-              path="/dashboard"
-              element={
-                <AppShell>
-                  <Dashboard />
-                </AppShell>
-              }
-            />
-            <Route
-              path="/projects"
-              element={
-                <AppShell>
-                  <Projects />
-                </AppShell>
-              }
-            />
-            <Route
-              path="/workflows"
-              element={
-                <AppShell>
-                  <Workflows />
-                </AppShell>
-              }
-            />
-            <Route
-              path="/domains"
-              element={
-                <AppShell>
-                  <Domains />
-                </AppShell>
-              }
-            />
-            <Route
-              path="/technicians"
-              element={
-                <AppShell>
-                  <TechniciansPage />
-                </AppShell>
-              }
-            />
-            <Route
-              path="/jobs"
-              element={
-                <AppShell>
-                  <JobsPage />
-                </AppShell>
-              }
-            />
-            <Route
-              path="/routes"
-              element={
-                <AppShell>
-                  <RoutesPage />
-                </AppShell>
-              }
-            />
-            <Route
-              path="/reports"
-              element={
-                <AppShell>
-                  <ReportsPage />
-                </AppShell>
-              }
-            />
-            <Route
-              path="/settings"
-              element={
-                <AppShell>
-                  <SettingsPage />
-                </AppShell>
-              }
-            />
-
-            <Route
-              path="/builder/editor/:id"
-              element={
-                <AppShell>
-                  <div className="p-8 text-center">
-                    <h1 className="text-2xl font-bold">Editor Page (To be implemented)</h1>
-                  </div>
-                </AppShell>
-              }
-            />
-            <Route
-              path="/builder/preview/:id"
-              element={
-                <AppShell>
-                  <div className="p-8 text-center">
-                    <h1 className="text-2xl font-bold">Preview Page (To be implemented)</h1>
-                  </div>
-                </AppShell>
-              }
-            />
-
-            <Route
-              path="*"
-              element={
-                <AppShell>
-                  <NotFoundPage />
-                </AppShell>
-              }
-            />
+            {protectedRoutes.map(({ path, element }) => (
+              <Route key={path} path={path} element={renderProtected(element)} />
+            ))}
           </Routes>
         </Suspense>
       </Router>
