@@ -12,8 +12,8 @@
  * For licensing: contact@opsvanta.com
  */
 
-export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 if (!import.meta.env.VITE_API_URL) {
-  console.warn('VITE_API_URL is not defined. Falling back to http://localhost:8000');
+  console.warn('VITE_API_URL is not defined. Falling back to http://localhost:3000');
 }
