@@ -22,9 +22,16 @@ async function request(path, options = {}) {
   if (res.status === 204 || res.headers.get('Content-Length')?.trim() === '0') {
     return null;
   }
-  const contentType = res.headers.get('Content-Type');
-  if (!contentType || !contentType.toLowerCase().includes('application/json')) {
-    return null;
+  const contentType = res.headers.get('Content-Type') || '';
+  if (!contentType.toLowerCase().includes('application/json')) {
+    const bodyText = await res.text().catch(() => '');
+    const snippet =
+      bodyText.length > 200 ? bodyText.slice(0, 200) + '…' : bodyText;
+    throw new Error(
+      `Expected JSON response for ${path} but received ` +
+        `${contentType || 'unknown content-type'} (status ${res.status}). ` +
+        `Body snippet: ${snippet}`
+    );
   }
   return res.json();
 }
