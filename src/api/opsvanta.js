@@ -1,27 +1,37 @@
 /**
  * PROPRIETARY AND CONFIDENTIAL - TRADE SECRET
- * 
+ *
  * © 2026 OpsVanta LLC
  * ALL RIGHTS RESERVED
- * 
+ *
  * UNAUTHORIZED ACCESS, USE, OR DISTRIBUTION PROHIBITED
- * 
+ *
  * This file contains trade secrets and confidential information.
  * Violators will be prosecuted under trade secret law.
- * 
+ *
  * For licensing: contact@opsvanta.com
  */
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
-
-if (!import.meta.env.VITE_API_URL) {
-  console.warn('VITE_API_URL is not defined. Falling back to http://localhost:8000');
-}
+import { API_URL } from './config';
 
 async function request(path, options = {}) {
   const res = await fetch(`${API_URL}${path}`, options);
   if (!res.ok) {
     throw new Error(`Request failed (${res.status}) for ${path}`);
+  }
+  if (res.status === 204 || res.headers.get('Content-Length')?.trim() === '0') {
+    return null;
+  }
+  const contentType = res.headers.get('Content-Type') || '';
+  if (!contentType.toLowerCase().includes('application/json')) {
+    const bodyText = await res.text().catch(() => '');
+    const snippet =
+      bodyText.length > 200 ? bodyText.slice(0, 200) + '…' : bodyText;
+    throw new Error(
+      `Expected JSON response for ${path} but received ` +
+        `${contentType || 'unknown content-type'} (status ${res.status}). ` +
+        `Body snippet: ${snippet}`
+    );
   }
   return res.json();
 }
