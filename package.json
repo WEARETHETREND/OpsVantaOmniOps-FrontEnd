@@ -7,7 +7,7 @@
   "confidential": true,
   "version": "0.0.0",
   "type": "module",
-  "scripts": {
+  "scripts": {"preinstall": "npm config set legacy-peer-deps true",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
